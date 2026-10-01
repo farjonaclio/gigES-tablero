@@ -2,39 +2,39 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <script>
-/* Pegue aquí la URL del despliegue público de Apps Script, terminada en ?formato=json. Vacío = datos ficticios. */
 window.__MODO__="publico";
 window.__ENDPOINT__="https://script.google.com/macros/s/AKfycbygwuUShrNNCKID15-jJTYxLG6UmXEhPRuJeH2T0QmwYO4sMI_ds60J38m39Bb0-i37/exec?formato=json";
 </script>
 <title>Avance del campo gigES</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&family=Jost:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&family=Didact+Gothic&display=swap">
 <style>
 /* Layout: cabecera de marca + pestañas; resumen primero (metas y cortes), detalle operativo después. */
 :root{
-  --ink:#1E2F42; --ink-2:#42566B; --muted:#6E8096;
-  --bg:#EFF4F7; --surface:#FFFFFF; --sunk:#E6EDF2; --line:#D5DEE5; --line-soft:#E7EDF1;
+  --ink:#1E2F42; --ink-2:#42566B; --muted:#5A6472;
+  --bg:#F3F8E8; --surface:#FFFFFF; --sunk:#EEF3E4; --line:#D9DDE3; --line-soft:#E7EBEF;
   --accent:#00718A; --accent-soft:#E0F0F4; --accent-line:#9ECCD8;
-  --s1:#007A99; --s2:#D6006A; --s3:#9A6F00;
+  --s1:#1E2F42; --s2:#00718A; --s3:#FF0068;
   --good:#0E7A42; --good-soft:#E2F7EC; --warn:#A15C00; --warn-soft:#FFF1DC; --crit:#B42318; --crit-soft:#FDECEA;
   --verde:#1CE56D;
   --shadow:0 1px 2px rgba(30,47,66,.05), 0 10px 28px -18px rgba(30,47,66,.35);
-  --display:"Questrial","Century Gothic",Verdana,sans-serif;
-  --body:"Jost","Century Gothic",Verdana,sans-serif;
+  --display:"Century Gothic","Questrial","Didact Gothic",sans-serif;
+  --body:"Century Gothic","Questrial","Didact Gothic",sans-serif;
+  --clio-azul:#1E2F42; --clio-teal:#00718A; --clio-magenta:#FF0068; --clio-verde:#1CE56D; --clio-crema:#F3F8E8;
 }
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
   --ink:#E9EFF5; --ink-2:#B8C7D5; --muted:#8797A8;
   --bg:#0E1822; --surface:#17222E; --sunk:#131D28; --line:#2B3B4B; --line-soft:#22303E;
   --accent:#45B8CE; --accent-soft:#0F2F39; --accent-line:#235A6B;
-  --s1:#1C92AD; --s2:#E0428A; --s3:#B38718;
+  --s1:#7FA6C9; --s2:#2AA7C0; --s3:#FF0068;
   --good:#71DA9F; --good-soft:#103526; --warn:#F2B35E; --warn-soft:#3A2A12; --crit:#FF8A80; --crit-soft:#3B1716;
   --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -18px rgba(0,0,0,.75); color-scheme:dark }}
 :root[data-theme="dark"]{
   --ink:#E9EFF5; --ink-2:#B8C7D5; --muted:#8797A8;
   --bg:#0E1822; --surface:#17222E; --sunk:#131D28; --line:#2B3B4B; --line-soft:#22303E;
   --accent:#45B8CE; --accent-soft:#0F2F39; --accent-line:#235A6B;
-  --s1:#1C92AD; --s2:#E0428A; --s3:#B38718;
+  --s1:#7FA6C9; --s2:#2AA7C0; --s3:#FF0068;
   --good:#71DA9F; --good-soft:#103526; --warn:#F2B35E; --warn-soft:#3A2A12; --crit:#FF8A80; --crit-soft:#3B1716;
   --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -18px rgba(0,0,0,.75); color-scheme:dark }
 *{box-sizing:border-box}
@@ -112,15 +112,48 @@ label.f input:focus,label.f select:focus{outline:none;border-color:var(--accent)
 .viewswitch{display:flex;gap:4px;background:var(--sunk);border-radius:99px;padding:3px}
 .viewswitch button{font:inherit;font-size:12.5px;border:0;background:none;color:var(--ink-2);border-radius:99px;padding:4px 11px;cursor:pointer}
 .viewswitch button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.banner{border-radius:12px;padding:12px 16px;font-size:14px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.banner.warn{background:var(--warn-soft);color:var(--ink)} .banner.warn b{color:var(--warn)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.mini{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mini input{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--surface);color:var(--ink);min-width:0;width:200px}
+.mini input[type=date]{width:150px}
+.hb{display:grid;grid-template-columns:minmax(80px,1.1fr) 2fr 44px;gap:8px;align-items:center;font-size:13.5px;margin:4px 0}
+.hb .meter{margin:0}.hb b{text-align:right;font-weight:500}
+.toolbar .btn{white-space:normal;text-align:left}
+.btn.sm{font-size:12.5px;padding:5px 10px}
+.btn.ghost{background:none;border-color:var(--line);color:var(--ink-2)}
+code.link{font-size:12px;word-break:break-all;color:var(--ink-2)}
+.meter.dual{display:flex;overflow:hidden}
+.meter.dual i{border-radius:0}
+
+/* Banda de marca CliO: azul noche con logotipo en negativo y acento verde */
+header.top{background:var(--clio-azul);border-bottom:4px solid var(--clio-teal);color:#fff}
+header.top .brand .col{display:none!important} header.top .brand .neg{display:block!important}
+header.top h1{color:#fff} header.top .sub{color:rgba(255,255,255,.78)}
+header.top .pill{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85)} header.top .pill b{color:#fff}
+header.top .pill.demo{background:var(--clio-magenta);color:#fff}
+header.top nav.tabs button{color:rgba(255,255,255,.75)}
+header.top nav.tabs button[aria-selected="true"]{color:#fff;border-bottom:3px solid var(--clio-verde)}
+header.top nav.tabs button:focus-visible{outline-color:var(--clio-verde)}
+header.top .viewswitch{background:rgba(255,255,255,.12)} header.top .viewswitch button{color:rgba(255,255,255,.8)}
+header.top .viewswitch button[aria-pressed="true"]{background:#fff;color:var(--clio-azul)}
+.card h2{color:var(--ink)} .card{border-top:3px solid var(--clio-teal)}
+.eyebrow{color:var(--clio-teal)}
+th{color:#fff;background:var(--clio-azul);border-bottom:0} th:first-child{border-top-left-radius:6px} th:last-child{border-top-right-radius:6px}
+tbody tr:nth-child(even) td{background:rgba(243,248,232,.6)}
+.btn.primary{background:var(--clio-azul);border-color:var(--clio-azul);color:#fff}
+.kpi3 div{border-left:4px solid var(--clio-verde);border-radius:0 10px 10px 0}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) th{background:#22384F} :root:not([data-theme="light"]) tbody tr:nth-child(even) td{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .btn.primary{background:var(--accent);border-color:var(--accent);color:#0E1822}}
+:root[data-theme="dark"] th{background:#22384F} :root[data-theme="dark"] tbody tr:nth-child(even) td{background:rgba(255,255,255,.03)} :root[data-theme="dark"] .btn.primary{background:var(--accent);border-color:var(--accent);color:#0E1822}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-</head><body>
 <header class="top">
   <div class="wrap">
     <div class="brand">
-      <img class="col" src="data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='321pt' height='118pt' viewBox='397 177 321 118'%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 505.3 232.5 C 505.3 261.6 481.7 285.2 452.5 285.2 C 423.4 285.2 399.8 261.6 399.8 232.5 C 399.8 203.3 423.4 179.7 452.5 179.7 C 481.7 179.7 505.3 203.3 505.3 232.5 '/%3E%3Cpath  fill='rgb%28100%25, 0%25, 40.7%25%29'  d='M 444.2 220.1 L 431.6 220.1 L 431.6 207.7 L 444.2 207.7 Z M 444.2 220.1 '/%3E%3Cpath  fill='rgb%2810.9%25, 89.7%25, 42.6%25%29'  d='M 444.2 251.1 C 444.2 258.2 439.3 259.9 436.8 259.9 L 431.6 259.9 L 431.6 253.4 L 434.2 253.4 C 436.9 253.4 437.3 251.4 437.3 250.6 L 437.3 248.2 L 431.6 248.2 L 431.6 235.8 L 444.2 235.8 Z M 444.2 251.1 '/%3E%3Cpath  fill='rgb%280%25, 44.2%25, 54.0%25%29'  d='M 458.1 204.1 L 458.1 217.9 C 464.0 220.8 468.1 226.8 468.1 233.8 C 468.1 240.8 464.0 246.8 458.1 249.7 L 458.1 263.5 C 471.3 260.1 481.2 248.1 481.2 233.8 C 481.2 219.5 471.3 207.5 458.1 204.1 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 607.1 185.2 L 621.4 185.2 L 621.4 249.3 C 613.5 249.3 607.1 242.9 607.1 235.0 Z M 607.1 185.2 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 642.8 249.3 L 628.4 249.3 L 628.4 204.7 L 642.8 204.7 Z M 642.8 199.6 L 628.4 199.6 L 628.4 185.2 L 642.8 185.2 Z M 642.8 199.6 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 683.1 198.6 C 672.5 198.6 663.9 207.2 663.9 217.8 C 663.9 228.3 672.5 236.9 683.1 236.9 C 693.6 236.9 702.2 228.3 702.2 217.8 C 702.2 207.2 693.6 198.6 683.1 198.6 M 683.1 251.1 C 664.7 251.1 649.7 236.2 649.7 217.8 C 649.7 199.4 664.7 184.4 683.1 184.4 C 701.4 184.4 716.4 199.4 716.4 217.8 C 716.4 236.2 701.4 251.1 683.1 251.1 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 585.0 225.4 C 582.0 232.2 575.3 236.9 567.4 236.9 C 556.9 236.9 548.3 228.3 548.3 217.8 C 548.3 207.2 556.9 198.6 567.4 198.6 C 575.1 198.6 581.7 203.1 584.8 209.6 L 599.8 209.6 C 596.2 195.2 583.0 184.4 567.4 184.4 C 549.1 184.4 534.1 199.4 534.1 217.8 C 534.1 236.2 549.1 251.1 567.4 251.1 C 583.2 251.1 596.4 240.1 599.9 225.4 Z M 585.0 225.4 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 555.8 278.6 C 553.9 282.7 550.1 285.2 545.6 285.2 C 539.3 285.2 534.1 280.6 534.1 274.2 C 534.1 268.0 539.4 263.3 545.5 263.3 C 549.9 263.3 554.2 265.9 555.9 270.1 L 552.7 270.1 C 551.2 267.6 548.4 266.0 545.5 266.0 C 540.9 266.0 537.0 269.5 537.0 274.2 C 537.0 278.8 540.6 282.5 545.3 282.5 C 548.6 282.5 550.8 281.2 552.7 278.6 Z M 555.8 278.6 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 561.0 274.4 C 561.0 278.9 564.7 282.5 569.2 282.5 C 573.9 282.5 577.3 278.7 577.3 274.1 C 577.3 271.8 576.5 269.9 574.8 268.3 C 573.3 266.9 571.3 266.0 569.2 266.0 C 564.6 266.0 561.0 269.8 561.0 274.4 M 580.1 274.1 C 580.1 280.1 575.3 285.2 569.2 285.2 C 563.3 285.2 558.2 280.4 558.2 274.4 C 558.2 268.3 563.1 263.3 569.2 263.3 C 575.0 263.3 580.1 268.3 580.1 274.1 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 582.6 263.7 L 585.3 263.7 L 585.3 266.8 C 586.9 264.5 589.1 263.3 591.8 263.3 C 594.6 263.3 597.4 264.5 599.3 266.8 C 600.9 268.8 601.2 271.0 601.2 273.7 L 601.2 284.7 L 598.4 284.7 L 598.4 273.7 C 598.4 271.9 598.2 270.2 597.1 268.7 C 595.9 266.9 593.9 266.0 591.7 266.0 C 589.8 266.0 587.7 267.0 586.6 268.6 C 585.5 270.1 585.5 271.9 585.5 273.7 L 585.5 284.7 L 582.6 284.7 Z M 582.6 263.7 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 607.1 278.6 C 607.1 280.7 608.8 282.5 610.9 282.5 C 613.0 282.5 614.6 281.1 614.6 279.0 C 614.6 276.5 612.6 275.6 610.6 275.0 C 609.2 274.6 607.8 274.1 606.8 273.1 C 605.6 272.1 605.1 270.7 605.1 269.2 C 605.1 265.7 607.8 263.3 611.1 263.3 C 614.3 263.3 616.9 265.9 616.9 269.0 L 614.1 269.0 C 614.1 267.1 612.7 266.0 610.8 266.0 C 609.2 266.0 607.9 267.3 607.9 268.9 C 607.9 271.2 609.8 271.8 611.6 272.4 C 614.7 273.4 617.5 274.8 617.5 278.6 C 617.5 282.5 614.6 285.2 610.7 285.2 C 607.1 285.2 604.1 282.1 604.3 278.6 Z M 607.1 278.6 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 638.7 284.7 L 636.0 284.7 L 636.0 281.5 C 634.6 284.2 631.9 285.2 629.0 285.2 C 626.3 285.2 624.0 284.3 621.7 281.5 C 620.4 280.1 620.2 277.6 620.2 274.8 L 620.2 263.7 L 623.0 263.7 L 623.0 274.8 C 623.0 276.4 623.1 278.1 623.9 279.5 C 625.1 281.5 627.1 282.5 629.4 282.5 C 631.4 282.5 633.3 281.6 634.6 279.9 C 635.6 278.4 635.8 276.6 635.8 274.8 L 635.8 263.7 L 638.7 263.7 Z M 638.7 284.7 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 642.7 256.4 L 645.6 256.4 L 645.6 284.7 L 642.7 284.7 Z M 642.7 256.4 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 652.8 266.3 L 648.5 266.3 L 648.5 263.7 L 652.8 263.7 L 652.8 256.4 L 655.7 256.4 L 655.7 263.7 L 660.5 263.7 L 660.5 266.3 L 655.7 266.3 L 655.7 284.7 L 652.8 284.7 Z M 652.8 266.3 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 664.2 263.7 L 667.0 263.7 L 667.0 284.7 L 664.2 284.7 Z M 664.2 256.4 L 667.0 256.4 L 667.0 261.2 L 664.2 261.2 Z M 664.2 256.4 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 671.1 263.7 L 673.8 263.7 L 673.8 266.8 C 675.4 264.5 677.5 263.3 680.3 263.3 C 683.1 263.3 685.9 264.5 687.8 266.8 C 689.4 268.8 689.7 271.0 689.7 273.7 L 689.7 284.7 L 686.8 284.7 L 686.8 273.7 C 686.8 271.9 686.7 270.2 685.6 268.7 C 684.3 266.9 682.3 266.0 680.2 266.0 C 678.2 266.0 676.2 267.0 675.1 268.6 C 673.9 270.1 674.0 271.9 673.9 273.7 L 673.9 284.7 L 671.1 284.7 Z M 671.1 263.7 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 695.8 274.0 C 695.8 278.7 699.0 282.5 703.8 282.5 C 706.1 282.5 708.0 281.8 709.6 280.1 C 711.0 278.6 712.0 276.3 712.0 274.3 C 712.0 269.5 708.3 266.0 703.6 266.0 C 699.2 266.0 695.8 269.7 695.8 274.0 M 714.7 281.7 C 714.7 285.0 714.6 287.0 712.3 289.5 C 710.3 291.8 707.0 293.0 704.0 293.0 C 699.4 293.0 694.9 289.8 693.7 285.2 L 696.5 285.2 C 698.1 288.3 700.6 290.2 704.2 290.2 C 706.9 290.2 709.7 289.0 711.1 286.6 C 712.0 284.9 712.0 283.6 712.0 281.7 L 712.0 280.6 C 710.7 283.7 707.1 285.2 703.8 285.2 C 701.0 285.2 698.2 284.1 696.2 282.2 C 694.0 280.1 692.9 277.4 692.9 274.3 C 692.9 271.3 694.2 268.7 694.9 267.8 C 697.7 264.3 700.7 263.3 703.7 263.3 C 707.0 263.3 710.4 264.8 712.0 267.8 L 712.0 263.7 L 714.7 263.7 Z M 714.7 281.7 '/%3E%3C/svg%3E " alt="CliO Consulting">
-      <img class="neg" src="data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='321pt' height='118pt' viewBox='397 177 321 118'%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 505.3 232.5 C 505.3 261.6 481.7 285.2 452.5 285.2 C 423.4 285.2 399.8 261.6 399.8 232.5 C 399.8 203.3 423.4 179.7 452.5 179.7 C 481.7 179.7 505.3 203.3 505.3 232.5 '/%3E%3Cpath  fill='rgb%28100%25, 0%25, 40.7%25%29'  d='M 444.2 220.1 L 431.6 220.1 L 431.6 207.7 L 444.2 207.7 Z M 444.2 220.1 '/%3E%3Cpath  fill='rgb%2810.9%25, 89.7%25, 42.6%25%29'  d='M 444.2 251.1 C 444.2 258.2 439.3 259.9 436.8 259.9 L 431.6 259.9 L 431.6 253.4 L 434.2 253.4 C 436.9 253.4 437.3 251.4 437.3 250.6 L 437.3 248.2 L 431.6 248.2 L 431.6 235.8 L 444.2 235.8 Z M 444.2 251.1 '/%3E%3Cpath  fill='rgb%280%25, 44.2%25, 54.0%25%29'  d='M 458.1 204.1 L 458.1 217.9 C 464.0 220.8 468.1 226.8 468.1 233.8 C 468.1 240.8 464.0 246.8 458.1 249.7 L 458.1 263.5 C 471.3 260.1 481.2 248.1 481.2 233.8 C 481.2 219.5 471.3 207.5 458.1 204.1 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 607.1 185.2 L 621.4 185.2 L 621.4 249.3 C 613.5 249.3 607.1 242.9 607.1 235.0 Z M 607.1 185.2 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 642.8 249.3 L 628.4 249.3 L 628.4 204.7 L 642.8 204.7 Z M 642.8 199.6 L 628.4 199.6 L 628.4 185.2 L 642.8 185.2 Z M 642.8 199.6 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 683.1 198.6 C 672.5 198.6 663.9 207.2 663.9 217.8 C 663.9 228.3 672.5 236.9 683.1 236.9 C 693.6 236.9 702.2 228.3 702.2 217.8 C 702.2 207.2 693.6 198.6 683.1 198.6 M 683.1 251.1 C 664.7 251.1 649.7 236.2 649.7 217.8 C 649.7 199.4 664.7 184.4 683.1 184.4 C 701.4 184.4 716.4 199.4 716.4 217.8 C 716.4 236.2 701.4 251.1 683.1 251.1 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 585.0 225.4 C 582.0 232.2 575.3 236.9 567.4 236.9 C 556.9 236.9 548.3 228.3 548.3 217.8 C 548.3 207.2 556.9 198.6 567.4 198.6 C 575.1 198.6 581.7 203.1 584.8 209.6 L 599.8 209.6 C 596.2 195.2 583.0 184.4 567.4 184.4 C 549.1 184.4 534.1 199.4 534.1 217.8 C 534.1 236.2 549.1 251.1 567.4 251.1 C 583.2 251.1 596.4 240.1 599.9 225.4 Z M 585.0 225.4 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 555.8 278.6 C 553.9 282.7 550.1 285.2 545.6 285.2 C 539.3 285.2 534.1 280.6 534.1 274.2 C 534.1 268.0 539.4 263.3 545.5 263.3 C 549.9 263.3 554.2 265.9 555.9 270.1 L 552.7 270.1 C 551.2 267.6 548.4 266.0 545.5 266.0 C 540.9 266.0 537.0 269.5 537.0 274.2 C 537.0 278.8 540.6 282.5 545.3 282.5 C 548.6 282.5 550.8 281.2 552.7 278.6 Z M 555.8 278.6 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 561.0 274.4 C 561.0 278.9 564.7 282.5 569.2 282.5 C 573.9 282.5 577.3 278.7 577.3 274.1 C 577.3 271.8 576.5 269.9 574.8 268.3 C 573.3 266.9 571.3 266.0 569.2 266.0 C 564.6 266.0 561.0 269.8 561.0 274.4 M 580.1 274.1 C 580.1 280.1 575.3 285.2 569.2 285.2 C 563.3 285.2 558.2 280.4 558.2 274.4 C 558.2 268.3 563.1 263.3 569.2 263.3 C 575.0 263.3 580.1 268.3 580.1 274.1 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 582.6 263.7 L 585.3 263.7 L 585.3 266.8 C 586.9 264.5 589.1 263.3 591.8 263.3 C 594.6 263.3 597.4 264.5 599.3 266.8 C 600.9 268.8 601.2 271.0 601.2 273.7 L 601.2 284.7 L 598.4 284.7 L 598.4 273.7 C 598.4 271.9 598.2 270.2 597.1 268.7 C 595.9 266.9 593.9 266.0 591.7 266.0 C 589.8 266.0 587.7 267.0 586.6 268.6 C 585.5 270.1 585.5 271.9 585.5 273.7 L 585.5 284.7 L 582.6 284.7 Z M 582.6 263.7 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 607.1 278.6 C 607.1 280.7 608.8 282.5 610.9 282.5 C 613.0 282.5 614.6 281.1 614.6 279.0 C 614.6 276.5 612.6 275.6 610.6 275.0 C 609.2 274.6 607.8 274.1 606.8 273.1 C 605.6 272.1 605.1 270.7 605.1 269.2 C 605.1 265.7 607.8 263.3 611.1 263.3 C 614.3 263.3 616.9 265.9 616.9 269.0 L 614.1 269.0 C 614.1 267.1 612.7 266.0 610.8 266.0 C 609.2 266.0 607.9 267.3 607.9 268.9 C 607.9 271.2 609.8 271.8 611.6 272.4 C 614.7 273.4 617.5 274.8 617.5 278.6 C 617.5 282.5 614.6 285.2 610.7 285.2 C 607.1 285.2 604.1 282.1 604.3 278.6 Z M 607.1 278.6 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 638.7 284.7 L 636.0 284.7 L 636.0 281.5 C 634.6 284.2 631.9 285.2 629.0 285.2 C 626.3 285.2 624.0 284.3 621.7 281.5 C 620.4 280.1 620.2 277.6 620.2 274.8 L 620.2 263.7 L 623.0 263.7 L 623.0 274.8 C 623.0 276.4 623.1 278.1 623.9 279.5 C 625.1 281.5 627.1 282.5 629.4 282.5 C 631.4 282.5 633.3 281.6 634.6 279.9 C 635.6 278.4 635.8 276.6 635.8 274.8 L 635.8 263.7 L 638.7 263.7 Z M 638.7 284.7 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 642.7 256.4 L 645.6 256.4 L 645.6 284.7 L 642.7 284.7 Z M 642.7 256.4 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 652.8 266.3 L 648.5 266.3 L 648.5 263.7 L 652.8 263.7 L 652.8 256.4 L 655.7 256.4 L 655.7 263.7 L 660.5 263.7 L 660.5 266.3 L 655.7 266.3 L 655.7 284.7 L 652.8 284.7 Z M 652.8 266.3 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 664.2 263.7 L 667.0 263.7 L 667.0 284.7 L 664.2 284.7 Z M 664.2 256.4 L 667.0 256.4 L 667.0 261.2 L 664.2 261.2 Z M 664.2 256.4 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 671.1 263.7 L 673.8 263.7 L 673.8 266.8 C 675.4 264.5 677.5 263.3 680.3 263.3 C 683.1 263.3 685.9 264.5 687.8 266.8 C 689.4 268.8 689.7 271.0 689.7 273.7 L 689.7 284.7 L 686.8 284.7 L 686.8 273.7 C 686.8 271.9 686.7 270.2 685.6 268.7 C 684.3 266.9 682.3 266.0 680.2 266.0 C 678.2 266.0 676.2 267.0 675.1 268.6 C 673.9 270.1 674.0 271.9 673.9 273.7 L 673.9 284.7 L 671.1 284.7 Z M 671.1 263.7 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 695.8 274.0 C 695.8 278.7 699.0 282.5 703.8 282.5 C 706.1 282.5 708.0 281.8 709.6 280.1 C 711.0 278.6 712.0 276.3 712.0 274.3 C 712.0 269.5 708.3 266.0 703.6 266.0 C 699.2 266.0 695.8 269.7 695.8 274.0 M 714.7 281.7 C 714.7 285.0 714.6 287.0 712.3 289.5 C 710.3 291.8 707.0 293.0 704.0 293.0 C 699.4 293.0 694.9 289.8 693.7 285.2 L 696.5 285.2 C 698.1 288.3 700.6 290.2 704.2 290.2 C 706.9 290.2 709.7 289.0 711.1 286.6 C 712.0 284.9 712.0 283.6 712.0 281.7 L 712.0 280.6 C 710.7 283.7 707.1 285.2 703.8 285.2 C 701.0 285.2 698.2 284.1 696.2 282.2 C 694.0 280.1 692.9 277.4 692.9 274.3 C 692.9 271.3 694.2 268.7 694.9 267.8 C 697.7 264.3 700.7 263.3 703.7 263.3 C 707.0 263.3 710.4 264.8 712.0 267.8 L 712.0 263.7 L 714.7 263.7 Z M 714.7 281.7 '/%3E%3C/svg%3E " alt="CliO Consulting">
+      <img class="col" src="data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='321pt' height='118pt' viewBox='397 177 321 118'%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 505.3 232.5 C 505.3 261.6 481.7 285.2 452.5 285.2 C 423.4 285.2 399.8 261.6 399.8 232.5 C 399.8 203.3 423.4 179.7 452.5 179.7 C 481.7 179.7 505.3 203.3 505.3 232.5 '/%3E%3Cpath  fill='rgb%28100%25, 0%25, 40.7%25%29'  d='M 444.2 220.1 L 431.6 220.1 L 431.6 207.7 L 444.2 207.7 Z M 444.2 220.1 '/%3E%3Cpath  fill='rgb%2810.9%25, 89.7%25, 42.6%25%29'  d='M 444.2 251.1 C 444.2 258.2 439.3 259.9 436.8 259.9 L 431.6 259.9 L 431.6 253.4 L 434.2 253.4 C 436.9 253.4 437.3 251.4 437.3 250.6 L 437.3 248.2 L 431.6 248.2 L 431.6 235.8 L 444.2 235.8 Z M 444.2 251.1 '/%3E%3Cpath  fill='rgb%280%25, 44.2%25, 54.0%25%29'  d='M 458.1 204.1 L 458.1 217.9 C 464.0 220.8 468.1 226.8 468.1 233.8 C 468.1 240.8 464.0 246.8 458.1 249.7 L 458.1 263.5 C 471.3 260.1 481.2 248.1 481.2 233.8 C 481.2 219.5 471.3 207.5 458.1 204.1 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 607.1 185.2 L 621.4 185.2 L 621.4 249.3 C 613.5 249.3 607.1 242.9 607.1 235.0 Z M 607.1 185.2 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 642.8 249.3 L 628.4 249.3 L 628.4 204.7 L 642.8 204.7 Z M 642.8 199.6 L 628.4 199.6 L 628.4 185.2 L 642.8 185.2 Z M 642.8 199.6 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 683.1 198.6 C 672.5 198.6 663.9 207.2 663.9 217.8 C 663.9 228.3 672.5 236.9 683.1 236.9 C 693.6 236.9 702.2 228.3 702.2 217.8 C 702.2 207.2 693.6 198.6 683.1 198.6 M 683.1 251.1 C 664.7 251.1 649.7 236.2 649.7 217.8 C 649.7 199.4 664.7 184.4 683.1 184.4 C 701.4 184.4 716.4 199.4 716.4 217.8 C 716.4 236.2 701.4 251.1 683.1 251.1 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 585.0 225.4 C 582.0 232.2 575.3 236.9 567.4 236.9 C 556.9 236.9 548.3 228.3 548.3 217.8 C 548.3 207.2 556.9 198.6 567.4 198.6 C 575.1 198.6 581.7 203.1 584.8 209.6 L 599.8 209.6 C 596.2 195.2 583.0 184.4 567.4 184.4 C 549.1 184.4 534.1 199.4 534.1 217.8 C 534.1 236.2 549.1 251.1 567.4 251.1 C 583.2 251.1 596.4 240.1 599.9 225.4 Z M 585.0 225.4 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 555.8 278.6 C 553.9 282.7 550.1 285.2 545.6 285.2 C 539.3 285.2 534.1 280.6 534.1 274.2 C 534.1 268.0 539.4 263.3 545.5 263.3 C 549.9 263.3 554.2 265.9 555.9 270.1 L 552.7 270.1 C 551.2 267.6 548.4 266.0 545.5 266.0 C 540.9 266.0 537.0 269.5 537.0 274.2 C 537.0 278.8 540.6 282.5 545.3 282.5 C 548.6 282.5 550.8 281.2 552.7 278.6 Z M 555.8 278.6 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 561.0 274.4 C 561.0 278.9 564.7 282.5 569.2 282.5 C 573.9 282.5 577.3 278.7 577.3 274.1 C 577.3 271.8 576.5 269.9 574.8 268.3 C 573.3 266.9 571.3 266.0 569.2 266.0 C 564.6 266.0 561.0 269.8 561.0 274.4 M 580.1 274.1 C 580.1 280.1 575.3 285.2 569.2 285.2 C 563.3 285.2 558.2 280.4 558.2 274.4 C 558.2 268.3 563.1 263.3 569.2 263.3 C 575.0 263.3 580.1 268.3 580.1 274.1 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 582.6 263.7 L 585.3 263.7 L 585.3 266.8 C 586.9 264.5 589.1 263.3 591.8 263.3 C 594.6 263.3 597.4 264.5 599.3 266.8 C 600.9 268.8 601.2 271.0 601.2 273.7 L 601.2 284.7 L 598.4 284.7 L 598.4 273.7 C 598.4 271.9 598.2 270.2 597.1 268.7 C 595.9 266.9 593.9 266.0 591.7 266.0 C 589.8 266.0 587.7 267.0 586.6 268.6 C 585.5 270.1 585.5 271.9 585.5 273.7 L 585.5 284.7 L 582.6 284.7 Z M 582.6 263.7 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 607.1 278.6 C 607.1 280.7 608.8 282.5 610.9 282.5 C 613.0 282.5 614.6 281.1 614.6 279.0 C 614.6 276.5 612.6 275.6 610.6 275.0 C 609.2 274.6 607.8 274.1 606.8 273.1 C 605.6 272.1 605.1 270.7 605.1 269.2 C 605.1 265.7 607.8 263.3 611.1 263.3 C 614.3 263.3 616.9 265.9 616.9 269.0 L 614.1 269.0 C 614.1 267.1 612.7 266.0 610.8 266.0 C 609.2 266.0 607.9 267.3 607.9 268.9 C 607.9 271.2 609.8 271.8 611.6 272.4 C 614.7 273.4 617.5 274.8 617.5 278.6 C 617.5 282.5 614.6 285.2 610.7 285.2 C 607.1 285.2 604.1 282.1 604.3 278.6 Z M 607.1 278.6 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 638.7 284.7 L 636.0 284.7 L 636.0 281.5 C 634.6 284.2 631.9 285.2 629.0 285.2 C 626.3 285.2 624.0 284.3 621.7 281.5 C 620.4 280.1 620.2 277.6 620.2 274.8 L 620.2 263.7 L 623.0 263.7 L 623.0 274.8 C 623.0 276.4 623.1 278.1 623.9 279.5 C 625.1 281.5 627.1 282.5 629.4 282.5 C 631.4 282.5 633.3 281.6 634.6 279.9 C 635.6 278.4 635.8 276.6 635.8 274.8 L 635.8 263.7 L 638.7 263.7 Z M 638.7 284.7 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 642.7 256.4 L 645.6 256.4 L 645.6 284.7 L 642.7 284.7 Z M 642.7 256.4 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 652.8 266.3 L 648.5 266.3 L 648.5 263.7 L 652.8 263.7 L 652.8 256.4 L 655.7 256.4 L 655.7 263.7 L 660.5 263.7 L 660.5 266.3 L 655.7 266.3 L 655.7 284.7 L 652.8 284.7 Z M 652.8 266.3 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 664.2 263.7 L 667.0 263.7 L 667.0 284.7 L 664.2 284.7 Z M 664.2 256.4 L 667.0 256.4 L 667.0 261.2 L 664.2 261.2 Z M 664.2 256.4 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 671.1 263.7 L 673.8 263.7 L 673.8 266.8 C 675.4 264.5 677.5 263.3 680.3 263.3 C 683.1 263.3 685.9 264.5 687.8 266.8 C 689.4 268.8 689.7 271.0 689.7 273.7 L 689.7 284.7 L 686.8 284.7 L 686.8 273.7 C 686.8 271.9 686.7 270.2 685.6 268.7 C 684.3 266.9 682.3 266.0 680.2 266.0 C 678.2 266.0 676.2 267.0 675.1 268.6 C 673.9 270.1 674.0 271.9 673.9 273.7 L 673.9 284.7 L 671.1 284.7 Z M 671.1 263.7 '/%3E%3Cpath  fill='rgb%2811.7%25, 18.3%25, 25.8%25%29'  d='M 695.8 274.0 C 695.8 278.7 699.0 282.5 703.8 282.5 C 706.1 282.5 708.0 281.8 709.6 280.1 C 711.0 278.6 712.0 276.3 712.0 274.3 C 712.0 269.5 708.3 266.0 703.6 266.0 C 699.2 266.0 695.8 269.7 695.8 274.0 M 714.7 281.7 C 714.7 285.0 714.6 287.0 712.3 289.5 C 710.3 291.8 707.0 293.0 704.0 293.0 C 699.4 293.0 694.9 289.8 693.7 285.2 L 696.5 285.2 C 698.1 288.3 700.6 290.2 704.2 290.2 C 706.9 290.2 709.7 289.0 711.1 286.6 C 712.0 284.9 712.0 283.6 712.0 281.7 L 712.0 280.6 C 710.7 283.7 707.1 285.2 703.8 285.2 C 701.0 285.2 698.2 284.1 696.2 282.2 C 694.0 280.1 692.9 277.4 692.9 274.3 C 692.9 271.3 694.2 268.7 694.9 267.8 C 697.7 264.3 700.7 263.3 703.7 263.3 C 707.0 263.3 710.4 264.8 712.0 267.8 L 712.0 263.7 L 714.7 263.7 Z M 714.7 281.7 '/%3E%3C/svg%3E" alt="CliO Consulting">
+      <img class="neg" src="data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='321pt' height='118pt' viewBox='397 177 321 118'%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 505.3 232.5 C 505.3 261.6 481.7 285.2 452.5 285.2 C 423.4 285.2 399.8 261.6 399.8 232.5 C 399.8 203.3 423.4 179.7 452.5 179.7 C 481.7 179.7 505.3 203.3 505.3 232.5 '/%3E%3Cpath  fill='rgb%28100%25, 0%25, 40.7%25%29'  d='M 444.2 220.1 L 431.6 220.1 L 431.6 207.7 L 444.2 207.7 Z M 444.2 220.1 '/%3E%3Cpath  fill='rgb%2810.9%25, 89.7%25, 42.6%25%29'  d='M 444.2 251.1 C 444.2 258.2 439.3 259.9 436.8 259.9 L 431.6 259.9 L 431.6 253.4 L 434.2 253.4 C 436.9 253.4 437.3 251.4 437.3 250.6 L 437.3 248.2 L 431.6 248.2 L 431.6 235.8 L 444.2 235.8 Z M 444.2 251.1 '/%3E%3Cpath  fill='rgb%280%25, 44.2%25, 54.0%25%29'  d='M 458.1 204.1 L 458.1 217.9 C 464.0 220.8 468.1 226.8 468.1 233.8 C 468.1 240.8 464.0 246.8 458.1 249.7 L 458.1 263.5 C 471.3 260.1 481.2 248.1 481.2 233.8 C 481.2 219.5 471.3 207.5 458.1 204.1 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 607.1 185.2 L 621.4 185.2 L 621.4 249.3 C 613.5 249.3 607.1 242.9 607.1 235.0 Z M 607.1 185.2 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 642.8 249.3 L 628.4 249.3 L 628.4 204.7 L 642.8 204.7 Z M 642.8 199.6 L 628.4 199.6 L 628.4 185.2 L 642.8 185.2 Z M 642.8 199.6 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 683.1 198.6 C 672.5 198.6 663.9 207.2 663.9 217.8 C 663.9 228.3 672.5 236.9 683.1 236.9 C 693.6 236.9 702.2 228.3 702.2 217.8 C 702.2 207.2 693.6 198.6 683.1 198.6 M 683.1 251.1 C 664.7 251.1 649.7 236.2 649.7 217.8 C 649.7 199.4 664.7 184.4 683.1 184.4 C 701.4 184.4 716.4 199.4 716.4 217.8 C 716.4 236.2 701.4 251.1 683.1 251.1 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 585.0 225.4 C 582.0 232.2 575.3 236.9 567.4 236.9 C 556.9 236.9 548.3 228.3 548.3 217.8 C 548.3 207.2 556.9 198.6 567.4 198.6 C 575.1 198.6 581.7 203.1 584.8 209.6 L 599.8 209.6 C 596.2 195.2 583.0 184.4 567.4 184.4 C 549.1 184.4 534.1 199.4 534.1 217.8 C 534.1 236.2 549.1 251.1 567.4 251.1 C 583.2 251.1 596.4 240.1 599.9 225.4 Z M 585.0 225.4 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 555.8 278.6 C 553.9 282.7 550.1 285.2 545.6 285.2 C 539.3 285.2 534.1 280.6 534.1 274.2 C 534.1 268.0 539.4 263.3 545.5 263.3 C 549.9 263.3 554.2 265.9 555.9 270.1 L 552.7 270.1 C 551.2 267.6 548.4 266.0 545.5 266.0 C 540.9 266.0 537.0 269.5 537.0 274.2 C 537.0 278.8 540.6 282.5 545.3 282.5 C 548.6 282.5 550.8 281.2 552.7 278.6 Z M 555.8 278.6 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 561.0 274.4 C 561.0 278.9 564.7 282.5 569.2 282.5 C 573.9 282.5 577.3 278.7 577.3 274.1 C 577.3 271.8 576.5 269.9 574.8 268.3 C 573.3 266.9 571.3 266.0 569.2 266.0 C 564.6 266.0 561.0 269.8 561.0 274.4 M 580.1 274.1 C 580.1 280.1 575.3 285.2 569.2 285.2 C 563.3 285.2 558.2 280.4 558.2 274.4 C 558.2 268.3 563.1 263.3 569.2 263.3 C 575.0 263.3 580.1 268.3 580.1 274.1 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 582.6 263.7 L 585.3 263.7 L 585.3 266.8 C 586.9 264.5 589.1 263.3 591.8 263.3 C 594.6 263.3 597.4 264.5 599.3 266.8 C 600.9 268.8 601.2 271.0 601.2 273.7 L 601.2 284.7 L 598.4 284.7 L 598.4 273.7 C 598.4 271.9 598.2 270.2 597.1 268.7 C 595.9 266.9 593.9 266.0 591.7 266.0 C 589.8 266.0 587.7 267.0 586.6 268.6 C 585.5 270.1 585.5 271.9 585.5 273.7 L 585.5 284.7 L 582.6 284.7 Z M 582.6 263.7 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 607.1 278.6 C 607.1 280.7 608.8 282.5 610.9 282.5 C 613.0 282.5 614.6 281.1 614.6 279.0 C 614.6 276.5 612.6 275.6 610.6 275.0 C 609.2 274.6 607.8 274.1 606.8 273.1 C 605.6 272.1 605.1 270.7 605.1 269.2 C 605.1 265.7 607.8 263.3 611.1 263.3 C 614.3 263.3 616.9 265.9 616.9 269.0 L 614.1 269.0 C 614.1 267.1 612.7 266.0 610.8 266.0 C 609.2 266.0 607.9 267.3 607.9 268.9 C 607.9 271.2 609.8 271.8 611.6 272.4 C 614.7 273.4 617.5 274.8 617.5 278.6 C 617.5 282.5 614.6 285.2 610.7 285.2 C 607.1 285.2 604.1 282.1 604.3 278.6 Z M 607.1 278.6 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 638.7 284.7 L 636.0 284.7 L 636.0 281.5 C 634.6 284.2 631.9 285.2 629.0 285.2 C 626.3 285.2 624.0 284.3 621.7 281.5 C 620.4 280.1 620.2 277.6 620.2 274.8 L 620.2 263.7 L 623.0 263.7 L 623.0 274.8 C 623.0 276.4 623.1 278.1 623.9 279.5 C 625.1 281.5 627.1 282.5 629.4 282.5 C 631.4 282.5 633.3 281.6 634.6 279.9 C 635.6 278.4 635.8 276.6 635.8 274.8 L 635.8 263.7 L 638.7 263.7 Z M 638.7 284.7 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 642.7 256.4 L 645.6 256.4 L 645.6 284.7 L 642.7 284.7 Z M 642.7 256.4 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 652.8 266.3 L 648.5 266.3 L 648.5 263.7 L 652.8 263.7 L 652.8 256.4 L 655.7 256.4 L 655.7 263.7 L 660.5 263.7 L 660.5 266.3 L 655.7 266.3 L 655.7 284.7 L 652.8 284.7 Z M 652.8 266.3 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 664.2 263.7 L 667.0 263.7 L 667.0 284.7 L 664.2 284.7 Z M 664.2 256.4 L 667.0 256.4 L 667.0 261.2 L 664.2 261.2 Z M 664.2 256.4 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 671.1 263.7 L 673.8 263.7 L 673.8 266.8 C 675.4 264.5 677.5 263.3 680.3 263.3 C 683.1 263.3 685.9 264.5 687.8 266.8 C 689.4 268.8 689.7 271.0 689.7 273.7 L 689.7 284.7 L 686.8 284.7 L 686.8 273.7 C 686.8 271.9 686.7 270.2 685.6 268.7 C 684.3 266.9 682.3 266.0 680.2 266.0 C 678.2 266.0 676.2 267.0 675.1 268.6 C 673.9 270.1 674.0 271.9 673.9 273.7 L 673.9 284.7 L 671.1 284.7 Z M 671.1 263.7 '/%3E%3Cpath  fill='rgb%28100%25, 100%25, 100%25%29'  d='M 695.8 274.0 C 695.8 278.7 699.0 282.5 703.8 282.5 C 706.1 282.5 708.0 281.8 709.6 280.1 C 711.0 278.6 712.0 276.3 712.0 274.3 C 712.0 269.5 708.3 266.0 703.6 266.0 C 699.2 266.0 695.8 269.7 695.8 274.0 M 714.7 281.7 C 714.7 285.0 714.6 287.0 712.3 289.5 C 710.3 291.8 707.0 293.0 704.0 293.0 C 699.4 293.0 694.9 289.8 693.7 285.2 L 696.5 285.2 C 698.1 288.3 700.6 290.2 704.2 290.2 C 706.9 290.2 709.7 289.0 711.1 286.6 C 712.0 284.9 712.0 283.6 712.0 281.7 L 712.0 280.6 C 710.7 283.7 707.1 285.2 703.8 285.2 C 701.0 285.2 698.2 284.1 696.2 282.2 C 694.0 280.1 692.9 277.4 692.9 274.3 C 692.9 271.3 694.2 268.7 694.9 267.8 C 697.7 264.3 700.7 263.3 703.7 263.3 C 707.0 263.3 710.4 264.8 712.0 267.8 L 712.0 263.7 L 714.7 263.7 Z M 714.7 281.7 '/%3E%3C/svg%3E" alt="CliO Consulting">
       <div class="meta" id="meta"></div>
     </div>
     <h1 id="h1">Centro de campo · Evaluación final gigES</h1>
@@ -139,46 +172,69 @@ var ENDPOINT = window.__ENDPOINT__ || '';      // solo modo publico (GitHub Page
 var TOKEN = window.__T__ || '';
 var hasGAS = typeof google !== 'undefined' && google.script && google.script.run;
 var NOMBRES = {sos:'Sostengo',job:'Jobbi',fia:'Fiado',qxm:'Quien X Mi',sub:'Sube',smd:'SmartDrive',alf:'ALFI',lro:'Línea Rosa',kaz:'Kazu',s10:'Décima solución'};
-var ESTADOS = {en_cola:['En cola','warn'],asignada:['Asignada','neutral'],en_contacto:['En contacto','neutral'],citada:['Citada','ok']};
-var ORIGEN = {modulo_d:'Pidió otro medio',saliente:'Sin respuesta web',llamar_wa:'«LLAMAR» por WhatsApp',sesion:'Sesión de la startup',otro:'Otro'};
-var METAS_CUALI = {E1:3,E2:3,E3:10,E4:4,E5:2,GFU:6,GFN:2};
-var PAUTAS = {E1:'Equipo ejecutor',E2:'Financiadores',E3:'Soluciones',E4:'Política pública',E5:'Observatorio y aliados',GFU:'Grupo focal usuarios',GFN:'Grupo focal sin uso'};
-var state = {tab:'resumen', filtro:'todos', vista: (MODO === 'cliente' || MODO === 'publico') ? 'cliente' : 'interno', data:null, ficticio:false};
+var ESTADOS = {
+  por_enviar:['Por enviar','neutral','Está en la base y aún no se le envía el enlace.'],
+  enviado:['Enlace enviado','neutral','Recibió el enlace y todavía no responde. El equipo decide cuándo pasarlo a llamada.'],
+  en_cola:['En cola','warn','Pasó a teléfono o presencial y nadie lo ha tomado.'],
+  asignada:['Asignada','neutral','Tiene encuestador; aún no hay intento.'],
+  en_contacto:['En contacto','neutral','Hubo al menos un intento de llamada.'],
+  citada:['Citada','ok','Tiene cita presencial agendada.'],
+  completa_web:['Respondió por web','ok','Completó la encuesta por su cuenta.'],
+  aplicada:['Aplicada','ok','La encuesta se aplicó por teléfono o en persona.'],
+  cerrada:['Cerrada','neutral','Terminó sin encuesta; ver el motivo.']};
+var ORIGEN = {solicitud:'Pidió otro medio en la encuesta',seguimiento:'De la base: el equipo lo pasó a llamada',llamar_wa:'Respondió «LLAMAR»',sesion:'Sesión de la startup',otro:'Otro canal'};
+var CIERRE = {completa:'Completa',parcial:'Parcial',rechaza:'Rechaza',no_contactable:'No contactable (6 intentos)',numero_errado:'Número errado',no_asiste:'No asiste a 2 citas',fuera_poblacion:'Fuera de la población',secuencia_agotada:'Sin respuesta',duplicado:'Duplicado',no_contactar:'Pidió no ser contactado',otro:'Otro'};
+var RESULT = {no_contesta:'No contesta',ocupado:'Ocupado o buzón',volver_llamar:'Volver a llamar',numero_errado:'Número errado',aplica_ahora:'Aplicó',agenda:'Agendó cita',rechaza:'Rechaza'};
+var ABIERTOS = ['en_cola','asignada','en_contacto','citada'];
+var CUALI_ESTADO = {agendada:['Agendada','neutral'],realizada:['Realizada · falta transcripción','warn'],transcrita:['Transcrita','ok'],cancelada:['Cancelada','crit']};
+var state = {tab:'resumen', filtro:'abiertas', filtroB:'todos', sel:{}, abiertoCupo:'', vista: (MODO === 'cliente' || MODO === 'publico') ? 'cliente' : 'interno', data:null, ficticio:false};
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function num(x){return typeof x==='number'?x.toLocaleString('es-SV'):esc(x);}
 function pct(a,b){return (typeof a==='number'&&typeof b==='number'&&b>0)?Math.round(100*a/b):null;}
-function toast(t){var el=document.getElementById('toast');el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){el.hidden=true;},3200);}
+function toast(t){var el=document.getElementById('toast');el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){el.hidden=true;},3600);}
+
 
 // ---------------- DATOS DE DEMOSTRACIÓN (ficticios) ----------------
 function demo(){
   var st=[['sos',86,79],['job',41,38],['fia',39,31],['qxm',33,27],['sub',30,22],['smd',19,21],['alf',24,0],['lro',18,0],['kaz',17,0],['s10',0,0]];
   var ref={sos:[190,195],job:[105,110],fia:[85,85],qxm:[80,85],sub:[65,75],smd:[40,50],alf:[50,0],lro:[45,0],kaz:[40,0],s10:[40,0]};
+  var cq=[['E1','Entrevistas · CASATIC',3,0,2,1],['E2','Entrevistas · BID Lab y Delegación UE',3,1,1,1],['E3','Entrevistas · Soluciones WorkerTech',10,3,4,2],['E4','Entrevistas · Política pública',4,1,0,0],['E5','Entrevistas · Observatorio y aliados',2,0,0,0],['GFU','Grupos focales · Usuarios',6,2,1,0],['GFN','Grupos focales · Inscritos sin uso',2,0,0,0]]
+    .map(function(r){return {inst:r[0],nombre:r[1],meta:r[2],agendadas:r[3],realizadas:r[4],transcritas:r[5]};});
+  function d(cats,base){return {base:base,cats:cats};}
+  var ind={satisfaccion:d({'1':4,'2':9,'3':31,'4':128,'5':96},268),recomienda:d({si:221,no:22,ns:25},268),
+    cambio_ingresos:d({mejoro:96,igual:151,empeoro:21},268),cambio_proteccion:d({mejoro:118,igual:139,empeoro:11},268),cambio_trabajo:d({mejoro:104,igual:147,empeoro:17},268),
+    barrera:d({celular:22,datos:61,app:48,requisitos:37,tiempo:88,desconfianza:41,atencion:19,lectura:15,costo:54,ninguna:140},525),
+    intencion:d({seg_medico:210,seg_accidentes:122,seg_vehiculo:61,seg_terceros:18,capacitacion:175,legal:24,contabilidad:31,credito:148,ahorro:190,pagos:77,asesoria:96,ninguno:52},525)};
   var agg={generado:new Date().toISOString(),semana:7,cortes:[{s:6,umbral:25},{s:7,umbral:50},{s:8,umbral:80},{s:9,umbral:100}],
     porGrupo:{T:{completas:307,meta:700,mujeres:131,con_sexo:301},C:{completas:218,meta:600,mujeres:76,con_sexo:214}},
     startups:st.map(function(r){return {st:r[0],T:r[1],C:r[2],refT:ref[r[0]][0],refC:ref[r[0]][1]};}),
-    modos:{web:402,telefono:96,presencial:27},
-    deriv:{solicitudes:88,saliente:141,otros:12,telefono:209,presencial:32,atendidas_48:151,con_primer:170,aplicadas:123,cerradas:31,abiertas:87,vencidas:9},
-    serie:[{s:4,T:0,C:0},{s:5,T:64,C:31},{s:6,T:171,C:102},{s:7,T:307,C:218}],autoriza_cuali:186,total:525};
-  var cola=[
-    {id:'FIA-0213',startup:'fia',grupo:'C',sexo:'m',origen:'modulo_d',medio:'presencial',estado:'citada',intentos:1,horas_sla:6,sla_vencido:false,proxima_accion:'Cita 09-10 10:00',tel:'7XXX-XX13',franja:'sab · manana',link_aplicar:'#',link_registrar:'#'},
-    {id:'SOS-1142',startup:'sos',grupo:'T',sexo:'h',origen:'saliente',medio:'telefono',estado:'en_cola',intentos:0,horas_sla:52,sla_vencido:true,proxima_accion:'Asignar y hacer el primer intento',tel:'7XXX-XX42',franja:'',link_aplicar:'#',link_registrar:'#'},
-    {id:'ALF-0031',startup:'alf',grupo:'T',sexo:'m',origen:'sesion',medio:'presencial',estado:'asignada',intentos:0,horas_sla:20,sla_vencido:false,proxima_accion:'Primer intento',tel:'6XXX-XX31',franja:'',link_aplicar:'#',link_registrar:'#'},
-    {id:'QXM-0407',startup:'qxm',grupo:'C',sexo:'h',origen:'saliente',medio:'telefono',estado:'en_contacto',intentos:3,horas_sla:18,sla_vencido:false,proxima_accion:'Nuevo intento (4 de 6)',tel:'7XXX-XX07',franja:'',link_aplicar:'#',link_registrar:'#'},
-    {id:'RB-3318',startup:'lro',grupo:'',sexo:'',origen:'modulo_d',medio:'telefono',estado:'en_cola',intentos:0,horas_sla:9,sla_vencido:false,proxima_accion:'Asignar y hacer el primer intento',tel:'7XXX-XX18',franja:'lv · noche',link_aplicar:'#',link_registrar:'#'},
-    {id:'SUB-0288',startup:'sub',grupo:'C',sexo:'m',origen:'modulo_d',medio:'telefono',estado:'en_contacto',intentos:2,horas_sla:4,sla_vencido:false,proxima_accion:'Llamar el 09-10 18:30',tel:'7XXX-XX88',franja:'lv · tarde',link_aplicar:'#',link_registrar:'#'},
-    {id:'SMD-0052',startup:'smd',grupo:'C',sexo:'h',origen:'modulo_d',medio:'presencial',estado:'en_cola',intentos:0,horas_sla:61,sla_vencido:true,proxima_accion:'Asignar y hacer el primer intento',tel:'7XXX-XX52',franja:'dom · manana',link_aplicar:'#',link_registrar:'#'}
-  ];
-  var cuali=[
-    {id_app:'E1-261005',instrumento:'E1',codigo:'E1-CAS-01',fecha:'05-10',modalidad:'virtual',responsable:'Coordinación',estado:'realizada',doc_url:'#'},
-    {id_app:'E2-261006',instrumento:'E2',codigo:'E2-BID-01',fecha:'06-10',modalidad:'virtual',responsable:'Dirección',estado:'transcrita',doc_url:'#'},
-    {id_app:'E3-261007',instrumento:'E3',codigo:'E3-SOS-01',fecha:'07-10',modalidad:'virtual',responsable:'Coordinación',estado:'realizada',doc_url:'#'},
-    {id_app:'E3-261008',instrumento:'E3',codigo:'E3-FIA-01',fecha:'09-10',modalidad:'virtual',responsable:'Coordinación',estado:'programada',doc_url:'#'},
-    {id_app:'GFU-261010',instrumento:'GFU',codigo:'GFU-C-M-01',fecha:'10-10',modalidad:'presencial',responsable:'Moderación',estado:'programada',doc_url:'#'}
-  ];
-  var muestra=[['sos',640,640,640,165],['job',330,330,330,79],['fia',260,260,260,70],['qxm',250,250,250,60],['sub',220,220,220,52],['smd',120,120,120,40],['alf',75,75,75,24],['kaz',60,60,60,17]]
-    .map(function(r){return {st:r[0],casos:r[1],enlace:r[2],enviados:r[3],completas:r[4]};});
-  return {modo:'demo',ultima:new Date().toLocaleString('es-SV'),agg:agg,cola:cola,cuali:cuali,muestra:muestra};
+    modos:{web:402,telefono:96,presencial:27},rutas:{A:{casos:1840,enviados:1620,completas:398},B:{completas:127}},
+    deriv:{solicitudes:88,seguimiento:141,otros:12,telefono:209,presencial:32,atendidas_48:151,con_primer:170,aplicadas:123,cerradas:31,abiertas:87,vencidas:9},
+    serie:[{s:5,T:0,C:0},{s:6,T:171,C:102},{s:7,T:307,C:218}],cuali:cq,prioridad:{mujeres_T:false,mujeres_C:true,comparacion_atrasada:true},indicadores:ind,autoriza_cuali:186,total:525};
+  function k(o){o.link_aplicar='#';o.link_registrar='#';o.responsable=o.responsable||'';o.mensajes=o.mensajes||0;o.intentos=o.intentos||0;return o;}
+  var deriv=[
+    k({id:'FIA-0213',enMuestra:true,startup:'fia',grupo:'C',origen:'solicitud',medio:'presencial',estado:'citada',intentos:1,horas_primer_intento:6,proxima_accion:'Cita 09-10 10:00',franja:'sab · manana',cita:'09-10 10:00 · punto_startup',responsable:'pres01',prioridad:'mujer · comparación'}),
+    k({id:'SOS-1142',enMuestra:true,startup:'sos',grupo:'T',origen:'seguimiento',medio:'telefono',estado:'en_cola',horas_primer_intento:52,fuera_plazo:true,proxima_accion:'Asignar y hacer el primer intento',mensajes:2}),
+    k({id:'AL-57',startup:'alf',grupo:'',origen:'sesion',medio:'presencial',estado:'asignada',horas_primer_intento:20,proxima_accion:'Primer intento',responsable:'pres02'}),
+    k({id:'QXM-0407',enMuestra:true,startup:'qxm',grupo:'C',origen:'seguimiento',medio:'telefono',estado:'en_contacto',intentos:3,ultimo_resultado:'no_contesta',horas_primer_intento:18,proxima_accion:'Nuevo intento (4 de 6)',responsable:'enc02',prioridad:'comparación'}),
+    k({id:'RB-3318',startup:'',grupo:'',origen:'solicitud',medio:'telefono',estado:'en_cola',horas_primer_intento:9,proxima_accion:'Asignar y hacer el primer intento',franja:'lv · noche'}),
+    k({id:'SUB-0288',enMuestra:true,startup:'sub',grupo:'C',origen:'solicitud',medio:'telefono',estado:'aplicada',intentos:2,horas_primer_intento:4,id_aplicacion_kobo:48213,fecha_aplicacion:'06-10 18:40',modo_aplicado:'telefono',codigo_resultado:'completa',responsable:'enc01'}),
+    k({id:'RB-3290',startup:'',grupo:'',origen:'solicitud',medio:'telefono',estado:'cerrada',intentos:6,horas_primer_intento:30,codigo_resultado:'no_contactable',responsable:'enc03'})];
+  var bbdd=[
+    k({id:'SOS-0101',enMuestra:true,startup:'sos',grupo:'T',estado:'por_enviar',proxima_accion:'Enviar el enlace personal'}),
+    k({id:'SOS-0102',enMuestra:true,startup:'sos',grupo:'C',estado:'enviado',mensajes:1,dias_sin_respuesta:1,ultimo_contacto:new Date(Date.now()-864e5).toISOString(),proxima_accion:'Esperar respuesta (1 días)'}),
+    k({id:'SOS-0103',enMuestra:true,startup:'sos',grupo:'T',estado:'enviado',mensajes:2,dias_sin_respuesta:5,ultimo_contacto:new Date(Date.now()-5*864e5).toISOString(),proxima_accion:'5 días sin respuesta: enviar recordatorio o pasar a llamada'}),
+    k({id:'FIA-0110',enMuestra:true,startup:'fia',grupo:'T',estado:'completa_web',mensajes:1,id_aplicacion_kobo:48001}),
+    deriv[0],deriv[1],deriv[3],deriv[5]];
+  var cupos=[['E1-DIR','E1','CASATIC · Dirección','Dirección'],['E1-C1','E1','CASATIC · Componente 1','Responsable de componente'],['E3-SOS','E3','Solución · Sostengo','Fundador/a o gerente|Responsable de operación'],['E3-FIA','E3','Solución · Fiado','Fundador/a o gerente|Responsable de operación'],['GFU-A-M','GFU','Usuarias · Plataformas digitales · mujeres','Grupo de 6 a 10 participantes']]
+    .map(function(r){return {id_cupo:r[0],instrumento:r[1],descripcion:r[2],tipos_informante:r[3]};});
+  var apps=[{id_app:'E1-DIR-1',id_cupo:'E1-DIR',instrumento:'E1',codigo:'E1-DIR-1',tipo_informante:'Dirección',fecha_programada:'2026-10-05',modalidad:'virtual',responsable:'Dirección',estado:'transcrita',doc_notas:'#',transcripcion:'#'},
+    {id_app:'E3-SOS-1',id_cupo:'E3-SOS',instrumento:'E3',codigo:'E3-SOS-1',tipo_informante:'Fundador/a o gerente',fecha_programada:'2026-10-09',modalidad:'virtual',responsable:'Moderación 1',estado:'agendada',doc_notas:'',transcripcion:''}];
+  var eventos=[{fecha:'2026-10-01T15:00:00Z',id_app:'E3-SOS-1',evento:'agendada',detalle:'2026-10-07 · virtual',quien:'coord@cliodinamica.com'},{fecha:'2026-10-03T15:00:00Z',id_app:'E3-SOS-1',evento:'reagendada',detalle:'de 07-10-2026 a 2026-10-09',quien:'coord@cliodinamica.com'}];
+  var difusion=Object.keys(NOMBRES).map(function(s){return {st:s,nombre:NOMBRES[s],enlace:'https://ee.kobotoolbox.org/x/qhLXMFIQ?d[/…/startup_pre]='+s};});
+  return {modo:'demo',ultima:new Date().toISOString(),agg:agg,deriv:deriv,bbdd:bbdd,difusion:difusion,cuali:{cupos:cupos,apps:apps,eventos:eventos},
+    equipo:['Dirección','Coordinación','Moderación 1','Moderación 2'],url_contactos:'#',url_planilla:'#',enlace_alta:'#'};
 }
 
 // ---------------- CARGA ----------------
@@ -205,10 +261,14 @@ function call(fn,args,ok){
 // ---------------- RENDER ----------------
 function render(){
   var d=state.data, cliente = state.vista==='cliente';
-  var tabs = cliente ? [['resumen','Resumen']] : [['resumen','Resumen'],['cola','Cola de contacto'],['muestra','Muestra y envíos'],['cuali','Cualitativo']];
-  if(cliente) state.tab='resumen';
+  var ab=(d.deriv||[]).filter(function(k){return ABIERTOS.indexOf(k.estado)>=0;}).length;
+  var tabs = MODO==='publico' ? [['resumen','Resumen']]
+    : (cliente ? [['resumen','Resumen'],['indic','Indicadores preliminares']]
+    : [['resumen','Resumen'],['bbdd','Con base de datos'],['deriv','Derivaciones'],['difusion','Sin base · difusión'],['cuali','Cualitativo'],['indic','Indicadores']]);
+  if(!tabs.some(function(t){return t[0]===state.tab;})) state.tab='resumen';
   document.getElementById('tabs').innerHTML = tabs.map(function(t){
-    return '<button role="tab" id="tab-'+t[0]+'" aria-selected="'+(state.tab===t[0])+'" data-tab="'+t[0]+'">'+t[1]+(t[0]==='cola'&&d.cola?' <span class="chip '+(d.agg.deriv.vencidas>0?'crit':'neutral')+'">'+d.cola.length+'</span>':'')+'</button>';
+    var chip = t[0]==='deriv' ? ' <span class="chip '+(d.agg.deriv.vencidas>0?'crit':'neutral')+'">'+ab+'</span>' : '';
+    return '<button role="tab" id="tab-'+t[0]+'" aria-selected="'+(state.tab===t[0])+'" data-tab="'+t[0]+'">'+t[1]+chip+'</button>';
   }).join('');
   var m='<span class="pill">Semana <b>S'+d.agg.semana+'</b></span><span class="pill">Actualizado <b>'+esc(fmtFecha(d.ultima))+'</b></span>';
   if(MODO==='publico' && state.ficticio) m='<span class="pill demo">Datos ficticios: el tablero aún no está conectado</span>'+m;
@@ -216,18 +276,20 @@ function render(){
     '<div class="viewswitch" role="group" aria-label="Vista"><button aria-pressed="'+(!cliente)+'" data-vista="interno">Vista CliO</button><button aria-pressed="'+cliente+'" data-vista="cliente">Vista cliente</button></div>';
   if(MODO==='interno') m+='<button class="btn" id="btn-sync">Sincronizar ahora</button>';
   document.getElementById('meta').innerHTML=m;
-  document.getElementById('sub').textContent = cliente ? 'Avance de la encuesta y de las derivaciones · solo agregados; las celdas con menos de 5 casos se muestran como «<5».'
-    : 'Encuesta a trabajadores, derivaciones y aplicaciones cualitativas · ES-T1341';
+  document.getElementById('sub').textContent = cliente ? 'Avance de la encuesta, de las derivaciones y del componente cualitativo · solo agregados; las celdas con menos de 5 casos se muestran como «<5».'
+    : 'Encuesta a trabajadores, derivaciones y aplicaciones cualitativas · ES-T1341 · identificadores seudónimos, sin nombres ni teléfonos';
   var app=document.getElementById('app');
-  if(state.tab==='resumen') app.innerHTML=vResumen(d.agg,cliente);
-  if(state.tab==='cola') app.innerHTML=vCola(d.cola||[]);
-  if(state.tab==='muestra') app.innerHTML=vMuestra(d.muestra||[]);
-  if(state.tab==='cuali') app.innerHTML=vCuali(d.cuali||[]);
+  var V={resumen:function(){return vResumen(d.agg,cliente);},bbdd:function(){return vBBDD(d);},deriv:function(){return vDeriv(d);},
+    difusion:function(){return vDifusion(d);},cuali:function(){return vCuali(d);},indic:function(){return vIndic(d.agg,cliente);}};
+  app.innerHTML=V[state.tab]();
   bindTips();
 }
+
 var FR={lv:'lun–vie',sab:'sáb',dom:'dom',manana:'mañana',mediodia:'mediodía',tarde:'tarde',noche:'noche'};
 function franja(s){return String(s).split(/[\s·]+/).filter(Boolean).map(function(x){return FR[x]||x;}).join(', ');}
-function fmtFecha(s){var t=new Date(s);return isNaN(t)?s:t.toLocaleString('es-SV',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+function fmtFecha(s){var t=new Date(s);return isNaN(t)?esc(s):t.toLocaleString('es-SV',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+function fmtDia(s){if(!s)return '';var t=new Date(s);return isNaN(t)?esc(s):t.toLocaleDateString('es-SV',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'});}
+function chipEstado(k){var e=ESTADOS[k.estado]||[k.estado,'neutral'];return '<span class="chip '+e[1]+'">'+e[0]+'</span>';}
 
 function corteDe(sem,cortes){for(var i=0;i<cortes.length;i++){if(sem<=cortes[i].s)return cortes[i];}return cortes[cortes.length-1];}
 function semaforo(av,umbral){ if(av===null) return '<span class="chip neutral">Sin datos</span>';
@@ -235,7 +297,7 @@ function semaforo(av,umbral){ if(av===null) return '<span class="chip neutral">S
   if(av>=umbral*0.8) return '<span class="chip warn">Cerca del umbral</span>';
   return '<span class="chip crit">Bajo el umbral: activar medidas</span>'; }
 
-function grupoCard(g,p,corte,color,cliente){
+function grupoCard(g,p,corte,color){
   var av=pct(p.completas,p.meta), muj=pct(p.mujeres,p.con_sexo);
   var nombre = g==='T'?'Usuarios (tratamiento)':'Inscritos sin uso (comparación)';
   return '<div class="card"><div class="eyebrow">'+nombre+'</div>'+
@@ -248,12 +310,11 @@ function grupoCard(g,p,corte,color,cliente){
 }
 
 function lineChart(serie){
-  var W=1000,H=280,L=44,R=70,Tp=16,B=32, sMax=Math.max(9,serie[serie.length-1].s), sMin=4;
+  var W=1000,H=280,L=44,R=70,Tp=16,B=32, sMax=Math.max(9,serie[serie.length-1].s), sMin=5;
   var x=function(s){return L+(s-sMin)/(sMax-sMin)*(W-L-R);}, y=function(v){return Tp+(1-v/100)*(H-Tp-B);};
   var g='';
   [0,25,50,75,100].forEach(function(v){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="var(--line-soft)"/><text x="'+(L-8)+'" y="'+(y(v)+4)+'" text-anchor="end">'+v+'%</text>';});
   for(var s=sMin;s<=sMax;s++) g+='<text x="'+x(s)+'" y="'+(H-10)+'" text-anchor="middle">S'+s+'</text>';
-  // umbrales de los cortes
   [[6,25],[7,50],[8,80],[9,100]].forEach(function(c){g+='<rect x="'+(x(c[0])-3)+'" y="'+(y(c[1])-1)+'" width="6" height="2" fill="var(--ink-2)"/>';});
   var series=[['T',700,'var(--s1)','Usuarios'],['C',600,'var(--s2)','Comparación']], lines='';
   series.forEach(function(sr){
@@ -267,12 +328,30 @@ function lineChart(serie){
   return '<div class="tw"><svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Avance acumulado por semana, en porcentaje de la meta">'+g+lines+'</svg></div>';
 }
 
+
+function chipEstado(k){var e=ESTADOS[k.estado]||[k.estado,'neutral',''];return '<span class="chip '+e[1]+'" title="'+esc(e[2])+'">'+e[0]+'</span>';}
+
+function cualiCard(cq){
+  var tot={meta:0,real:0,ag:0,tr:0};
+  var rows=(cq||[]).map(function(r){tot.meta+=r.meta;tot.real+=r.realizadas;tot.ag+=r.agendadas;tot.tr+=r.transcritas;
+    var wr=Math.min(100,100*r.realizadas/r.meta), wp=Math.min(100-wr,100*r.agendadas/r.meta);
+    return '<div><div class="row"><span>'+esc(r.nombre)+'</span><b>'+r.realizadas+' de '+r.meta+(r.agendadas?' <span class="note">· '+r.agendadas+' agendada'+(r.agendadas>1?'s':'')+'</span>':'')+'</b></div>'+
+      '<div class="meter dual" data-tip="'+esc(r.nombre)+': '+r.realizadas+' realizadas ('+r.transcritas+' transcritas), '+r.agendadas+' agendadas, meta '+r.meta+'"><i style="width:'+wr+'%;background:var(--accent)"></i><i style="width:'+wp+'%;background:var(--accent);opacity:.3"></i></div></div>';}).join('');
+  return '<div class="card"><h2>Avance cualitativo</h2><p class="hint">Aplicaciones realizadas frente al plan de la Tabla 7.3 del Informe 1: 22 entrevistas y 8 grupos focales. La barra clara son las agendadas.</p>'+
+    '<div class="legend"><span><i style="background:var(--accent)"></i>Realizadas</span><span><i style="background:var(--accent);opacity:.3"></i>Agendadas</span></div>'+rows+
+    '<p class="note">Total: <b>'+tot.real+'</b> realizadas (<b>'+tot.tr+'</b> con transcripción) y <b>'+tot.ag+'</b> agendadas, de '+tot.meta+'.</p></div>';
+}
+
 function vResumen(a,cliente){
-  var corte=corteDe(a.semana,a.cortes);
-  var h='<div class="grid g2">'+grupoCard('T',a.porGrupo.T,corte,'var(--s1)',cliente)+grupoCard('C',a.porGrupo.C,corte,'var(--s2)',cliente)+'</div>';
+  var corte=corteDe(a.semana,a.cortes), h='';
+  var p=a.prioridad;
+  if(!cliente && p && (p.mujeres_T||p.mujeres_C||p.comparacion_atrasada)){
+    var msg=[]; if(p.mujeres_T)msg.push('mujeres bajo 40% en usuarios'); if(p.mujeres_C)msg.push('mujeres bajo 40% en comparación'); if(p.comparacion_atrasada)msg.push('el grupo de comparación va más atrasado que el de usuarios');
+    h+='<div class="banner warn"><b>Prioridad en la cola (Tabla 8.5):</b> '+esc(msg.join('; '))+'. Los casos afectados aparecen marcados en Derivaciones.</div>';
+  }
+  h+='<div class="grid g2">'+grupoCard('T',a.porGrupo.T,corte,'var(--s1)')+grupoCard('C',a.porGrupo.C,corte,'var(--s2)')+'</div>';
   h+='<div class="card"><h2>Avance acumulado</h2><p class="hint">Porcentaje de la meta de cada grupo (700 y 600). Las marcas negras son los umbrales de los cortes semanales: 25% en S6, 50% en S7, 80% en S8 y cierre en S9.</p>'+
     '<div class="legend"><span><i style="background:var(--s1)"></i>Usuarios</span><span><i style="background:var(--s2)"></i>Comparación</span></div>'+lineChart(a.serie)+'</div>';
-  // Por startup
   var maxv=1; a.startups.forEach(function(r){[r.T,r.C,r.refT,r.refC].forEach(function(v){if(typeof v==='number'&&v>maxv)maxv=v;});});
   var rows=a.startups.map(function(r){
     var bT=typeof r.T==='number'?r.T:0,bC=typeof r.C==='number'?r.C:0;
@@ -281,97 +360,203 @@ function vResumen(a,cliente){
   }).join('');
   h+='<div class="card"><h2>Por solución</h2><p class="hint">Encuestas completas frente a la distribución referencial del Informe 1 (Tabla 7.2). La distribución por solución orienta el contacto; no es una cuota.</p>'+
     '<div class="tw"><table><thead><tr><th>Solución</th><th class="n">Usuarios</th><th class="n">Ref.</th><th class="n">Comparación</th><th class="n">Ref.</th><th>Avance</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
-  // Modo y derivación
   var mo=a.modos, tot=[mo.web,mo.telefono,mo.presencial].reduce(function(s,v){return s+(typeof v==='number'?v:0);},0)||1;
   var mb=[['Web','web','var(--s1)'],['Teléfono','telefono','var(--s2)'],['Presencial','presencial','var(--s3)']].map(function(x){
     var v=mo[x[1]],w=typeof v==='number'?100*v/tot:0;
     return '<div><div class="row"><span>'+x[0]+'</span><b>'+num(v)+(typeof v==='number'?' · '+Math.round(w)+'%':'')+'</b></div><div class="meter"><i style="width:'+w+'%;background:'+x[2]+'"></i></div></div>';
   }).join('');
+  var ru=a.rutas||{A:{},B:{}};
+  mb+='<p class="note" style="margin-top:12px">Por origen: <b>'+num(ru.A.completas)+'</b> de personas en una base de datos y <b>'+num(ru.B.completas)+'</b> que llegaron por la difusión de la startup.'+
+    (cliente||ru.A.casos===undefined?'':' Base de datos: enlace enviado a '+num(ru.A.enviados)+' de '+num(ru.A.casos)+' personas.')+'</p>';
   var dv=a.deriv, en48=pct(dv.atendidas_48,dv.con_primer);
   h+='<div class="grid g2"><div class="card"><h2>Modo de aplicación</h2><p class="hint">Encuestas completas según el medio. El presencial tiene un techo de 25% de la muestra.</p>'+mb+
     '<p class="note">Presencial sobre la meta total de 1.300: <b>'+(typeof mo.presencial==='number'?Math.round(100*mo.presencial/1300)+'%':num(mo.presencial))+'</b> (techo 25%).</p></div>'+
-    '<div class="card"><h2>Derivaciones</h2><p class="hint">Casos que pasaron a teléfono o presencial: por solicitud de la persona, por 3 días sin respuesta web (ruta A) o por otro canal.</p>'+
-    '<div class="kpi3"><div><div class="v mono">'+num(dv.solicitudes)+'</div><div class="l">pidieron otro medio</div></div><div><div class="v mono">'+num(dv.saliente)+'</div><div class="l">sin respuesta web</div></div><div><div class="v mono">'+num(dv.aplicadas)+'</div><div class="l">ya aplicadas</div></div></div>'+
-    '<div class="row" style="margin-top:14px"><span>Primer intento en 48 h hábiles <b>'+(en48===null?num(dv.atendidas_48):en48+'%')+'</b></span>'+(en48===null?'':(en48>=90?'<span class="chip ok">En plazo</span>':'<span class="chip warn">Revisar tiempos</span>'))+'</div>'+
-    '<div class="row"><span>Abiertas <b>'+num(dv.abiertas)+'</b> · cerradas sin aplicar <b>'+num(dv.cerradas)+'</b></span>'+(cliente?'':(dv.vencidas>0?'<span class="chip crit">'+dv.vencidas+' fuera de plazo</span>':'<span class="chip ok">Sin atrasos</span>'))+'</div>'+
+    '<div class="card"><h2>Derivaciones</h2><p class="hint">Casos que se aplican por teléfono o en persona: porque la persona lo pidió, porque el equipo decidió llamar a alguien de una base, o porque llegó por otro canal (WhatsApp, sesión de la startup).</p>'+
+    '<div class="kpi3"><div><div class="v mono">'+num(dv.solicitudes)+'</div><div class="l">pidieron otro medio</div></div><div><div class="v mono">'+num(dv.seguimiento)+'</div><div class="l">de una base, pasados a llamada</div></div><div><div class="v mono">'+num(dv.otros)+'</div><div class="l">otros canales</div></div></div>'+
+    '<div class="row" style="margin-top:14px"><span>Ya aplicadas <b>'+num(dv.aplicadas)+'</b> · abiertas <b>'+num(dv.abiertas)+'</b> · cerradas sin encuesta <b>'+num(dv.cerradas)+'</b></span></div>'+
+    '<div class="row"><span>Primer intento en 48 h hábiles <b>'+(en48===null?num(dv.atendidas_48):en48+'%')+'</b></span>'+(en48===null?'':(en48>=90?'<span class="chip ok">En plazo</span>':'<span class="chip warn">Revisar tiempos</span>'))+(cliente?'':(dv.vencidas>0?'<span class="chip crit">'+dv.vencidas+' fuera de plazo</span>':''))+'</div>'+
     '<p class="note">Autorizan ser invitadas a la fase cualitativa: <b>'+num(a.autoriza_cuali)+'</b> personas.</p></div></div>';
+  h+=cualiCard(a.cuali);
   return h;
 }
 
-function vCola(cola){
-  var f=state.filtro, list=cola.filter(function(k){
-    if(f==='vencidos')return k.sla_vencido; if(f==='telefono')return k.medio==='telefono'; if(f==='presencial')return k.medio==='presencial'; if(f==='citadas')return k.estado==='citada'; return true;});
-  list.sort(function(a,b){return (b.sla_vencido-a.sla_vencido)||((b.horas_sla||0)-(a.horas_sla||0));});
-  var fl=[['todos','Todos ('+cola.length+')'],['vencidos','Fuera de plazo ('+cola.filter(function(k){return k.sla_vencido;}).length+')'],['telefono','Teléfono'],['presencial','Presencial'],['citadas','Citas']]
-    .map(function(x){return '<button data-filtro="'+x[0]+'" aria-pressed="'+(f===x[0])+'">'+x[1]+'</button>';}).join('');
-  var rows=list.map(function(k){var e=ESTADOS[k.estado]||[k.estado,'neutral'];
-    return '<tr><td class="mono"><b>'+esc(k.id)+'</b><div class="note">'+esc(NOMBRES[k.startup]||k.startup)+' · '+(k.grupo==='C'?'comparación':(k.grupo==='T'?'usuario':'por definir'))+'</div></td>'+
-      '<td>'+esc(ORIGEN[k.origen]||k.origen)+'<div class="note">'+(k.medio==='presencial'?'Presencial':'Teléfono')+(k.franja?' · '+esc(franja(k.franja)):'')+'</div></td>'+
-      '<td><span class="chip '+e[1]+'">'+e[0]+'</span></td>'+
-      '<td class="n">'+(k.sla_vencido?'<span class="chip crit">'+k.horas_sla+' h</span>':esc(k.horas_sla)+' h')+'</td>'+
-      '<td class="n">'+k.intentos+'</td><td>'+esc(k.proxima_accion)+'</td><td class="mono">'+esc(k.tel)+'</td>'+
-      '<td><div class="acts"><a class="btn primary" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar</a><a class="btn" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar</a></div></td></tr>';
+function vBBDD(d){
+  var lista=d.bbdd||[], f=state.filtroB;
+  var filtros=[['todos','Todos',function(){return true;}],['por_enviar','Por enviar',function(k){return k.estado==='por_enviar';}],
+    ['enviado','Enlace enviado, sin respuesta',function(k){return k.estado==='enviado';}],['sugeridos','3 días o más sin respuesta',function(k){return k.estado==='enviado'&&k.dias_sin_respuesta>=3;}],
+    ['llamada','En llamada o cita',function(k){return ABIERTOS.indexOf(k.estado)>=0;}],['respondio','Respondieron',function(k){return k.estado==='completa_web'||k.estado==='aplicada';}],['cerrada','Cerrados',function(k){return k.estado==='cerrada';}]];
+  var fn=(filtros.filter(function(x){return x[0]===f;})[0]||filtros[0])[2];
+  var list=lista.filter(fn);
+  var fl=filtros.map(function(x){return '<button data-filtrob="'+x[0]+'" aria-pressed="'+(f===x[0])+'">'+x[1]+' ('+lista.filter(x[2]).length+')</button>';}).join('');
+  var nsel=Object.keys(state.sel).filter(function(k){return state.sel[k];}).length;
+  var porSt={}; lista.forEach(function(k){var s=k.startup||'—';porSt[s]=porSt[s]||{t:0,env:0,resp:0,llam:0};porSt[s].t++;if(k.mensajes>0)porSt[s].env++;if(k.estado==='completa_web'||k.estado==='aplicada')porSt[s].resp++;if(ABIERTOS.indexOf(k.estado)>=0)porSt[s].llam++;});
+  var resumen=Object.keys(porSt).map(function(s){var r=porSt[s];return '<tr><td>'+esc(NOMBRES[s]||s)+'</td><td class="n">'+r.t+'</td><td class="n">'+r.env+'</td><td class="n">'+r.resp+'</td><td class="n">'+(r.env?Math.round(100*r.resp/r.env)+'%':'—')+'</td><td class="n">'+r.llam+'</td></tr>';}).join('');
+  var rows=list.map(function(k){
+    var abierto=ABIERTOS.indexOf(k.estado)>=0, puede=k.estado==='por_enviar'||k.estado==='enviado';
+    var cont=k.mensajes?k.mensajes+' mensaje'+(k.mensajes>1?'s':'')+(k.ultimo_contacto?'<div class="note">último '+fmtFecha(k.ultimo_contacto)+'</div>':''):'<span class="note">—</span>';
+    return '<tr><td>'+(puede?'<input type="checkbox" data-sel="'+esc(k.id)+'" '+(state.sel[k.id]?'checked':'')+' aria-label="Seleccionar '+esc(k.id)+'">':'')+'</td>'+
+      '<td class="mono"><b>'+esc(k.id)+'</b><div class="note">'+esc(NOMBRES[k.startup]||k.startup)+' · '+(k.grupo==='C'?'comparación':'usuario')+'</div></td>'+
+      '<td>'+chipEstado(k)+'</td><td>'+cont+'</td>'+
+      '<td>'+(k.estado==='cerrada'?esc(CIERRE[k.codigo_resultado]||k.codigo_resultado):esc(k.proxima_accion||''))+(k.dias_sin_respuesta>=3?' <span class="chip warn">sugerido llamar</span>':'')+'</td>'+
+      '<td><div class="acts">'+(abierto||puede?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar gestión</a>':'')+
+      (abierto?'<a class="btn primary sm" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar</a>':'')+'</div></td></tr>';
   }).join('');
-  return '<div class="card"><h2>Cola de contacto</h2><p class="hint">Casos derivados a teléfono o presencial. <b>Aplicar</b> abre la misma encuesta con el caso precargado. <b>Registrar</b> abre el formulario de gestión para anotar el intento, la cita o el cierre. El caso se cierra solo cuando llega la encuesta.</p>'+
-    '<div class="filters" role="group" aria-label="Filtrar la cola">'+fl+'</div>'+
-    '<div class="tw"><table><thead><tr><th>Caso</th><th>Origen y medio</th><th>Estado</th><th class="n">Horas hábiles</th><th class="n">Intentos</th><th>Próxima acción</th><th>Teléfono</th><th></th></tr></thead><tbody>'+
-    (rows||'<tr><td colspan="8" class="note">No hay casos con este filtro.</td></tr>')+'</tbody></table></div>'+
-    '<p class="note">Plazo: primer intento dentro de 48 horas hábiles; máximo 6 intentos. Quien pide no ser contactado se cierra el mismo día. Los teléfonos solo se ven en esta vista interna.</p></div>';
+  return '<div class="card"><h2>Personas en una base de datos</h2><p class="hint">Son las personas que una startup entregó en su base. A cada una se le envía su <b>enlace personal</b> (el mismo formulario, con su código al final) y se le hace seguimiento caso a caso. No hay plazos automáticos: cuando el equipo lo decide, el caso <b>pasa a llamada</b> y aparece en Derivaciones.</p>'+
+    '<div class="toolbar"><span class="note"><b>'+nsel+'</b> seleccionado'+(nsel===1?'':'s')+'</span>'+
+    '<button class="btn primary sm" data-seg="envio"'+(nsel?'':' disabled')+'>Registrar envío del enlace</button>'+
+    '<button class="btn sm" data-seg="recordatorio"'+(nsel?'':' disabled')+'>Registrar recordatorio</button>'+
+    '<button class="btn sm" data-seg="a_llamada"'+(nsel?'':' disabled')+'>Pasar a llamada</button>'+
+    '<button class="btn ghost sm" data-selall="1">Seleccionar los visibles</button>'+
+    '<a class="btn ghost sm" target="_blank" rel="noopener" href="'+esc(d.url_planilla)+'">Abrir la planilla (enlaces personales)</a></div>'+
+    '<div class="filters" role="group" aria-label="Filtrar">'+fl+'</div>'+
+    '<div class="tw"><table><thead><tr><th></th><th>Caso</th><th>Estado</th><th>Contactos</th><th>Qué sigue</th><th></th></tr></thead><tbody>'+
+    (rows||'<tr><td colspan="6" class="note">No hay casos con este filtro. Cargue la base en la hoja «muestra» de la planilla.</td></tr>')+'</tbody></table></div>'+
+    '<p class="note">Un mensaje por día como máximo (Informe 1 §8.3). El envío se hace por WhatsApp desde el teléfono del equipo con el enlace de la columna «enlace_web»; aquí solo se registra.</p></div>'+
+    '<div class="card"><h2>Resumen por solución</h2><div class="tw"><table><thead><tr><th>Solución</th><th class="n">En la base</th><th class="n">Con enlace enviado</th><th class="n">Respondieron</th><th class="n">Respuesta</th><th class="n">En llamada</th></tr></thead><tbody>'+
+    (resumen||'<tr><td colspan="6" class="note">Sin casos.</td></tr>')+'</tbody></table></div></div>';
 }
 
-function vMuestra(m){
-  var rows=m.map(function(r){var p=r.enviados?Math.round(100*r.completas/r.enviados):0;
-    return '<tr><td>'+esc(NOMBRES[r.st]||r.st)+'</td><td class="n">'+num(r.casos)+'</td><td class="n">'+num(r.enlace)+'</td><td class="n">'+num(r.enviados)+'</td><td class="n">'+num(r.completas)+'</td><td class="n">'+p+'%</td></tr>';}).join('');
-  return '<div class="card"><h2>Muestra y envíos (ruta A)</h2><p class="hint">Casos entregados por las startups que tienen base. La ruta B (difusión por QR) no aparece aquí porque no tenemos la lista de destinatarios.</p>'+
-    '<div class="tw"><table><thead><tr><th>Solución</th><th class="n">Casos</th><th class="n">Con enlace</th><th class="n">Enviados</th><th class="n">Completas</th><th class="n">Respuesta</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
-    '<div class="grid g3">'+
-    '<div class="card"><h2>1 · Generar enlaces</h2><p class="hint">Escribe en la planilla el enlace personal de cada caso, con su código precargado.</p><button class="btn primary" data-act="enlaces">Generar enlaces</button></div>'+
-    '<div class="card"><h2>2 · Marcar envío</h2><p class="hint">Registra la fecha de envío de una ola. Desde esa fecha corren los 3 días antes de la llamada saliente.</p><label class="f">Ola<input id="ola" value="1" inputmode="numeric"></label><p></p><button class="btn" data-act="envio">Marcar envío de hoy</button></div>'+
-    '<div class="card"><h2>3 · Activar presencial</h2><p class="hint">Cuando un corte lo pide y CASATIC lo aprueba: habilita la opción presencial para una solución y un grupo.</p>'+
-    '<label class="f">Solución<select id="pres-st">'+Object.keys(NOMBRES).map(function(k){return '<option value="'+k+'">'+NOMBRES[k]+'</option>';}).join('')+'</select></label><p></p>'+
-    '<label class="f">Grupo<select id="pres-g"><option value="T">Usuarios</option><option value="C">Comparación</option></select></label><p></p><button class="btn" data-act="pres">Activar</button></div></div>';
+function vDeriv(d){
+  var lista=d.deriv||[], f=state.filtro;
+  var filtros=[['abiertas','Abiertas',function(k){return ABIERTOS.indexOf(k.estado)>=0;}],['vencidos','Fuera de plazo',function(k){return k.fuera_plazo;}],
+    ['prioridad','Prioridad',function(k){return k.prioridad&&ABIERTOS.indexOf(k.estado)>=0;}],
+    ['telefono','Teléfono',function(k){return k.medio==='telefono'&&ABIERTOS.indexOf(k.estado)>=0;}],['presencial','Presencial',function(k){return k.medio==='presencial'&&ABIERTOS.indexOf(k.estado)>=0;}],
+    ['citadas','Citas',function(k){return k.estado==='citada';}],['aplicadas','Aplicadas',function(k){return k.estado==='aplicada';}],['cerradas','Cerradas',function(k){return k.estado==='cerrada';}],['todas','Todas',function(){return true;}]];
+  var fn=(filtros.filter(function(x){return x[0]===f;})[0]||filtros[0])[2];
+  var list=lista.filter(fn).sort(function(a,b){return ((b.fuera_plazo?1:0)-(a.fuera_plazo?1:0))||((b.prioridad?1:0)-(a.prioridad?1:0))||((b.horas_primer_intento||0)-(a.horas_primer_intento||0));});
+  var fl=filtros.map(function(x){return '<button data-filtro="'+x[0]+'" aria-pressed="'+(f===x[0])+'">'+x[1]+' ('+lista.filter(x[2]).length+')</button>';}).join('');
+  var rows=list.map(function(k){
+    var abierto=ABIERTOS.indexOf(k.estado)>=0;
+    var quien=esc(NOMBRES[k.startup]||k.startup||'Solución por confirmar')+' · '+(k.grupo==='C'?'comparación':(k.grupo==='T'?'usuario':'grupo por definir'));
+    var det=[];
+    if(k.franja)det.push(esc(franja(k.franja)));
+    if(k.lugar_pedido)det.push(esc(k.lugar_pedido.replace(/_/g,' ')));
+    var res = k.estado==='aplicada' ? '<span class="mono">Kobo #'+esc(k.id_aplicacion_kobo)+'</span><div class="note">'+esc(k.fecha_aplicacion)+' · '+esc(k.modo_aplicado)+'</div>'
+      : (k.estado==='cerrada' ? esc(CIERRE[k.codigo_resultado]||k.codigo_resultado) : esc(k.proxima_accion)+(k.cita?'<div class="note">'+esc(k.cita.replace(/_/g,' '))+'</div>':''));
+    return '<tr><td class="mono"><b>'+esc(k.id)+'</b>'+(k.prioridad?' <span class="chip warn">'+esc(k.prioridad)+'</span>':'')+'<div class="note">'+quien+'</div></td>'+
+      '<td><span class="chip '+(k.medio==='presencial'?'warn':'neutral')+'">'+(k.medio==='presencial'?'Presencial':'Teléfono')+'</span><div class="note">'+esc(ORIGEN[k.origen]||k.origen)+(det.length?' · '+det.join(' · '):'')+'</div></td>'+
+      '<td>'+chipEstado(k)+(k.responsable?'<div class="note">'+esc(k.responsable)+'</div>':'')+'</td>'+
+      '<td class="n">'+(k.fuera_plazo?'<span class="chip crit">'+k.horas_primer_intento+' h</span>':esc(k.horas_primer_intento)+(k.horas_primer_intento!==''&&k.horas_primer_intento!=null?' h':''))+'</td>'+
+      '<td class="n">'+k.intentos+(k.ultimo_resultado?'<div class="note">'+esc(RESULT[k.ultimo_resultado]||k.ultimo_resultado)+'</div>':'')+'</td>'+
+      '<td>'+res+'</td>'+
+      '<td>'+(abierto?'<div class="acts"><a class="btn primary sm" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar</a><a class="btn sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar gestión</a></div>'
+        :'<a class="btn ghost sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Control de calidad</a>')+'</td></tr>';
+  }).join('');
+  var leyenda=['en_cola','asignada','en_contacto','citada','aplicada','cerrada'].map(function(e){return '<span>'+chipEstado({estado:e})+' <span class="note">'+esc(ESTADOS[e][2])+'</span></span>';}).join('');
+  return '<div class="card"><h2>Derivaciones caso a caso</h2><p class="hint">Casos que se aplican por <b>teléfono</b> o en <b>persona</b>. El medio sale de lo que la persona eligió en la encuesta, o de lo que el equipo registró en F2. <b>Aplicar</b> abre la encuesta con el código del caso ya cargado; cuando llega, el caso se cierra solo y queda el número de Kobo de esa aplicación. <b>Registrar gestión</b> abre F2 para anotar el intento, la cita o el cierre.</p>'+
+    '<div class="toolbar"><a class="btn" target="_blank" rel="noopener" href="'+esc(d.enlace_alta)+'">+ Dar de alta un caso (llegó por WhatsApp o en una sesión)</a>'+
+    '<a class="btn ghost" target="_blank" rel="noopener" href="'+esc(d.url_contactos)+'">Teléfonos (hoja de contactos)</a></div>'+
+    '<div class="filters" role="group" aria-label="Filtrar">'+fl+'</div>'+
+    '<div class="tw"><table><thead><tr><th>Caso</th><th>Medio y origen</th><th>Estado</th><th class="n">Horas al 1.<sup>er</sup> intento</th><th class="n">Intentos</th><th>Qué sigue o resultado</th><th></th></tr></thead><tbody>'+
+    (rows||'<tr><td colspan="7" class="note">No hay casos con este filtro.</td></tr>')+'</tbody></table></div>'+
+    '<div class="legend" style="margin-top:12px;flex-direction:column;gap:6px">'+leyenda+'</div>'+
+    '<p class="note">Reglas del Informe 1 (§8.2.2 y §8.3): primer intento dentro de 48 horas hábiles; máximo 6 intentos; quien pide no ser contactado sale el mismo día. Los teléfonos no se muestran aquí: están en la hoja de contactos, bajo custodia separada (§8.7 y §8.9).</p></div>';
 }
 
-function vCuali(c){
-  var cuenta={};c.forEach(function(r){cuenta[r.instrumento]=(cuenta[r.instrumento]||0)+(r.estado==='programada'?0:1);});
-  var metas=Object.keys(METAS_CUALI).map(function(k){var v=cuenta[k]||0,w=Math.min(100,100*v/METAS_CUALI[k]);
-    return '<div><div class="row"><span>'+PAUTAS[k]+'</span><b>'+v+' de '+METAS_CUALI[k]+'</b></div><div class="meter"><i style="width:'+w+'%;background:var(--accent)"></i></div></div>';}).join('');
-  var rows=c.slice().reverse().map(function(r){var e={programada:'neutral',realizada:'ok',transcrita:'ok'}[r.estado]||'neutral';
-    return '<tr><td class="mono">'+esc(r.id_app)+'</td><td>'+esc(PAUTAS[r.instrumento]||r.instrumento)+'</td><td class="mono">'+esc(r.codigo)+'</td><td>'+esc(r.fecha)+'</td><td>'+esc(r.modalidad)+'</td><td><span class="chip '+e+'">'+esc(r.estado)+'</span></td><td><a class="btn" target="_blank" rel="noopener" href="'+esc(r.doc_url)+'">Notas</a></td></tr>';}).join('');
-  return '<div class="grid g2"><div class="card"><h2>Avance cualitativo</h2><p class="hint">Aplicaciones realizadas frente a lo previsto en el Informe 1 (Tabla 7.3): 22 entrevistas y 8 grupos focales.</p>'+metas+'</div>'+
-    '<div class="card"><h2>Nueva aplicación</h2><p class="hint">Crea el registro y un documento de notas en la carpeta del proyecto en Drive. Use un código seudónimo, nunca el nombre de la persona.</p>'+
-    '<form class="cuali" id="f-cuali"><label class="f">Instrumento<select id="c-inst">'+Object.keys(PAUTAS).map(function(k){return '<option value="'+k+'">'+k+' · '+PAUTAS[k]+'</option>';}).join('')+'</select></label>'+
-    '<label class="f">Código del informante<input id="c-cod" placeholder="E3-QXM-01" required></label>'+
-    '<label class="f">Tipo de informante<input id="c-inf" placeholder="Fundador/a, gerente…"></label>'+
-    '<label class="f">Fecha<input id="c-fecha" type="date"></label>'+
-    '<label class="f">Modalidad<select id="c-mod"><option>virtual</option><option>presencial</option></select></label>'+
-    '<label class="f">Responsable<input id="c-resp" placeholder="Iniciales"></label>'+
-    '<div><button class="btn primary" type="submit">Crear aplicación y notas</button></div></form></div></div>'+
-    '<div class="card"><h2>Aplicaciones</h2><div class="tw"><table><thead><tr><th>Código</th><th>Instrumento</th><th>Informante</th><th>Fecha</th><th>Modalidad</th><th>Estado</th><th></th></tr></thead><tbody>'+
-    (rows||'<tr><td colspan="7" class="note">Aún no hay aplicaciones registradas.</td></tr>')+'</tbody></table></div></div>';
+function vDifusion(d){
+  var dif=(d.difusion||[]).map(function(r){
+    return '<tr><td>'+esc(r.nombre)+'</td><td><code class="link">'+esc(r.enlace)+'</code></td><td><button class="btn sm" data-copiar="'+esc(r.enlace)+'">Copiar</button></td></tr>';}).join('');
+  return '<div class="card"><h2>Personas sin base de datos: la startup difunde</h2><p class="hint">Cuando una startup no entrega su base, no sabemos quiénes son sus usuarios. La startup comparte la invitación con su propia voz y cada persona entra por un enlace o un QR.</p>'+
+    '<div class="banner warn" style="background:var(--sunk)"><b>¿Por qué un enlace por startup?</b> Es el único dato que nos dice por qué startup llegó la persona, sin pedirle datos personales. Permite medir cuánto responde cada startup, hacer su propio QR y su pieza de difusión, y verificar la pertenencia declarada (Informe 1 §8.2.1 y §8.6). El enlace es siempre el mismo: no hay que generar nada ni registrar envíos.</div>'+
+    '<div class="tw" style="margin-top:12px"><table><thead><tr><th>Solución</th><th>Enlace para difundir</th><th></th></tr></thead><tbody>'+dif+'</tbody></table></div>'+
+    '<p class="note">La encuesta asigna el grupo (usuario o comparación) con las preguntas filtro. Quien pide otro medio queda en Derivaciones con un código RB.</p></div>';
+}
+
+function vCuali(d){
+  var C=d.cuali||{cupos:[],apps:[],eventos:[]}, PAU={}; (d.agg.cuali||[]).forEach(function(r){PAU[r.inst]=r.nombre;});
+  var vig={}; C.apps.forEach(function(a){if(a.estado!=='cancelada')vig[a.id_cupo]=a;});
+  var hist={}; C.eventos.forEach(function(e){(hist[e.id_app]=hist[e.id_app]||[]).push(e);});
+  var eq=(d.equipo||[]).map(function(n){return '<option>'+esc(n)+'</option>';}).join('');
+  var hoy=new Date().toISOString().slice(0,10);
+  var grupos={}; C.cupos.forEach(function(c){(grupos[c.instrumento]=grupos[c.instrumento]||[]).push(c);});
+  var html=Object.keys(grupos).map(function(inst){
+    var filas=grupos[inst].map(function(c){
+      var a=vig[c.id_cupo], abierto=state.abiertoCupo===c.id_cupo, tipos=String(c.tipos_informante||'').split('|').filter(Boolean);
+      var estado=a?CUALI_ESTADO[a.estado]||[a.estado,'neutral']:['Libre','neutral'];
+      var info=a?'<span class="mono">'+esc(a.codigo)+'</span><div class="note">'+fmtDia(a.fecha_programada)+' · '+esc(a.modalidad)+' · '+esc(a.responsable)+'</div>':'<span class="note">Sin agendar</span>';
+      var acc='';
+      if(!a) acc='<button class="btn primary sm" data-abrir="'+esc(c.id_cupo)+'">Agendar</button>';
+      else if(a.estado==='agendada') acc='<div class="acts"><button class="btn primary sm" data-doc="'+esc(a.id_app)+'">'+(a.doc_notas?'Abrir notas':'Aplicar (crear notas)')+'</button><button class="btn sm" data-abrir="'+esc(c.id_cupo)+'">Actualizar</button></div>';
+      else if(a.estado==='realizada') acc='<div class="acts"><a class="btn sm" target="_blank" rel="noopener" href="'+esc(a.doc_notas||'#')+'">Notas</a><button class="btn primary sm" data-abrir="'+esc(c.id_cupo)+'">Vincular transcripción</button></div>';
+      else acc='<div class="acts"><a class="btn sm" target="_blank" rel="noopener" href="'+esc(a.doc_notas||'#')+'">Notas</a><a class="btn sm" target="_blank" rel="noopener" href="'+esc(a.transcripcion||'#')+'">Transcripción</a></div>';
+      var panel='';
+      if(abierto){
+        if(!a) panel='<div class="mini" style="margin-top:10px"><label class="f">Tipo de informante<select id="ci-tipo">'+tipos.map(function(t){return '<option>'+esc(t)+'</option>';}).join('')+'</select></label>'+
+          '<label class="f">Fecha<input type="date" id="ci-fecha" min="'+hoy+'"></label><label class="f">Modalidad<select id="ci-mod"><option>virtual</option><option>presencial</option></select></label>'+
+          '<label class="f">Responsable<select id="ci-resp">'+eq+'</select></label><button class="btn primary sm" data-agendar="'+esc(c.id_cupo)+'">Guardar</button><button class="btn ghost sm" data-abrir="">Cerrar</button></div>'+
+          '<p class="note">El código seudónimo se arma solo (cupo + número, p. ej. '+esc(c.id_cupo)+'-1). Reemplaza el nombre del informante en todos los registros.</p>';
+        else if(a.estado==='agendada') panel='<div class="mini" style="margin-top:10px"><input type="date" id="cu-fecha" min="'+hoy+'"><button class="btn sm" data-act-cuali="reagendar" data-id="'+esc(a.id_app)+'">Reagendar</button>'+
+          '<input id="cu-motivo" placeholder="Motivo de la cancelación"><button class="btn ghost sm" data-act-cuali="cancelar" data-id="'+esc(a.id_app)+'">Cancelar</button>'+
+          '<button class="btn primary sm" data-act-cuali="realizada" data-id="'+esc(a.id_app)+'">Marcar realizada</button></div>';
+        else if(a.estado==='realizada') panel='<div class="mini" style="margin-top:10px"><input id="cu-link" placeholder="Enlace de Drive a la transcripción" style="width:320px"><button class="btn primary sm" data-act-cuali="transcripcion" data-id="'+esc(a.id_app)+'">Vincular</button></div>';
+        var h=(a&&hist[a.id_app])||[];
+        if(h.length) panel+='<div class="note" style="margin-top:8px"><b>Historial</b><br>'+h.map(function(e){return fmtFecha(e.fecha)+' · '+esc(e.evento)+(e.detalle?' · '+esc(String(e.detalle).slice(0,80)):'')+' · '+esc(String(e.quien).split('@')[0]);}).join('<br>')+'</div>';
+      }
+      return '<tr><td class="mono">'+esc(c.id_cupo)+'</td><td>'+esc(c.descripcion)+'</td><td><span class="chip '+estado[1]+'">'+estado[0]+'</span></td><td>'+info+'</td><td>'+acc+panel+'</td></tr>';
+    }).join('');
+    return '<div class="card"><h2>'+esc(PAU[inst]||inst)+'</h2><div class="tw"><table><thead><tr><th>Cupo</th><th>Qué cubre</th><th>Estado</th><th>Aplicación</th><th></th></tr></thead><tbody>'+filas+'</tbody></table></div></div>';
+  }).join('');
+  return '<div class="grid g2">'+cualiCard(d.agg.cuali)+
+    '<div class="card"><h2>Cómo funciona</h2><p class="hint">Cada fila es un <b>cupo</b> del plan (Tabla 7.3). El avance se mide contra ese plan.</p>'+
+    '<ol class="note" style="padding-left:18px;line-height:1.7"><li><b>Agendar</b> un cupo libre: tipo de informante, fecha, modalidad y responsable.</li>'+
+    '<li><b>Aplicar</b>: crea el documento de notas desde la pauta, en la carpeta del proyecto en Drive.</li>'+
+    '<li><b>Actualizar</b>: reagendar, cancelar (el cupo queda libre) o marcar realizada. Cada cambio queda en el historial.</li>'+
+    '<li><b>Vincular transcripción</b>: se pega el enlace de Drive. Solo entonces queda «transcrita».</li></ol></div></div>'+html;
+}
+
+function barras(obj,etiquetas,color,base,cliente){
+  var cats=obj.cats||{}, keys=Object.keys(etiquetas);
+  if(!keys.some(function(k){return cats[k]!==undefined;})) return '<p class="note">Menos de 5 respuestas: aún no se muestra.</p>';
+  var max=1; keys.forEach(function(k){if(typeof cats[k]==='number'&&cats[k]>max)max=cats[k];});
+  return keys.map(function(k){var v=cats[k], p=typeof v==='number'&&base?Math.round(100*v/base):null;
+    return '<div class="hb"><span>'+esc(etiquetas[k])+'</span><div class="meter"><i style="width:'+(typeof v==='number'?100*v/max:0)+'%;background:'+color+'"></i></div><b class="mono">'+(p===null?num(v):p+'%')+'</b></div>';}).join('');
+}
+function vIndic(a,cliente){
+  var I=a.indicadores; if(!I) return '<div class="card"><p class="note">Sin indicadores.</p></div>';
+  function top(o,n){var c=o.cats||{};var ks=Object.keys(c).filter(function(k){return k!=='ninguna'&&k!=='ninguno';}).sort(function(x,y){return (typeof c[y]==='number'?c[y]:0)-(typeof c[x]==='number'?c[x]:0);}).slice(0,n);var r={};ks.forEach(function(k){r[k]=L[k]||k;});return r;}
+  var L={celular:'Celular propio limitado',datos:'Costo de datos o señal',app:'Dificultad con la app',requisitos:'Papeles o requisitos',tiempo:'Falta de tiempo',desconfianza:'Desconfianza',atencion:'Poca atención de la startup',lectura:'Dificultad para leer',costo:'Costo del servicio',
+    seg_medico:'Seguro médico',seg_accidentes:'Seguro de accidentes',seg_vehiculo:'Seguro de vehículo',seg_terceros:'Seguro por daños a terceros',capacitacion:'Capacitación',legal:'Representación legal',contabilidad:'Contabilidad',credito:'Crédito',ahorro:'Ahorro',pagos:'Pagos electrónicos',asesoria:'Asesoría para el negocio'};
+  var CAMB={mejoro:'Mejoró',igual:'Sigue igual',empeoro:'Empeoró'};
+  var sat=I.satisfaccion, s45=(typeof sat.cats['4']==='number'&&typeof sat.cats['5']==='number'&&sat.base)?Math.round(100*(sat.cats['4']+sat.cats['5'])/sat.base):null;
+  var rec=I.recomienda, pr=(typeof rec.cats.si==='number'&&rec.base)?Math.round(100*rec.cats.si/rec.base):null;
+  var h='<div class="banner warn"><b>Resultados preliminares.</b> Se calculan con las encuestas completas hasta hoy, sin ponderar y con el campo abierto. Sirven para monitorear; no son hallazgos de la evaluación'+(cliente?'':' y no deben citarse fuera del equipo')+'.</div>';
+  h+='<div class="grid g2"><div class="card"><div class="eyebrow">Usuarios · satisfacción con el servicio</div><div class="big mono">'+(s45===null?'—':s45+'%')+' <small>satisfechos o muy satisfechos</small></div><p class="note">Base: '+num(sat.base)+' usuarios (pregunta m5_01).</p></div>'+
+    '<div class="card"><div class="eyebrow">Usuarios · recomendarían la solución</div><div class="big mono">'+(pr===null?'—':pr+'%')+' <small>dicen que sí</small></div><p class="note">Base: '+num(rec.base)+' usuarios (pregunta m5_04).</p></div></div>';
+  h+='<div class="card"><h2>Cambios percibidos desde que usa el servicio</h2><p class="hint">Solo usuarios (pregunta m5_03). Es la percepción declarada, no una medición del efecto.</p><div class="grid g3">'+
+    [['Ingresos','cambio_ingresos'],['Protección (salud, seguros, ahorro)','cambio_proteccion'],['Trabajo (clientes, condiciones)','cambio_trabajo']].map(function(x){
+      return '<div><div class="eyebrow">'+x[0]+'</div>'+barras(I[x[1]],CAMB,'var(--s1)',I[x[1]].base,cliente)+'<p class="note">Base: '+num(I[x[1]].base)+'</p></div>';}).join('')+'</div></div>';
+  h+='<div class="grid g2"><div class="card"><h2>Barrera principal</h2><p class="hint">Todas las personas (pregunta m3_02). Las cinco más mencionadas.</p>'+barras(I.barrera,top(I.barrera,5),'var(--s2)',I.barrera.base,cliente)+'<p class="note">Base: '+num(I.barrera.base)+'</p></div>'+
+    '<div class="card"><h2>Piensa adquirir en los próximos 12 meses</h2><p class="hint">Todas las personas (pregunta m6_01, respuesta múltiple). Los cinco más mencionados.</p>'+barras(I.intencion,top(I.intencion,5),'var(--s3)',I.intencion.base,cliente)+'<p class="note">Base: '+num(I.intencion.base)+'</p></div></div>';
+  return h;
 }
 
 // ---------------- EVENTOS ----------------
 document.addEventListener('click',function(e){
-  var t=e.target.closest('[data-tab],[data-vista],[data-filtro],[data-act],#btn-sync'); if(!t)return;
+  var t=e.target.closest('[data-tab],[data-vista],[data-filtro],[data-filtrob],[data-seg],[data-selall],[data-abrir],[data-agendar],[data-act-cuali],[data-doc],[data-copiar],#btn-sync'); if(!t)return;
   if(t.dataset.tab){state.tab=t.dataset.tab;render();}
   else if(t.dataset.vista){state.vista=t.dataset.vista;render();}
   else if(t.dataset.filtro){state.filtro=t.dataset.filtro;render();}
-  else if(t.id==='btn-sync'){call('sincronizar',[],function(){cargar();});}
-  else if(t.dataset.act==='enlaces'){call('generarEnlaces',[]);}
-  else if(t.dataset.act==='envio'){call('marcarEnvio',[document.getElementById('ola').value]);}
-  else if(t.dataset.act==='pres'){call('activarPresencial',[document.getElementById('pres-st').value,document.getElementById('pres-g').value]);}
+  else if(t.dataset.filtrob){state.filtroB=t.dataset.filtrob;render();}
+  else if(t.dataset.selall){document.querySelectorAll('[data-sel]').forEach(function(c){state.sel[c.dataset.sel]=true;});render();}
+  else if(t.dataset.seg){var ids=Object.keys(state.sel).filter(function(k){return state.sel[k];}); if(!ids.length)return;
+    call('registrarSeguimiento',[ids,t.dataset.seg,''],function(){state.sel={};cargar();});}
+  else if(t.dataset.abrir!==undefined){state.abiertoCupo=(state.abiertoCupo===t.dataset.abrir)?'':t.dataset.abrir;render();}
+  else if(t.dataset.agendar){call('agendarCuali',[{id_cupo:t.dataset.agendar,tipo_informante:val('ci-tipo'),fecha:val('ci-fecha'),modalidad:val('ci-mod'),responsable:val('ci-resp')}],function(){state.abiertoCupo='';cargar();});}
+  else if(t.dataset.actCuali){var a=t.dataset.actCuali, v=a==='reagendar'?val('cu-fecha'):(a==='cancelar'?val('cu-motivo'):(a==='transcripcion'?val('cu-link').trim():''));
+    call('actualizarCuali',[t.dataset.id,a,v],function(){state.abiertoCupo='';cargar();});}
+  else if(t.dataset.doc){ if(!hasGAS){toast('En la maqueta los botones no ejecutan acciones.');return;}
+    var w=window.open('about:blank','_blank'); toast('Preparando el documento de notas…');
+    google.script.run.withSuccessHandler(function(url){if(w)w.location=url;cargar();}).withFailureHandler(function(err){if(w)w.close();toast(err.message);}).docNotasCuali(t.dataset.doc);}
+  else if(t.dataset.copiar){ (navigator.clipboard?navigator.clipboard.writeText(t.dataset.copiar):Promise.reject()).then(function(){toast('Enlace copiado.');},function(){toast('No se pudo copiar: selecciónelo a mano.');}); }
+  else if(t.id==='btn-sync'){toast('Sincronizando con Kobo…');call('sincronizar',[],function(){cargar();});}
 });
-document.addEventListener('submit',function(e){
-  if(e.target.id!=='f-cuali')return; e.preventDefault();
-  var a={instrumento:val('c-inst'),codigo:val('c-cod'),informante:val('c-inf'),fecha:val('c-fecha'),modalidad:val('c-mod'),responsable:val('c-resp')};
-  call('crearAplicacionCuali',[a],function(r){cargar(); if(r&&r.url) toast('Creada: '+r.id);});
-});
+document.addEventListener('change',function(e){ if(e.target.dataset&&e.target.dataset.sel!==undefined){state.sel[e.target.dataset.sel]=e.target.checked;render();} });
+
 function val(id){return document.getElementById(id).value;}
 function bindTips(){
   var tip=document.getElementById('tip');
   document.querySelectorAll('[data-tip]').forEach(function(el){
-    el.addEventListener('mouseenter',function(ev){tip.textContent=el.getAttribute('data-tip');tip.hidden=false;});
+    el.addEventListener('mouseenter',function(){tip.textContent=el.getAttribute('data-tip');tip.hidden=false;});
     el.addEventListener('mousemove',function(ev){tip.style.left=Math.min(ev.clientX+12,window.innerWidth-240)+'px';tip.style.top=(ev.clientY+12)+'px';});
     el.addEventListener('mouseleave',function(){tip.hidden=true;});
   });
