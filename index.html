@@ -146,6 +146,53 @@ tbody tr:nth-child(even) td{background:rgba(243,248,232,.6)}
 .kpi3 div{border-left:4px solid var(--clio-verde);border-radius:0 10px 10px 0}
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) th{background:#22384F} :root:not([data-theme="light"]) tbody tr:nth-child(even) td{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .btn.primary{background:var(--accent);border-color:var(--accent);color:#0E1822}}
 :root[data-theme="dark"] th{background:#22384F} :root[data-theme="dark"] tbody tr:nth-child(even) td{background:rgba(255,255,255,.03)} :root[data-theme="dark"] .btn.primary{background:var(--accent);border-color:var(--accent);color:#0E1822}
+
+/* v4: lectura simple, plegables, bandeja por etapas, tabla de gestión y ventana emergente */
+.lectura{margin:0;font-size:13.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--clio-teal);border-radius:0 10px 10px 0;padding:10px 14px}
+header.top .pill{white-space:normal;max-width:100%}
+.meta{min-width:0;max-width:100%}
+.card.tres .quien{margin:2px 0 10px;font-size:13px;color:var(--muted)}
+.card.tres .frase{margin:10px 0 10px;font-size:14px;line-height:1.45}
+details.fold{padding:0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary .st{display:block;font-family:var(--display);font-weight:400;font-size:17px;color:var(--ink)}
+details.fold>summary .chev{font-size:22px;color:var(--clio-teal);transition:transform .2s}
+details.fold[open]>summary .chev{transform:rotate(90deg)}
+details.fold>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:12px}
+.fold-b{padding:0 20px 18px}
+.h3{font-family:var(--display);font-weight:400;font-size:15px;margin:4px 0 10px;color:var(--clio-teal)}
+.cardhead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.viewswitch.light{background:var(--sunk)}
+.pasos{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;margin-top:6px}
+.paso{font:inherit;display:flex;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer;min-width:140px;flex:1}
+.paso b{display:block;font-weight:500;font-size:13.5px}
+.paso .pn{width:24px;height:24px;border-radius:50%;background:var(--sunk);color:var(--ink-2);display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;flex:none}
+.paso[aria-pressed="true"]{border-color:var(--clio-azul);box-shadow:inset 0 -3px 0 var(--clio-verde)}
+.paso[aria-pressed="true"] .pn{background:var(--clio-azul);color:#fff}
+.flecha{align-self:center;color:var(--muted)}
+@media(max-width:820px){.flecha{display:none}.paso{min-width:calc(50% - 6px)}}
+.masa{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 12px;border-radius:10px;background:var(--sunk);margin:10px 0 12px;font-size:13.5px}
+.masa.on{background:var(--accent-soft);outline:1px solid var(--accent-line)}
+th.ck,td.ck{width:34px;text-align:center}
+.link-caso{font:inherit;font-weight:600;background:none;border:0;padding:0;color:var(--clio-teal);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+tr.clic{cursor:pointer} tr.clic:hover td{background:var(--accent-soft)!important}
+.filtros{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;align-items:end;margin-bottom:12px}
+table.densa{font-size:12.5px} table.densa td,table.densa th{padding:7px 8px}
+button.sort{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-transform:inherit;letter-spacing:inherit;white-space:nowrap}
+dialog#modal{border:0;border-radius:14px;padding:0;width:min(720px,calc(100% - 24px));max-height:calc(100vh - 40px);background:var(--surface);color:var(--ink);box-shadow:0 30px 80px -20px rgba(30,47,66,.55)}
+dialog#modal::backdrop{background:rgba(30,47,66,.55)}
+#modal-b{padding:22px 24px 24px;overflow:auto;max-height:calc(100vh - 40px)}
+dialog#modal .x{position:absolute;top:10px;right:12px;font-size:22px;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:6px}
+.mhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:3px solid var(--clio-teal);padding-bottom:10px;margin-bottom:14px;padding-right:28px}
+.mhead h2{margin:2px 0 0;font-family:var(--display);font-weight:400;font-size:22px}
+dl.datos{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px 16px;margin:0}
+dl.datos dt{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)} dl.datos dd{margin:2px 0 0;font-size:14px}
+ul.hist{margin:0;padding-left:18px;font-size:13px;line-height:1.75}
+.link-caso,table.densa td{white-space:nowrap}
+main a:not(.btn),#modal a:not(.btn){color:var(--clio-teal)}
+.bloque{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}
+.bloque .h3{margin-top:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -164,6 +211,7 @@ tbody tr:nth-child(even) td{background:rgba(243,248,232,.6)}
 <main><div class="wrap" id="app"><p class="note">Cargando…</p></div></main>
 <div class="tip" id="tip" hidden></div>
 <div class="toast" id="toast" hidden></div>
+<dialog id="modal" aria-label="Ficha"><button class="x" data-cerrar="1" aria-label="Cerrar">×</button><div id="modal-b"></div></dialog>
 
 <script>
 (function(){
@@ -187,7 +235,7 @@ var CIERRE = {completa:'Completa',parcial:'Parcial',rechaza:'Rechaza',no_contact
 var RESULT = {no_contesta:'No contesta',ocupado:'Ocupado o buzón',volver_llamar:'Volver a llamar',numero_errado:'Número errado',aplica_ahora:'Aplicó',agenda:'Agendó cita',rechaza:'Rechaza'};
 var ABIERTOS = ['en_cola','asignada','en_contacto','citada'];
 var CUALI_ESTADO = {agendada:['Agendada','neutral'],realizada:['Realizada · falta transcripción','warn'],transcrita:['Transcrita','ok'],cancelada:['Cancelada','crit']};
-var state = {tab:'resumen', filtro:'abiertas', filtroB:'todos', sel:{}, abiertoCupo:'', vista: (MODO === 'cliente' || MODO === 'publico') ? 'cliente' : 'interno', data:null, ficticio:false};
+var state = {tab:'resumen', filtro:'abiertas', filtroB:'todos', sel:{}, abiertoCupo:'', vistaB:'bandeja', etapa:'por_enviar', fb:{}, orden:{k:'id',dir:1}, fAgenda:'proximas', fCupo:'', plegados:{}, modal:null, vista: (MODO === 'cliente' || MODO === 'publico') ? 'cliente' : 'interno', data:null, ficticio:false};
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function num(x){return typeof x==='number'?x.toLocaleString('es-SV'):esc(x);}
@@ -221,12 +269,18 @@ function demo(){
     k({id:'RB-3318',startup:'',grupo:'',origen:'solicitud',medio:'telefono',estado:'en_cola',horas_primer_intento:9,proxima_accion:'Asignar y hacer el primer intento',franja:'lv · noche'}),
     k({id:'SUB-0288',enMuestra:true,startup:'sub',grupo:'C',origen:'solicitud',medio:'telefono',estado:'aplicada',intentos:2,horas_primer_intento:4,id_aplicacion_kobo:48213,fecha_aplicacion:'06-10 18:40',modo_aplicado:'telefono',codigo_resultado:'completa',responsable:'enc01'}),
     k({id:'RB-3290',startup:'',grupo:'',origen:'solicitud',medio:'telefono',estado:'cerrada',intentos:6,horas_primer_intento:30,codigo_resultado:'no_contactable',responsable:'enc03'})];
+  var hace=function(n){return new Date(Date.now()-n*864e5).toISOString();};
+  var H=function(pares){return pares.map(function(p){return {f:hace(p[0]),que:p[1],quien:p[2]||'coord'};});};
   var bbdd=[
-    k({id:'SOS-0101',enMuestra:true,startup:'sos',grupo:'T',estado:'por_enviar',proxima_accion:'Enviar el enlace personal'}),
-    k({id:'SOS-0102',enMuestra:true,startup:'sos',grupo:'C',estado:'enviado',mensajes:1,dias_sin_respuesta:1,ultimo_contacto:new Date(Date.now()-864e5).toISOString(),proxima_accion:'Esperar respuesta (1 días)'}),
-    k({id:'SOS-0103',enMuestra:true,startup:'sos',grupo:'T',estado:'enviado',mensajes:2,dias_sin_respuesta:5,ultimo_contacto:new Date(Date.now()-5*864e5).toISOString(),proxima_accion:'5 días sin respuesta: enviar recordatorio o pasar a llamada'}),
-    k({id:'FIA-0110',enMuestra:true,startup:'fia',grupo:'T',estado:'completa_web',mensajes:1,id_aplicacion_kobo:48001}),
+    k({id:'SOS-0101',enMuestra:true,startup:'sos',grupo:'T',subgrupo:'T_ant',sexo:'m',estado:'por_enviar',proxima_accion:'Enviar el enlace personal'}),
+    k({id:'SOS-0104',enMuestra:true,startup:'sos',grupo:'C',subgrupo:'C',sexo:'h',estado:'por_enviar',proxima_accion:'Enviar el enlace personal'}),
+    k({id:'JOB-0201',enMuestra:true,startup:'job',grupo:'T',subgrupo:'T_rec',sexo:'m',estado:'por_enviar',proxima_accion:'Enviar el enlace personal'}),
+    k({id:'SOS-0102',enMuestra:true,startup:'sos',grupo:'C',subgrupo:'C',sexo:'m',estado:'enviado',mensajes:1,envios:1,recordatorios:0,dias_sin_respuesta:1,ultimo_contacto:hace(1),primer_envio:hace(1),proxima_accion:'Esperar respuesta (1 días)',historial:H([[1,'Enlace enviado']])}),
+    k({id:'SOS-0103',enMuestra:true,startup:'sos',grupo:'T',subgrupo:'T_ant',sexo:'h',estado:'enviado',mensajes:2,envios:1,recordatorios:1,dias_sin_respuesta:5,ultimo_contacto:hace(5),primer_envio:hace(9),proxima_accion:'5 días sin respuesta: enviar recordatorio o pasar a llamada',historial:H([[9,'Enlace enviado'],[5,'Recordatorio']])}),
+    k({id:'JOB-0207',enMuestra:true,startup:'job',grupo:'C',subgrupo:'C',sexo:'m',estado:'enviado',mensajes:1,envios:1,recordatorios:0,dias_sin_respuesta:3,ultimo_contacto:hace(3),primer_envio:hace(3),proxima_accion:'3 días sin respuesta: enviar recordatorio o pasar a llamada',historial:H([[3,'Enlace enviado']])}),
+    k({id:'FIA-0110',enMuestra:true,startup:'fia',grupo:'T',subgrupo:'T_rec',sexo:'m',estado:'completa_web',mensajes:1,envios:1,id_aplicacion_kobo:48001,ultimo_contacto:hace(6),historial:H([[6,'Enlace enviado'],[5,'F1 · completa · web','']])}),
     deriv[0],deriv[1],deriv[3],deriv[5]];
+  [deriv[0],deriv[1],deriv[3],deriv[5]].forEach(function(x,i){x.envios=x.envios||1;x.recordatorios=x.recordatorios||(i%2);x.sexo=x.sexo||(i%2?'m':'h');x.subgrupo=x.subgrupo||x.grupo;x.ultimo_contacto=x.ultimo_contacto||hace(4+i);x.historial=x.historial||H([[8,'Enlace enviado'],[4,'Pasado a llamada'],[3,'F2 · asignacion · '+(x.responsable||'enc01'),'coord'],[2,'F2 · intento · no_contesta','enc01']]);});
   var cupos=[['E1-DIR','E1','CASATIC · Dirección','Dirección'],['E1-C1','E1','CASATIC · Componente 1','Responsable de componente'],['E3-SOS','E3','Solución · Sostengo','Fundador/a o gerente|Responsable de operación'],['E3-FIA','E3','Solución · Fiado','Fundador/a o gerente|Responsable de operación'],['GFU-A-M','GFU','Usuarias · Plataformas digitales · mujeres','Grupo de 6 a 10 participantes']]
     .map(function(r){return {id_cupo:r[0],instrumento:r[1],descripcion:r[2],tipos_informante:r[3]};});
   var apps=[{id_app:'E1-DIR-1',id_cupo:'E1-DIR',instrumento:'E1',codigo:'E1-DIR-1',tipo_informante:'Dirección',fecha_programada:'2026-10-05',modalidad:'virtual',responsable:'Dirección',estado:'transcrita',doc_notas:'#',transcripcion:'#'},
@@ -270,11 +324,12 @@ function render(){
     var chip = t[0]==='deriv' ? ' <span class="chip '+(d.agg.deriv.vencidas>0?'crit':'neutral')+'">'+ab+'</span>' : '';
     return '<button role="tab" id="tab-'+t[0]+'" aria-selected="'+(state.tab===t[0])+'" data-tab="'+t[0]+'">'+t[1]+chip+'</button>';
   }).join('');
-  var m='<span class="pill">Semana <b>S'+d.agg.semana+'</b></span><span class="pill">Actualizado <b>'+esc(fmtFecha(d.ultima))+'</b></span>';
+  var prox=new Date(new Date(d.ultima).getTime()+2*3600e3);
+  var m='<span class="pill">Semana <b>S'+d.agg.semana+'</b></span><span class="pill" title="Kobo se lee solo cada 2 horas">Datos de Kobo al <b>'+esc(fmtFecha(d.ultima))+'</b>'+(MODO==='publico'?'':' · se actualiza solo cada 2 h'+(isNaN(prox)?'':', próxima ≈ '+prox.toLocaleTimeString('es-SV',{hour:'2-digit',minute:'2-digit'})))+'</span>';
   if(MODO==='publico' && state.ficticio) m='<span class="pill demo">Datos ficticios: el tablero aún no está conectado</span>'+m;
   if(MODO==='demo') m='<span class="pill demo">Datos ficticios de demostración</span>'+m+
     '<div class="viewswitch" role="group" aria-label="Vista"><button aria-pressed="'+(!cliente)+'" data-vista="interno">Vista CliO</button><button aria-pressed="'+cliente+'" data-vista="cliente">Vista cliente</button></div>';
-  if(MODO==='interno') m+='<button class="btn" id="btn-sync">Sincronizar ahora</button>';
+  if(MODO==='interno') m+='<button class="btn sm" id="btn-sync" title="No hace falta: se sincroniza solo cada 2 horas. Úselo si necesita ver algo recién registrado.">Sincronizar ahora</button>';
   document.getElementById('meta').innerHTML=m;
   document.getElementById('sub').textContent = cliente ? 'Avance de la encuesta, de las derivaciones y del componente cualitativo · solo agregados; las celdas con menos de 5 casos se muestran como «<5».'
     : 'Encuesta a trabajadores, derivaciones y aplicaciones cualitativas · ES-T1341 · identificadores seudónimos, sin nombres ni teléfonos';
@@ -331,89 +386,16 @@ function lineChart(serie){
 
 function chipEstado(k){var e=ESTADOS[k.estado]||[k.estado,'neutral',''];return '<span class="chip '+e[1]+'" title="'+esc(e[2])+'">'+e[0]+'</span>';}
 
-function cualiCard(cq){
+function cualiCard(cq,plano){
   var tot={meta:0,real:0,ag:0,tr:0};
   var rows=(cq||[]).map(function(r){tot.meta+=r.meta;tot.real+=r.realizadas;tot.ag+=r.agendadas;tot.tr+=r.transcritas;
     var wr=Math.min(100,100*r.realizadas/r.meta), wp=Math.min(100-wr,100*r.agendadas/r.meta);
     return '<div><div class="row"><span>'+esc(r.nombre)+'</span><b>'+r.realizadas+' de '+r.meta+(r.agendadas?' <span class="note">· '+r.agendadas+' agendada'+(r.agendadas>1?'s':'')+'</span>':'')+'</b></div>'+
       '<div class="meter dual" data-tip="'+esc(r.nombre)+': '+r.realizadas+' realizadas ('+r.transcritas+' transcritas), '+r.agendadas+' agendadas, meta '+r.meta+'"><i style="width:'+wr+'%;background:var(--accent)"></i><i style="width:'+wp+'%;background:var(--accent);opacity:.3"></i></div></div>';}).join('');
-  return '<div class="card"><h2>Avance cualitativo</h2><p class="hint">Aplicaciones realizadas frente al plan de la Tabla 7.3 del Informe 1: 22 entrevistas y 8 grupos focales. La barra clara son las agendadas.</p>'+
+  var ini=plano?'<div>':'<div class="card"><h2>Avance cualitativo</h2><p class="hint">Aplicaciones realizadas frente al plan de la Tabla 7.3 del Informe 1: 22 entrevistas y 8 grupos focales. La barra clara son las agendadas.</p>';
+  return ini+
     '<div class="legend"><span><i style="background:var(--accent)"></i>Realizadas</span><span><i style="background:var(--accent);opacity:.3"></i>Agendadas</span></div>'+rows+
     '<p class="note">Total: <b>'+tot.real+'</b> realizadas (<b>'+tot.tr+'</b> con transcripción) y <b>'+tot.ag+'</b> agendadas, de '+tot.meta+'.</p></div>';
-}
-
-function vResumen(a,cliente){
-  var corte=corteDe(a.semana,a.cortes), h='';
-  var p=a.prioridad;
-  if(!cliente && p && (p.mujeres_T||p.mujeres_C||p.comparacion_atrasada)){
-    var msg=[]; if(p.mujeres_T)msg.push('mujeres bajo 40% en usuarios'); if(p.mujeres_C)msg.push('mujeres bajo 40% en comparación'); if(p.comparacion_atrasada)msg.push('el grupo de comparación va más atrasado que el de usuarios');
-    h+='<div class="banner warn"><b>Prioridad en la cola (Tabla 8.5):</b> '+esc(msg.join('; '))+'. Los casos afectados aparecen marcados en Derivaciones.</div>';
-  }
-  h+='<div class="grid g2">'+grupoCard('T',a.porGrupo.T,corte,'var(--s1)')+grupoCard('C',a.porGrupo.C,corte,'var(--s2)')+'</div>';
-  h+='<div class="card"><h2>Avance acumulado</h2><p class="hint">Porcentaje de la meta de cada grupo (700 y 600). Las marcas negras son los umbrales de los cortes semanales: 25% en S6, 50% en S7, 80% en S8 y cierre en S9.</p>'+
-    '<div class="legend"><span><i style="background:var(--s1)"></i>Usuarios</span><span><i style="background:var(--s2)"></i>Comparación</span></div>'+lineChart(a.serie)+'</div>';
-  var maxv=1; a.startups.forEach(function(r){[r.T,r.C,r.refT,r.refC].forEach(function(v){if(typeof v==='number'&&v>maxv)maxv=v;});});
-  var rows=a.startups.map(function(r){
-    var bT=typeof r.T==='number'?r.T:0,bC=typeof r.C==='number'?r.C:0;
-    return '<tr><td>'+esc(NOMBRES[r.st]||r.st)+'</td><td class="n">'+num(r.T)+'</td><td class="n note">'+(r.refT||'—')+'</td><td class="n">'+num(r.C)+'</td><td class="n note">'+(r.refC||'—')+'</td>'+
-      '<td><div class="bar2"><span style="width:'+(100*bT/maxv)+'%;background:var(--s1)" data-tip="'+esc(NOMBRES[r.st])+' · usuarios: '+r.T+' (referencial '+r.refT+')"></span><span style="width:'+(100*bC/maxv)+'%;background:var(--s2)" data-tip="'+esc(NOMBRES[r.st])+' · comparación: '+r.C+(r.refC?' (referencial '+r.refC+')':'')+'"></span></div></td></tr>';
-  }).join('');
-  h+='<div class="card"><h2>Por solución</h2><p class="hint">Encuestas completas frente a la distribución referencial del Informe 1 (Tabla 7.2). La distribución por solución orienta el contacto; no es una cuota.</p>'+
-    '<div class="tw"><table><thead><tr><th>Solución</th><th class="n">Usuarios</th><th class="n">Ref.</th><th class="n">Comparación</th><th class="n">Ref.</th><th>Avance</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
-  var mo=a.modos, tot=[mo.web,mo.telefono,mo.presencial].reduce(function(s,v){return s+(typeof v==='number'?v:0);},0)||1;
-  var mb=[['Web','web','var(--s1)'],['Teléfono','telefono','var(--s2)'],['Presencial','presencial','var(--s3)']].map(function(x){
-    var v=mo[x[1]],w=typeof v==='number'?100*v/tot:0;
-    return '<div><div class="row"><span>'+x[0]+'</span><b>'+num(v)+(typeof v==='number'?' · '+Math.round(w)+'%':'')+'</b></div><div class="meter"><i style="width:'+w+'%;background:'+x[2]+'"></i></div></div>';
-  }).join('');
-  var ru=a.rutas||{A:{},B:{}};
-  mb+='<p class="note" style="margin-top:12px">Por origen: <b>'+num(ru.A.completas)+'</b> de personas en una base de datos y <b>'+num(ru.B.completas)+'</b> que llegaron por la difusión de la startup.'+
-    (cliente||ru.A.casos===undefined?'':' Base de datos: enlace enviado a '+num(ru.A.enviados)+' de '+num(ru.A.casos)+' personas.')+'</p>';
-  var dv=a.deriv, en48=pct(dv.atendidas_48,dv.con_primer);
-  h+='<div class="grid g2"><div class="card"><h2>Modo de aplicación</h2><p class="hint">Encuestas completas según el medio. El presencial tiene un techo de 25% de la muestra.</p>'+mb+
-    '<p class="note">Presencial sobre la meta total de 1.300: <b>'+(typeof mo.presencial==='number'?Math.round(100*mo.presencial/1300)+'%':num(mo.presencial))+'</b> (techo 25%).</p></div>'+
-    '<div class="card"><h2>Derivaciones</h2><p class="hint">Casos que se aplican por teléfono o en persona: porque la persona lo pidió, porque el equipo decidió llamar a alguien de una base, o porque llegó por otro canal (WhatsApp, sesión de la startup).</p>'+
-    '<div class="kpi3"><div><div class="v mono">'+num(dv.solicitudes)+'</div><div class="l">pidieron otro medio</div></div><div><div class="v mono">'+num(dv.seguimiento)+'</div><div class="l">de una base, pasados a llamada</div></div><div><div class="v mono">'+num(dv.otros)+'</div><div class="l">otros canales</div></div></div>'+
-    '<div class="row" style="margin-top:14px"><span>Ya aplicadas <b>'+num(dv.aplicadas)+'</b> · abiertas <b>'+num(dv.abiertas)+'</b> · cerradas sin encuesta <b>'+num(dv.cerradas)+'</b></span></div>'+
-    '<div class="row"><span>Primer intento en 48 h hábiles <b>'+(en48===null?num(dv.atendidas_48):en48+'%')+'</b></span>'+(en48===null?'':(en48>=90?'<span class="chip ok">En plazo</span>':'<span class="chip warn">Revisar tiempos</span>'))+(cliente?'':(dv.vencidas>0?'<span class="chip crit">'+dv.vencidas+' fuera de plazo</span>':''))+'</div>'+
-    '<p class="note">Autorizan ser invitadas a la fase cualitativa: <b>'+num(a.autoriza_cuali)+'</b> personas.</p></div></div>';
-  h+=cualiCard(a.cuali);
-  return h;
-}
-
-function vBBDD(d){
-  var lista=d.bbdd||[], f=state.filtroB;
-  var filtros=[['todos','Todos',function(){return true;}],['por_enviar','Por enviar',function(k){return k.estado==='por_enviar';}],
-    ['enviado','Enlace enviado, sin respuesta',function(k){return k.estado==='enviado';}],['sugeridos','3 días o más sin respuesta',function(k){return k.estado==='enviado'&&k.dias_sin_respuesta>=3;}],
-    ['llamada','En llamada o cita',function(k){return ABIERTOS.indexOf(k.estado)>=0;}],['respondio','Respondieron',function(k){return k.estado==='completa_web'||k.estado==='aplicada';}],['cerrada','Cerrados',function(k){return k.estado==='cerrada';}]];
-  var fn=(filtros.filter(function(x){return x[0]===f;})[0]||filtros[0])[2];
-  var list=lista.filter(fn);
-  var fl=filtros.map(function(x){return '<button data-filtrob="'+x[0]+'" aria-pressed="'+(f===x[0])+'">'+x[1]+' ('+lista.filter(x[2]).length+')</button>';}).join('');
-  var nsel=Object.keys(state.sel).filter(function(k){return state.sel[k];}).length;
-  var porSt={}; lista.forEach(function(k){var s=k.startup||'—';porSt[s]=porSt[s]||{t:0,env:0,resp:0,llam:0};porSt[s].t++;if(k.mensajes>0)porSt[s].env++;if(k.estado==='completa_web'||k.estado==='aplicada')porSt[s].resp++;if(ABIERTOS.indexOf(k.estado)>=0)porSt[s].llam++;});
-  var resumen=Object.keys(porSt).map(function(s){var r=porSt[s];return '<tr><td>'+esc(NOMBRES[s]||s)+'</td><td class="n">'+r.t+'</td><td class="n">'+r.env+'</td><td class="n">'+r.resp+'</td><td class="n">'+(r.env?Math.round(100*r.resp/r.env)+'%':'—')+'</td><td class="n">'+r.llam+'</td></tr>';}).join('');
-  var rows=list.map(function(k){
-    var abierto=ABIERTOS.indexOf(k.estado)>=0, puede=k.estado==='por_enviar'||k.estado==='enviado';
-    var cont=k.mensajes?k.mensajes+' mensaje'+(k.mensajes>1?'s':'')+(k.ultimo_contacto?'<div class="note">último '+fmtFecha(k.ultimo_contacto)+'</div>':''):'<span class="note">—</span>';
-    return '<tr><td>'+(puede?'<input type="checkbox" data-sel="'+esc(k.id)+'" '+(state.sel[k.id]?'checked':'')+' aria-label="Seleccionar '+esc(k.id)+'">':'')+'</td>'+
-      '<td class="mono"><b>'+esc(k.id)+'</b><div class="note">'+esc(NOMBRES[k.startup]||k.startup)+' · '+(k.grupo==='C'?'comparación':'usuario')+'</div></td>'+
-      '<td>'+chipEstado(k)+'</td><td>'+cont+'</td>'+
-      '<td>'+(k.estado==='cerrada'?esc(CIERRE[k.codigo_resultado]||k.codigo_resultado):esc(k.proxima_accion||''))+(k.dias_sin_respuesta>=3?' <span class="chip warn">sugerido llamar</span>':'')+'</td>'+
-      '<td><div class="acts">'+(abierto||puede?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar gestión</a>':'')+
-      (abierto?'<a class="btn primary sm" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar</a>':'')+'</div></td></tr>';
-  }).join('');
-  return '<div class="card"><h2>Personas en una base de datos</h2><p class="hint">Son las personas que una startup entregó en su base. A cada una se le envía su <b>enlace personal</b> (el mismo formulario, con su código al final) y se le hace seguimiento caso a caso. No hay plazos automáticos: cuando el equipo lo decide, el caso <b>pasa a llamada</b> y aparece en Derivaciones.</p>'+
-    '<div class="toolbar"><span class="note"><b>'+nsel+'</b> seleccionado'+(nsel===1?'':'s')+'</span>'+
-    '<button class="btn primary sm" data-seg="envio"'+(nsel?'':' disabled')+'>Registrar envío del enlace</button>'+
-    '<button class="btn sm" data-seg="recordatorio"'+(nsel?'':' disabled')+'>Registrar recordatorio</button>'+
-    '<button class="btn sm" data-seg="a_llamada"'+(nsel?'':' disabled')+'>Pasar a llamada</button>'+
-    '<button class="btn ghost sm" data-selall="1">Seleccionar los visibles</button>'+
-    '<a class="btn ghost sm" target="_blank" rel="noopener" href="'+esc(d.url_planilla)+'">Abrir la planilla (enlaces personales)</a></div>'+
-    '<div class="filters" role="group" aria-label="Filtrar">'+fl+'</div>'+
-    '<div class="tw"><table><thead><tr><th></th><th>Caso</th><th>Estado</th><th>Contactos</th><th>Qué sigue</th><th></th></tr></thead><tbody>'+
-    (rows||'<tr><td colspan="6" class="note">No hay casos con este filtro. Cargue la base en la hoja «muestra» de la planilla.</td></tr>')+'</tbody></table></div>'+
-    '<p class="note">Un mensaje por día como máximo (Informe 1 §8.3). El envío se hace por WhatsApp desde el teléfono del equipo con el enlace de la columna «enlace_web»; aquí solo se registra.</p></div>'+
-    '<div class="card"><h2>Resumen por solución</h2><div class="tw"><table><thead><tr><th>Solución</th><th class="n">En la base</th><th class="n">Con enlace enviado</th><th class="n">Respondieron</th><th class="n">Respuesta</th><th class="n">En llamada</th></tr></thead><tbody>'+
-    (resumen||'<tr><td colspan="6" class="note">Sin casos.</td></tr>')+'</tbody></table></div></div>';
 }
 
 function vDeriv(d){
@@ -439,11 +421,11 @@ function vDeriv(d){
       '<td class="n">'+(k.fuera_plazo?'<span class="chip crit">'+k.horas_primer_intento+' h</span>':esc(k.horas_primer_intento)+(k.horas_primer_intento!==''&&k.horas_primer_intento!=null?' h':''))+'</td>'+
       '<td class="n">'+k.intentos+(k.ultimo_resultado?'<div class="note">'+esc(RESULT[k.ultimo_resultado]||k.ultimo_resultado)+'</div>':'')+'</td>'+
       '<td>'+res+'</td>'+
-      '<td>'+(abierto?'<div class="acts"><a class="btn primary sm" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar</a><a class="btn sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar gestión</a></div>'
+      '<td>'+(abierto?'<div class="acts"><a class="btn primary sm" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar</a><a class="btn sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar en Kobo (F2)</a></div>'
         :'<a class="btn ghost sm" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Control de calidad</a>')+'</td></tr>';
   }).join('');
   var leyenda=['en_cola','asignada','en_contacto','citada','aplicada','cerrada'].map(function(e){return '<span>'+chipEstado({estado:e})+' <span class="note">'+esc(ESTADOS[e][2])+'</span></span>';}).join('');
-  return '<div class="card"><h2>Derivaciones caso a caso</h2><p class="hint">Casos que se aplican por <b>teléfono</b> o en <b>persona</b>. El medio sale de lo que la persona eligió en la encuesta, o de lo que el equipo registró en F2. <b>Aplicar</b> abre la encuesta con el código del caso ya cargado; cuando llega, el caso se cierra solo y queda el número de Kobo de esa aplicación. <b>Registrar gestión</b> abre F2 para anotar el intento, la cita o el cierre.</p>'+
+  return '<div class="card"><h2>Derivaciones caso a caso</h2><p class="hint">Casos que se aplican por <b>teléfono</b> o en <b>persona</b>. El medio sale de lo que la persona eligió en la encuesta, o de lo que el equipo registró en F2. <b>Aplicar</b> abre la encuesta con el código del caso ya cargado; cuando llega, el caso se cierra solo y queda el número de Kobo de esa aplicación. <b>Registrar en Kobo (F2)</b> abre el formulario de gestión para anotar el intento, la cita o el cierre: va en Kobo porque funciona en el celular sin conexión (presencial) y deja hora y encuestador de cada intento para el control de calidad (§8.6). El Centro lo lee en la siguiente sincronización.</p>'+
     '<div class="toolbar"><a class="btn" target="_blank" rel="noopener" href="'+esc(d.enlace_alta)+'">+ Dar de alta un caso (llegó por WhatsApp o en una sesión)</a>'+
     '<a class="btn ghost" target="_blank" rel="noopener" href="'+esc(d.url_contactos)+'">Teléfonos (hoja de contactos)</a></div>'+
     '<div class="filters" role="group" aria-label="Filtrar">'+fl+'</div>'+
@@ -462,46 +444,236 @@ function vDifusion(d){
     '<p class="note">La encuesta asigna el grupo (usuario o comparación) con las preguntas filtro. Quien pide otro medio queda en Derivaciones con un código RB.</p></div>';
 }
 
+function vResumen(a,cliente){
+  var corte=corteDe(a.semana,a.cortes), u=corte.umbral, h='';
+  var cq=a.cuali||[], cmeta=0, creal=0, cag=0, ctr=0; cq.forEach(function(r){cmeta+=r.meta;creal+=r.realizadas;cag+=r.agendadas;ctr+=r.transcritas;});
+  function tarjeta(titulo,quien,p,color){
+    var av=pct(p.completas,p.meta), deb=Math.ceil(p.meta*u/100), falta=typeof p.completas==='number'?deb-p.completas:null, muj=pct(p.mujeres,p.con_sexo);
+    var frase = av===null ? 'Todavía no hay encuestas suficientes para mostrar la cifra.'
+      : (falta>0 ? 'A esta altura (corte de la semana '+corte.s+') deberíamos llevar <b>'+num(deb)+'</b>. Faltan <b>'+num(falta)+'</b> encuestas para ponernos al día.'
+                 : 'Vamos por sobre lo esperado para el corte de la semana '+corte.s+' (<b>'+num(deb)+'</b>).');
+    return '<div class="card tres"><div class="eyebrow">'+titulo+'</div><p class="quien">'+quien+'</p>'+
+      '<div class="big mono">'+num(p.completas)+' <small>de '+num(p.meta)+' encuestas</small></div>'+
+      '<div class="meter" data-tip="Avance '+(av===null?'—':av+'%')+' · esperado al corte: '+u+'%"><i style="width:'+Math.min(100,av||0)+'%;background:'+color+'"></i><span class="mark" style="left:'+u+'%"></span></div>'+
+      '<p class="frase">'+frase+'</p>'+semaforo(av,u)+
+      '<p class="note" style="margin-top:10px">Mujeres: <b>'+(muj===null?num(p.mujeres):muj+'%')+'</b> de las encuestas (mínimo pedido: 40%)'+(muj!==null&&muj<40?' · <b style="color:var(--crit)">bajo el mínimo</b>':'')+'</p></div>';
+  }
+  var libres=Math.max(0,cmeta-creal-cag);
+  var cTxt = 'Hechas <b>'+creal+'</b> ('+ctr+' con transcripción) y <b>'+cag+'</b> agendadas. Quedan <b>'+libres+'</b> cupos sin agendar.';
+  var wr=cmeta?100*creal/cmeta:0, wa=cmeta?100*cag/cmeta:0;
+  h+='<p class="lectura"><b>Cómo leer.</b> Cada tarjeta compara lo logrado con la meta total. La barra es el avance; la marca vertical es lo que deberíamos llevar al corte de esta semana (S'+corte.s+': '+u+'% de la meta). Verde: al día · ámbar: cerca · rojo: atrasados.</p>';
+  h+='<div class="grid g3">'+tarjeta('Usuarios','Personas que usan o usaron una solución WorkerTech (grupo de tratamiento).',a.porGrupo.T,'var(--s1)')+
+    tarjeta('Grupo de comparación','Personas inscritas que no usaron la solución, o en lista de espera.',a.porGrupo.C,'var(--s2)')+
+    '<div class="card tres"><div class="eyebrow">Entrevistas y grupos focales</div><p class="quien">Fase cualitativa: 22 entrevistas y 8 grupos focales (Tabla 7.3).</p>'+
+    '<div class="big mono">'+creal+' <small>de '+cmeta+' realizadas</small></div>'+
+    '<div class="meter dual" data-tip="'+creal+' realizadas, '+cag+' agendadas, de '+cmeta+'"><i style="width:'+wr+'%;background:var(--s2)"></i><i style="width:'+wa+'%;background:var(--s2);opacity:.3"></i></div>'+
+    '<p class="frase">'+cTxt+'</p><span class="chip neutral">Sin umbral semanal: se mide contra el plan</span></div></div>';
+  var p=a.prioridad;
+  if(!cliente && p && (p.mujeres_T||p.mujeres_C||p.comparacion_atrasada)){
+    var msg=[]; if(p.mujeres_T)msg.push('las mujeres usuarias (están bajo 40%)'); if(p.mujeres_C)msg.push('las mujeres del grupo de comparación (están bajo 40%)'); if(p.comparacion_atrasada)msg.push('el grupo de comparación, que va más atrasado');
+    h+='<div class="banner warn"><b>Qué priorizar ahora:</b> '+esc(msg.join(', '))+'. Los casos que cumplen estas condiciones aparecen marcados en Derivaciones (regla de la Tabla 8.5).</div>';
+  }
+  h+=plegable('Avance semana a semana','Cómo ha crecido cada grupo y dónde están los cortes.',
+    '<div class="legend"><span><i style="background:var(--s1)"></i>Usuarios</span><span><i style="background:var(--s2)"></i>Comparación</span><span><i style="background:var(--ink-2)"></i>Esperado en cada corte (25% S6 · 50% S7 · 80% S8 · 100% S9)</span></div>'+lineChart(a.serie));
+  var maxv=1; a.startups.forEach(function(r){[r.T,r.C,r.refT,r.refC].forEach(function(v){if(typeof v==='number'&&v>maxv)maxv=v;});});
+  var rows=a.startups.map(function(r){
+    var bT=typeof r.T==='number'?r.T:0,bC=typeof r.C==='number'?r.C:0;
+    return '<tr><td>'+esc(NOMBRES[r.st]||r.st)+'</td><td class="n">'+num(r.T)+'</td><td class="n note">'+(r.refT||'—')+'</td><td class="n">'+num(r.C)+'</td><td class="n note">'+(r.refC||'—')+'</td>'+
+      '<td><div class="bar2"><span style="width:'+(100*bT/maxv)+'%;background:var(--s1)" data-tip="'+esc(NOMBRES[r.st])+' · usuarios: '+r.T+' (referencial '+r.refT+')"></span><span style="width:'+(100*bC/maxv)+'%;background:var(--s2)" data-tip="'+esc(NOMBRES[r.st])+' · comparación: '+r.C+(r.refC?' (referencial '+r.refC+')':'')+'"></span></div></td></tr>';
+  }).join('');
+  h+=plegable('Por solución','Encuestas por startup frente a la referencia del Informe 1 (Tabla 7.2). Orienta el contacto; no es una cuota.',
+    '<div class="tw"><table><thead><tr><th>Solución</th><th class="n">Usuarios</th><th class="n">Referencia</th><th class="n">Comparación</th><th class="n">Referencia</th><th>Avance</th></tr></thead><tbody>'+rows+'</tbody></table></div>');
+  var mo=a.modos, tot=[mo.web,mo.telefono,mo.presencial].reduce(function(s,v){return s+(typeof v==='number'?v:0);},0)||1;
+  var mb=[['Por la web (la persona sola)','web','var(--s1)'],['Por teléfono','telefono','var(--s2)'],['En persona','presencial','var(--s3)']].map(function(x){
+    var v=mo[x[1]],w=typeof v==='number'?100*v/tot:0;
+    return '<div><div class="row"><span>'+x[0]+'</span><b>'+num(v)+(typeof v==='number'?' · '+Math.round(w)+'%':'')+'</b></div><div class="meter"><i style="width:'+w+'%;background:'+x[2]+'"></i></div></div>';
+  }).join('');
+  var ru=a.rutas||{A:{},B:{}}, dv=a.deriv, en48=pct(dv.atendidas_48,dv.con_primer);
+  var cuerpo='<div class="grid g2"><div><h3 class="h3">Cómo respondieron</h3>'+mb+
+    '<p class="note">Llegaron desde una base de datos de la startup: <b>'+num(ru.A.completas)+'</b> · por la difusión de la startup: <b>'+num(ru.B.completas)+'</b>.'+(cliente||ru.A.casos===undefined?'':' A '+num(ru.A.enviados)+' de las '+num(ru.A.casos)+' personas de las bases ya se les envió el enlace.')+'</p>'+
+    '<p class="note">En persona sobre la meta total: <b>'+(typeof mo.presencial==='number'?Math.round(100*mo.presencial/1300)+'%':num(mo.presencial))+'</b> (techo 25%).</p></div>'+
+    '<div><h3 class="h3">Derivaciones (teléfono o en persona)</h3>'+
+    '<div class="kpi3"><div><div class="v mono">'+num(dv.solicitudes)+'</div><div class="l">pidieron otro medio en la encuesta</div></div><div><div class="v mono">'+num(dv.seguimiento)+'</div><div class="l">de una base, pasados a llamada</div></div><div><div class="v mono">'+num(dv.otros)+'</div><div class="l">llegaron por otro canal</div></div></div>'+
+    '<p class="note" style="margin-top:12px">Ya aplicadas <b>'+num(dv.aplicadas)+'</b> · en curso <b>'+num(dv.abiertas)+'</b> · cerradas sin encuesta <b>'+num(dv.cerradas)+'</b></p>'+
+    '<div class="row"><span>Atendidas dentro de 48 horas hábiles: <b>'+(en48===null?num(dv.atendidas_48):en48+'%')+'</b></span>'+(en48===null?'':(en48>=90?'<span class="chip ok">En plazo</span>':'<span class="chip warn">Revisar tiempos</span>'))+'</div>'+
+    '<p class="note">Aceptan ser invitadas a la fase cualitativa: <b>'+num(a.autoriza_cuali)+'</b> personas.</p></div></div>';
+  h+=plegable('Cómo se está respondiendo','Medio de aplicación, origen y derivaciones.',cuerpo);
+  h+=plegable('Cualitativo por instrumento','Avance de cada tipo de entrevista y grupo focal.',cualiCard(a.cuali,true));
+  return h;
+}
+function plegable(t,sub,cuerpo){ var k='pl_'+t; var ab=state.plegados[k];
+  return '<details class="card fold"'+(ab?' open':'')+' data-pleg="'+esc(k)+'"><summary><span><b class="st">'+esc(t)+'</b><span class="note">'+esc(sub)+'</span></span><span class="chev" aria-hidden="true">›</span></summary><div class="fold-b">'+cuerpo+'</div></details>'; }
+
+// ---------------- CON BASE DE DATOS ----------------
+var ETAPAS=[
+  ['por_enviar','Por enviar',function(k){return k.estado==='por_enviar';},'Aún no se les manda el enlace. Envíalo por WhatsApp desde el teléfono del equipo (número y enlace personal están en la planilla «muestra») y después márcalo aquí. El sistema no envía mensajes: solo registra lo que hiciste.'],
+  ['esperando','Esperando respuesta',function(k){return k.estado==='enviado';},'Ya tienen el enlace y no han respondido. Puedes registrar un recordatorio (máximo un mensaje por día) o, cuando el equipo lo decida, pasar el caso a llamada. Desde 3 días sin respuesta se sugiere llamar.'],
+  ['llamada','En llamada o cita',function(k){return ABIERTOS.indexOf(k.estado)>=0;},'El caso pasó a teléfono o a una cita en persona. Se trabaja en la pestaña Derivaciones; los intentos y las citas se registran en Kobo F2.'],
+  ['respondio','Respondieron',function(k){return k.estado==='completa_web'||k.estado==='aplicada';},'Completaron la encuesta. No hay nada más que hacer con estos casos.'],
+  ['cerrada','Cerrados',function(k){return k.estado==='cerrada';},'Terminaron sin encuesta. El motivo está en la columna «Resultado».']];
+function etapaDe(k){for(var i=0;i<ETAPAS.length;i++){if(ETAPAS[i][2](k))return ETAPAS[i];}return ['otro','Otro',null,''];}
+var EVT={alta:'Alta del caso',asignacion:'Asignado a',mensaje:'Mensaje',intento:'Intento de llamada',cita:'Cita',reagenda:'Cita reagendada',cierre:'Cierre',no_contactar:'Pidió no ser contactado',control:'Control de calidad',completa:'Encuesta completa',solicitada:'Pidió otro medio',rechaza:'Rechaza',web:'web',telefono:'teléfono',presencial:'en persona',agendada:'Agendada',reagendada:'Reagendada',cancelada:'Cancelada',realizada:'Realizada',transcripcion:'Transcripción vinculada',doc_notas:'Doc de notas creado'};
+function humano(t){return String(t).split(' · ').map(function(p){return EVT[p]||RESULT[p]||CIERRE[p]||p;}).join(' · ').replace(/^F2 · /,'Kobo F2 · ').replace(/^F1 · /,'Encuesta · ');}
+function sexoTxt(s){return s==='m'?'Mujer':(s==='h'?'Hombre':'—');}
+function grupoTxt(g){return g==='C'?'Comparación':(g==='T'?'Usuario':'Por definir');}
+function dias(k){return (k.dias_sin_respuesta===''||k.dias_sin_respuesta==null)?'':k.dias_sin_respuesta;}
+
+function vBBDD(d){
+  var lista=d.bbdd||[];
+  var sw='<div class="viewswitch light" role="group" aria-label="Forma de trabajo"><button aria-pressed="'+(state.vistaB==='bandeja')+'" data-vistab="bandeja">Bandeja por etapas</button><button aria-pressed="'+(state.vistaB==='tabla')+'" data-vistab="tabla">Tabla con filtros</button></div>';
+  var intro='<div class="card"><div class="cardhead"><div><h2>Personas en una base de datos</h2><p class="hint">Son las personas que una startup entregó en su base. Cada una recibe su <b>enlace personal</b> y se le hace seguimiento caso a caso hasta que responde, pasa a llamada o se cierra. Haz clic en un código para ver la ficha del caso y su historial.</p></div>'+sw+'</div>'+
+    '<div class="pasos">'+ETAPAS.map(function(e,i){var n=lista.filter(e[2]).length;return '<button class="paso" data-etapa="'+e[0]+'" aria-pressed="'+(state.vistaB==='bandeja'&&state.etapa===e[0])+'"><span class="pn">'+(i+1)+'</span><span><b>'+e[1]+'</b><span class="note">'+n+' caso'+(n===1?'':'s')+'</span></span></button>';}).join('<span class="flecha" aria-hidden="true">→</span>')+'</div></div>';
+  var cuerpo = state.vistaB==='tabla' ? tablaBBDD(d,lista) : bandejaBBDD(d,lista);
+  return intro+cuerpo+resumenSt(lista);
+}
+function bandejaBBDD(d,lista){
+  var e=ETAPAS.filter(function(x){return x[0]===state.etapa;})[0]||ETAPAS[0];
+  var list=lista.filter(e[2]).sort(function(a,b){return (dias(b)||0)-(dias(a)||0);});
+  var conSel=e[0]==='por_enviar'||e[0]==='esperando';
+  var ids=list.map(function(k){return k.id;}), nsel=ids.filter(function(i){return state.sel[i];}).length;
+  var cols, fila;
+  if(e[0]==='por_enviar'){ cols=['Caso','Solución','Grupo','Sexo (registro)',''];
+    fila=function(k){return [cod(k),esc(NOMBRES[k.startup]||k.startup),grupoTxt(k.grupo),sexoTxt(k.sexo),'<button class="btn primary sm" data-seg1="envio" data-id="'+esc(k.id)+'">Marcar enlace enviado</button>'];}; }
+  else if(e[0]==='esperando'){ cols=['Caso','Solución','Grupo','Envíos','Recordatorios','Último contacto','Días sin respuesta',''];
+    fila=function(k){var dd=dias(k);return [cod(k),esc(NOMBRES[k.startup]||k.startup),grupoTxt(k.grupo),'<span class="mono">'+(k.envios||0)+'</span>','<span class="mono">'+(k.recordatorios||0)+'</span>',k.ultimo_contacto?fmtFecha(k.ultimo_contacto):'—',
+      '<span class="mono">'+dd+'</span>'+(dd>=3?' <span class="chip warn">sugerido llamar</span>':''),
+      '<div class="acts"><button class="btn sm" data-seg1="recordatorio" data-id="'+esc(k.id)+'">Recordatorio enviado</button><button class="btn primary sm" data-seg1="a_llamada" data-id="'+esc(k.id)+'">Pasar a llamada</button></div>'];}; }
+  else if(e[0]==='llamada'){ cols=['Caso','Solución','Grupo','Medio','Estado','Responsable','Qué sigue'];
+    fila=function(k){return [cod(k),esc(NOMBRES[k.startup]||k.startup),grupoTxt(k.grupo),k.medio==='presencial'?'En persona':'Teléfono',chipEstado(k),esc(k.responsable||'—'),esc(k.proxima_accion||'')];}; }
+  else if(e[0]==='respondio'){ cols=['Caso','Solución','Grupo','Cómo respondió','N.° en Kobo'];
+    fila=function(k){return [cod(k),esc(NOMBRES[k.startup]||k.startup),grupoTxt(k.grupo),k.estado==='aplicada'?'Aplicada por el equipo ('+esc(k.modo_aplicado||'')+')':'Sola, por la web','<span class="mono">'+esc(k.id_aplicacion_kobo||'—')+'</span>'];}; }
+  else { cols=['Caso','Solución','Grupo','Resultado','Último contacto'];
+    fila=function(k){return [cod(k),esc(NOMBRES[k.startup]||k.startup),grupoTxt(k.grupo),esc(CIERRE[k.codigo_resultado]||k.codigo_resultado),k.ultimo_contacto?fmtFecha(k.ultimo_contacto):'—'];}; }
+  var th=(conSel?'<th class="ck"><input type="checkbox" data-selpag="1" aria-label="Seleccionar todos" '+(ids.length&&nsel===ids.length?'checked':'')+'></th>':'')+cols.map(function(c){return '<th>'+c+'</th>';}).join('');
+  var rows=list.map(function(k){return '<tr>'+(conSel?'<td class="ck"><input type="checkbox" data-sel="'+esc(k.id)+'" '+(state.sel[k.id]?'checked':'')+' aria-label="Seleccionar '+esc(k.id)+'"></td>':'')+fila(k).map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('');
+  var masa='';
+  if(conSel){ masa='<div class="masa'+(nsel?' on':'')+'"><span>'+(nsel?'<b>'+nsel+'</b> caso'+(nsel>1?'s':'')+' marcado'+(nsel>1?'s':'')+'. Registrar para todos:':'Marca la casilla de varios casos para registrarlos de una vez.')+'</span>'+
+    (e[0]==='por_enviar'?'<button class="btn primary sm" data-segm="envio"'+(nsel?'':' disabled')+'>Enlace enviado</button>'
+      :'<button class="btn sm" data-segm="recordatorio"'+(nsel?'':' disabled')+'>Recordatorio enviado</button><button class="btn primary sm" data-segm="a_llamada"'+(nsel?'':' disabled')+'>Pasar a llamada</button>')+
+    (nsel?'<button class="btn ghost sm" data-limpiar="1">Quitar marcas</button>':'')+'</div>'; }
+  return '<div class="card"><h2>'+(ETAPAS.indexOf(e)+1)+' · '+e[1]+'</h2><p class="hint">'+e[3]+'</p>'+
+    (e[0]==='por_enviar'||e[0]==='esperando'?'<p class="note"><a href="'+esc(d.url_planilla)+'" target="_blank" rel="noopener">Abrir la planilla «muestra»</a> para ver el número y el enlace personal de cada caso.</p>':'')+masa+
+    '<div class="tw"><table class="tabla"><thead><tr>'+th+'</tr></thead><tbody>'+(rows||'<tr><td colspan="9" class="note">No hay casos en esta etapa.</td></tr>')+'</tbody></table></div></div>';
+}
+function cod(k){return '<button class="link-caso mono" data-caso="'+esc(k.id)+'">'+esc(k.id)+'</button>'+(k.prioridad?' <span class="chip warn">'+esc(k.prioridad)+'</span>':'');}
+
+var COLS_T=[['id','Caso'],['startup','Solución'],['grupo','Grupo'],['subgrupo','Subgrupo'],['sexo','Sexo'],['etapa','Etapa'],['envios','Envíos','n'],['recordatorios','Record.','n'],
+  ['primer_envio','Primer envío'],['ultimo_contacto','Último contacto'],['dias','Días sin resp.','n'],['medio','Medio'],['responsable','Responsable'],['intentos','Intentos','n'],['resultado','Resultado']];
+function valT(k,c){
+  if(c==='etapa')return etapaDe(k)[1]; if(c==='dias')return dias(k); if(c==='startup')return NOMBRES[k.startup]||k.startup||'';
+  if(c==='grupo')return grupoTxt(k.grupo); if(c==='sexo')return sexoTxt(k.sexo);
+  if(c==='medio')return ABIERTOS.indexOf(k.estado)>=0||k.estado==='aplicada'?(k.medio==='presencial'?'En persona':'Teléfono'):'';
+  if(c==='resultado')return k.estado==='cerrada'?(CIERRE[k.codigo_resultado]||k.codigo_resultado):(k.estado==='aplicada'||k.estado==='completa_web'?'Completa':(ESTADOS[k.estado]||[''])[0]);
+  var v=k[c]; return v==null?'':v; }
+function filtrar(lista){ var f=state.fb;
+  return lista.filter(function(k){
+    if(f.q && String(k.id).toLowerCase().indexOf(f.q.toLowerCase())<0) return false;
+    if(f.st && k.startup!==f.st) return false; if(f.g && k.grupo!==f.g) return false; if(f.sx && (k.sexo||'')!==f.sx) return false;
+    if(f.etapa && etapaDe(k)[0]!==f.etapa) return false; if(f.dias && !(dias(k)>=+f.dias)) return false;
+    if(f.resp && (k.responsable||'')!==f.resp) return false; return true; }); }
+function tablaBBDD(d,lista){
+  var f=state.fb, list=filtrar(lista), o=state.orden;
+  list.sort(function(a,b){var x=valT(a,o.k),y=valT(b,o.k); if(typeof x==='number'||typeof y==='number'){x=+x||0;y=+y||0;} else {x=String(x);y=String(y);} return (x>y?1:x<y?-1:0)*o.dir;});
+  function sel(id,lab,opts){return '<label class="f">'+lab+'<select data-fb="'+id+'"><option value="">Todos</option>'+opts.map(function(p){return '<option value="'+esc(p[0])+'"'+(f[id]===p[0]?' selected':'')+'>'+esc(p[1])+'</option>';}).join('')+'</select></label>';}
+  var sts=[]; lista.forEach(function(k){if(k.startup&&sts.indexOf(k.startup)<0)sts.push(k.startup);});
+  var resps=[]; lista.forEach(function(k){if(k.responsable&&resps.indexOf(k.responsable)<0)resps.push(k.responsable);});
+  var filtros='<div class="filtros">'+
+    '<label class="f">Buscar código<input data-fb="q" value="'+esc(f.q||'')+'" placeholder="p. ej. SOS-01"></label>'+
+    sel('st','Solución',sts.map(function(s){return [s,NOMBRES[s]||s];}))+sel('g','Grupo',[['T','Usuario'],['C','Comparación']])+sel('sx','Sexo',[['m','Mujer'],['h','Hombre']])+
+    sel('etapa','Etapa',ETAPAS.map(function(e){return [e[0],e[1]];}))+sel('dias','Días sin respuesta',[['3','3 o más'],['5','5 o más'],['7','7 o más']])+
+    sel('resp','Responsable',resps.map(function(r){return [r,r];}))+
+    '<button class="btn ghost sm" data-fblimpiar="1">Limpiar filtros</button></div>';
+  var th=COLS_T.map(function(c){var on=o.k===c[0];return '<th class="'+(c[2]||'')+'"><button class="sort" data-orden="'+c[0]+'">'+c[1]+(on?(o.dir>0?' ▲':' ▼'):'')+'</button></th>';}).join('');
+  var rows=list.map(function(k){return '<tr class="clic" data-caso="'+esc(k.id)+'">'+COLS_T.map(function(c){var v=valT(k,c[0]);
+    if(c[0]==='id')v='<b class="mono">'+esc(v)+'</b>'; else if(c[0]==='primer_envio'||c[0]==='ultimo_contacto')v=v?fmtFecha(v):'—'; else v=esc(v===''?'—':v);
+    return '<td class="'+(c[2]||'')+'">'+v+'</td>';}).join('')+'</tr>';}).join('');
+  return '<div class="card"><h2>Tabla de gestión</h2><p class="hint">Una columna por dato. Filtra, ordena con un clic en el encabezado y haz clic en una fila para abrir la ficha del caso y registrar lo que hiciste.</p>'+filtros+
+    '<div class="toolbar"><span class="note">Mostrando <b>'+list.length+'</b> de '+lista.length+' casos</span><button class="btn ghost sm" data-csv="1">Descargar lo filtrado (CSV, sin datos personales)</button></div>'+
+    '<div class="tw"><table class="tabla densa"><thead><tr>'+th+'</tr></thead><tbody>'+(rows||'<tr><td colspan="15" class="note">Ningún caso cumple los filtros.</td></tr>')+'</tbody></table></div></div>';
+}
+function resumenSt(lista){
+  var porSt={}; lista.forEach(function(k){var s=k.startup||'—';porSt[s]=porSt[s]||{t:0,env:0,resp:0,llam:0};porSt[s].t++;if(k.mensajes>0)porSt[s].env++;if(k.estado==='completa_web'||k.estado==='aplicada')porSt[s].resp++;if(ABIERTOS.indexOf(k.estado)>=0)porSt[s].llam++;});
+  var r=Object.keys(porSt).map(function(s){var x=porSt[s];return '<tr><td>'+esc(NOMBRES[s]||s)+'</td><td class="n">'+x.t+'</td><td class="n">'+x.env+'</td><td class="n">'+x.resp+'</td><td class="n">'+(x.env?Math.round(100*x.resp/x.env)+'%':'—')+'</td><td class="n">'+x.llam+'</td></tr>';}).join('');
+  return plegable('Resumen por solución','Cuántas personas tiene cada base y cuántas han respondido.',
+    '<div class="tw"><table><thead><tr><th>Solución</th><th class="n">En la base</th><th class="n">Con enlace enviado</th><th class="n">Respondieron</th><th class="n">Tasa de respuesta</th><th class="n">En llamada</th></tr></thead><tbody>'+(r||'<tr><td colspan="6" class="note">Sin casos.</td></tr>')+'</tbody></table></div>');
+}
+function fichaCaso(d,id){
+  var k=(d.bbdd||[]).concat(d.deriv||[]).filter(function(x){return x.id===id;})[0]; if(!k)return '<p>No se encontró el caso.</p>';
+  var e=etapaDe(k), abierto=ABIERTOS.indexOf(k.estado)>=0;
+  var datos=[['Solución',NOMBRES[k.startup]||k.startup||'—'],['Grupo',grupoTxt(k.grupo)],['Subgrupo',k.subgrupo||'—'],['Sexo (registro)',sexoTxt(k.sexo)],
+    ['Etapa',e[1]],['Estado',(ESTADOS[k.estado]||[k.estado])[0]],['Envíos del enlace',k.envios||0],['Recordatorios',k.recordatorios||0],
+    ['Último contacto',k.ultimo_contacto?fmtFecha(k.ultimo_contacto):'—'],['Responsable',k.responsable||'—'],['Intentos de llamada',k.intentos||0],['Qué sigue',k.estado==='cerrada'?(CIERRE[k.codigo_resultado]||k.codigo_resultado):(k.proxima_accion||'—')]];
+  var acc='';
+  if(k.estado==='por_enviar') acc='<button class="btn primary" data-seg1="envio" data-id="'+esc(k.id)+'">Marcar enlace enviado</button>';
+  if(k.estado==='enviado') acc='<button class="btn" data-seg1="recordatorio" data-id="'+esc(k.id)+'">Recordatorio enviado</button><button class="btn primary" data-seg1="a_llamada" data-id="'+esc(k.id)+'">Pasar a llamada</button>';
+  if(abierto) acc='<a class="btn primary" target="_blank" rel="noopener" href="'+esc(k.link_aplicar)+'">Aplicar la encuesta (F1)</a><a class="btn" target="_blank" rel="noopener" href="'+esc(k.link_registrar)+'">Registrar intento o cita en Kobo (F2)</a>';
+  var hist=(k.historial||[]).slice().reverse().map(function(h){return '<li><span class="mono">'+fmtFecha(h.f)+'</span> · '+esc(humano(h.que))+(h.quien?' <span class="note">· '+esc(h.quien)+'</span>':'')+'</li>';}).join('');
+  return '<div class="mhead"><div><div class="eyebrow">Ficha del caso</div><h2 class="mono">'+esc(k.id)+'</h2></div>'+chipEstado(k)+'</div>'+
+    '<dl class="datos">'+datos.map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+esc(x[1])+'</dd></div>';}).join('')+'</dl>'+
+    (acc?'<div class="acts" style="margin:14px 0">'+acc+'</div>':'')+
+    (abierto?'<p class="note">Los intentos y citas se anotan en Kobo F2: funciona en el celular sin conexión y deja hora y encuestador de cada intento para el control de calidad (§8.6). El Centro los lee en la siguiente sincronización.</p>':'')+
+    '<h3 class="h3">Historial (lo más reciente arriba)</h3>'+(hist?'<ul class="hist">'+hist+'</ul>':'<p class="note">Sin movimientos todavía.</p>')+
+    '<p class="note">Número y enlace personal: <a href="'+esc(d.url_planilla)+'" target="_blank" rel="noopener">planilla «muestra»</a> (custodia separada).</p>';
+}
+
+// ---------------- CUALITATIVO ----------------
 function vCuali(d){
   var C=d.cuali||{cupos:[],apps:[],eventos:[]}, PAU={}; (d.agg.cuali||[]).forEach(function(r){PAU[r.inst]=r.nombre;});
+  var cup={}; C.cupos.forEach(function(c){cup[c.id_cupo]=c;});
   var vig={}; C.apps.forEach(function(a){if(a.estado!=='cancelada')vig[a.id_cupo]=a;});
-  var hist={}; C.eventos.forEach(function(e){(hist[e.id_app]=hist[e.id_app]||[]).push(e);});
-  var eq=(d.equipo||[]).map(function(n){return '<option>'+esc(n)+'</option>';}).join('');
+  var fa=state.fAgenda, fc=state.fCupo;
+  var FA=[['proximas','Próximas',function(a){return a.estado==='agendada';}],['transc','Falta transcripción',function(a){return a.estado==='realizada';}],['listas','Transcritas',function(a){return a.estado==='transcrita';}],['canceladas','Canceladas',function(a){return a.estado==='cancelada';}],['todas','Todas',function(){return true;}]];
+  var fna=(FA.filter(function(x){return x[0]===fa;})[0]||FA[0])[2];
+  var apps=C.apps.filter(fna).sort(function(x,y){return String(x.fecha_programada).localeCompare(String(y.fecha_programada));});
   var hoy=new Date().toISOString().slice(0,10);
-  var grupos={}; C.cupos.forEach(function(c){(grupos[c.instrumento]=grupos[c.instrumento]||[]).push(c);});
-  var html=Object.keys(grupos).map(function(inst){
-    var filas=grupos[inst].map(function(c){
-      var a=vig[c.id_cupo], abierto=state.abiertoCupo===c.id_cupo, tipos=String(c.tipos_informante||'').split('|').filter(Boolean);
-      var estado=a?CUALI_ESTADO[a.estado]||[a.estado,'neutral']:['Libre','neutral'];
-      var info=a?'<span class="mono">'+esc(a.codigo)+'</span><div class="note">'+fmtDia(a.fecha_programada)+' · '+esc(a.modalidad)+' · '+esc(a.responsable)+'</div>':'<span class="note">Sin agendar</span>';
-      var acc='';
-      if(!a) acc='<button class="btn primary sm" data-abrir="'+esc(c.id_cupo)+'">Agendar</button>';
-      else if(a.estado==='agendada') acc='<div class="acts"><button class="btn primary sm" data-doc="'+esc(a.id_app)+'">'+(a.doc_notas?'Abrir notas':'Aplicar (crear notas)')+'</button><button class="btn sm" data-abrir="'+esc(c.id_cupo)+'">Actualizar</button></div>';
-      else if(a.estado==='realizada') acc='<div class="acts"><a class="btn sm" target="_blank" rel="noopener" href="'+esc(a.doc_notas||'#')+'">Notas</a><button class="btn primary sm" data-abrir="'+esc(c.id_cupo)+'">Vincular transcripción</button></div>';
-      else acc='<div class="acts"><a class="btn sm" target="_blank" rel="noopener" href="'+esc(a.doc_notas||'#')+'">Notas</a><a class="btn sm" target="_blank" rel="noopener" href="'+esc(a.transcripcion||'#')+'">Transcripción</a></div>';
-      var panel='';
-      if(abierto){
-        if(!a) panel='<div class="mini" style="margin-top:10px"><label class="f">Tipo de informante<select id="ci-tipo">'+tipos.map(function(t){return '<option>'+esc(t)+'</option>';}).join('')+'</select></label>'+
-          '<label class="f">Fecha<input type="date" id="ci-fecha" min="'+hoy+'"></label><label class="f">Modalidad<select id="ci-mod"><option>virtual</option><option>presencial</option></select></label>'+
-          '<label class="f">Responsable<select id="ci-resp">'+eq+'</select></label><button class="btn primary sm" data-agendar="'+esc(c.id_cupo)+'">Guardar</button><button class="btn ghost sm" data-abrir="">Cerrar</button></div>'+
-          '<p class="note">El código seudónimo se arma solo (cupo + número, p. ej. '+esc(c.id_cupo)+'-1). Reemplaza el nombre del informante en todos los registros.</p>';
-        else if(a.estado==='agendada') panel='<div class="mini" style="margin-top:10px"><input type="date" id="cu-fecha" min="'+hoy+'"><button class="btn sm" data-act-cuali="reagendar" data-id="'+esc(a.id_app)+'">Reagendar</button>'+
-          '<input id="cu-motivo" placeholder="Motivo de la cancelación"><button class="btn ghost sm" data-act-cuali="cancelar" data-id="'+esc(a.id_app)+'">Cancelar</button>'+
-          '<button class="btn primary sm" data-act-cuali="realizada" data-id="'+esc(a.id_app)+'">Marcar realizada</button></div>';
-        else if(a.estado==='realizada') panel='<div class="mini" style="margin-top:10px"><input id="cu-link" placeholder="Enlace de Drive a la transcripción" style="width:320px"><button class="btn primary sm" data-act-cuali="transcripcion" data-id="'+esc(a.id_app)+'">Vincular</button></div>';
-        var h=(a&&hist[a.id_app])||[];
-        if(h.length) panel+='<div class="note" style="margin-top:8px"><b>Historial</b><br>'+h.map(function(e){return fmtFecha(e.fecha)+' · '+esc(e.evento)+(e.detalle?' · '+esc(String(e.detalle).slice(0,80)):'')+' · '+esc(String(e.quien).split('@')[0]);}).join('<br>')+'</div>';
-      }
-      return '<tr><td class="mono">'+esc(c.id_cupo)+'</td><td>'+esc(c.descripcion)+'</td><td><span class="chip '+estado[1]+'">'+estado[0]+'</span></td><td>'+info+'</td><td>'+acc+panel+'</td></tr>';
-    }).join('');
-    return '<div class="card"><h2>'+esc(PAU[inst]||inst)+'</h2><div class="tw"><table><thead><tr><th>Cupo</th><th>Qué cubre</th><th>Estado</th><th>Aplicación</th><th></th></tr></thead><tbody>'+filas+'</tbody></table></div></div>';
-  }).join('');
-  return '<div class="grid g2">'+cualiCard(d.agg.cuali)+
-    '<div class="card"><h2>Cómo funciona</h2><p class="hint">Cada fila es un <b>cupo</b> del plan (Tabla 7.3). El avance se mide contra ese plan.</p>'+
-    '<ol class="note" style="padding-left:18px;line-height:1.7"><li><b>Agendar</b> un cupo libre: tipo de informante, fecha, modalidad y responsable.</li>'+
-    '<li><b>Aplicar</b>: crea el documento de notas desde la pauta, en la carpeta del proyecto en Drive.</li>'+
-    '<li><b>Actualizar</b>: reagendar, cancelar (el cupo queda libre) o marcar realizada. Cada cambio queda en el historial.</li>'+
-    '<li><b>Vincular transcripción</b>: se pega el enlace de Drive. Solo entonces queda «transcrita».</li></ol></div></div>'+html;
+  var ra=apps.map(function(a){var c=cup[a.id_cupo]||{}, es=CUALI_ESTADO[a.estado]||[a.estado,'neutral'], venc=a.estado==='agendada'&&String(a.fecha_programada).slice(0,10)<hoy;
+    return '<tr class="clic" data-app="'+esc(a.id_app)+'"><td class="mono">'+fmtDia(a.fecha_programada)+(venc?' <span class="chip warn">pasó la fecha</span>':'')+'</td><td class="mono"><b>'+esc(a.codigo)+'</b></td><td>'+esc(PAU[a.instrumento]||a.instrumento)+'<div class="note">'+esc(c.descripcion||'')+'</div></td><td>'+esc(a.tipo_informante)+'</td><td>'+esc(a.modalidad)+'</td><td>'+esc(a.responsable)+'</td><td><span class="chip '+es[1]+'">'+es[0]+'</span></td></tr>';}).join('');
+  var agenda='<div class="card"><h2>Agenda de aplicaciones</h2><p class="hint">Lo que está programado y lo que falta cerrar. Haz clic en una fila para reagendar, cancelar, abrir las notas o vincular la transcripción.</p>'+
+    '<div class="filters">'+FA.map(function(x){return '<button data-fagenda="'+x[0]+'" aria-pressed="'+(fa===x[0])+'">'+x[1]+' ('+C.apps.filter(x[2]).length+')</button>';}).join('')+'</div>'+
+    '<div class="tw"><table class="tabla"><thead><tr><th>Fecha</th><th>Código</th><th>Instrumento · cupo</th><th>Informante</th><th>Modalidad</th><th>Responsable</th><th>Estado</th></tr></thead><tbody>'+(ra||'<tr><td colspan="7" class="note">No hay aplicaciones con este filtro.</td></tr>')+'</tbody></table></div></div>';
+  var insts=[]; C.cupos.forEach(function(c){if(insts.indexOf(c.instrumento)<0)insts.push(c.instrumento);});
+  var cl=C.cupos.filter(function(c){return !fc||c.instrumento===fc;});
+  var rc=cl.map(function(c){var a=vig[c.id_cupo], es=a?CUALI_ESTADO[a.estado]||[a.estado,'neutral']:['Libre','neutral'];
+    return '<tr class="clic" data-cupo="'+esc(c.id_cupo)+'"><td class="mono">'+esc(c.id_cupo)+'</td><td>'+esc(c.descripcion)+'</td><td><span class="chip '+es[1]+'">'+es[0]+'</span></td><td>'+(a?'<span class="mono">'+esc(a.codigo)+'</span> · '+fmtDia(a.fecha_programada):'<span class="note">—</span>')+'</td><td>'+(a?'':'<button class="btn primary sm" data-cupo="'+esc(c.id_cupo)+'">Agendar</button>')+'</td></tr>';}).join('');
+  var plan='<div class="card"><h2>Plan de cupos (Tabla 7.3)</h2><p class="hint">Los 30 cupos del plan. Un cupo libre se agenda; uno ocupado muestra su aplicación vigente. Si se cancela, el cupo vuelve a quedar libre.</p>'+
+    '<div class="filters"><button data-fcupo="" aria-pressed="'+(!fc)+'">Todos ('+C.cupos.length+')</button>'+insts.map(function(i){return '<button data-fcupo="'+esc(i)+'" aria-pressed="'+(fc===i)+'">'+esc(i)+' · '+esc(String(PAU[i]||i).replace(/^.*· /,''))+'</button>';}).join('')+'</div>'+
+    '<div class="tw"><table class="tabla"><thead><tr><th>Cupo</th><th>Qué cubre</th><th>Estado</th><th>Aplicación</th><th></th></tr></thead><tbody>'+rc+'</tbody></table></div></div>';
+  return agenda+plan+plegable('Avance por instrumento','Realizadas y agendadas frente a la meta de cada tipo.',cualiCard(d.agg.cuali,true));
+}
+function fichaCupo(d,idc){
+  var C=d.cuali, c=C.cupos.filter(function(x){return x.id_cupo===idc;})[0]||{}, tipos=String(c.tipos_informante||'').split('|').filter(Boolean);
+  var eq=(d.equipo||[]).map(function(n){return '<option>'+esc(n)+'</option>';}).join(''), hoy=new Date().toISOString().slice(0,10);
+  return '<div class="mhead"><div><div class="eyebrow">Agendar · cupo '+esc(idc)+'</div><h2>'+esc(c.descripcion||'')+'</h2></div></div>'+
+    '<form class="cuali" onsubmit="return false"><label class="f">Tipo de informante<select id="ci-tipo">'+tipos.map(function(t){return '<option>'+esc(t)+'</option>';}).join('')+'</select></label>'+
+    '<label class="f">Fecha<input type="date" id="ci-fecha" min="'+hoy+'"></label><label class="f">Modalidad<select id="ci-mod"><option>virtual</option><option>presencial</option></select></label>'+
+    '<label class="f">Responsable<select id="ci-resp">'+eq+'</select></label></form>'+
+    '<p class="note">El código seudónimo se crea solo (cupo y un número, p. ej. '+esc(idc)+'-1). Se usa en lugar del nombre de la persona en notas, transcripciones y matrices.</p>'+
+    '<div class="acts" style="margin-top:14px"><button class="btn primary" data-agendar="'+esc(idc)+'">Guardar en la agenda</button><button class="btn ghost" data-cerrar="1">Cancelar</button></div>';
+}
+function fichaApp(d,id){
+  var C=d.cuali, a=C.apps.filter(function(x){return x.id_app===id;})[0]; if(!a)return '<p>No se encontró la aplicación.</p>';
+  var c=C.cupos.filter(function(x){return x.id_cupo===a.id_cupo;})[0]||{}, es=CUALI_ESTADO[a.estado]||[a.estado,'neutral'], hoy=new Date().toISOString().slice(0,10);
+  var acc='';
+  if(a.estado==='agendada') acc='<div class="bloque"><h3 class="h3">Aplicar</h3><button class="btn primary" data-doc="'+esc(a.id_app)+'">'+(a.doc_notas?'Abrir el Doc de notas':'Crear el Doc de notas desde la pauta')+'</button> <button class="btn" data-act-cuali="realizada" data-id="'+esc(a.id_app)+'">Marcar como realizada</button></div>'+
+    '<div class="bloque"><h3 class="h3">Cambiar la fecha</h3><div class="mini"><input type="date" id="cu-fecha" min="'+hoy+'"><button class="btn sm" data-act-cuali="reagendar" data-id="'+esc(a.id_app)+'">Reagendar</button></div></div>'+
+    '<div class="bloque"><h3 class="h3">Cancelar</h3><div class="mini"><input id="cu-motivo" placeholder="Motivo (obligatorio)"><button class="btn ghost sm" data-act-cuali="cancelar" data-id="'+esc(a.id_app)+'">Cancelar la aplicación</button></div><p class="note">El cupo queda libre para volver a agendarlo.</p></div>';
+  else if(a.estado==='realizada') acc='<div class="bloque"><h3 class="h3">Vincular la transcripción</h3><div class="mini"><input id="cu-link" placeholder="Enlace de Drive a la transcripción" style="width:100%;max-width:420px"><button class="btn primary sm" data-act-cuali="transcripcion" data-id="'+esc(a.id_app)+'">Vincular</button></div>'+(a.doc_notas?'<p class="note"><a href="'+esc(a.doc_notas)+'" target="_blank" rel="noopener">Abrir el Doc de notas</a></p>':'')+'</div>';
+  else acc='<div class="acts">'+(a.doc_notas?'<a class="btn" target="_blank" rel="noopener" href="'+esc(a.doc_notas)+'">Doc de notas</a>':'')+(a.transcripcion?'<a class="btn" target="_blank" rel="noopener" href="'+esc(a.transcripcion)+'">Transcripción</a>':'')+'</div>';
+  var hist=(C.eventos||[]).filter(function(e){return e.id_app===id;}).slice().reverse().map(function(e){return '<li><span class="mono">'+fmtFecha(e.fecha)+'</span> · '+esc(humano(e.evento))+(e.detalle?' · '+esc(String(e.detalle).slice(0,90)):'')+' <span class="note">· '+esc(String(e.quien).split('@')[0])+'</span></li>';}).join('');
+  return '<div class="mhead"><div><div class="eyebrow">Aplicación · '+esc(a.instrumento)+'</div><h2 class="mono">'+esc(a.codigo)+'</h2></div><span class="chip '+es[1]+'">'+es[0]+'</span></div>'+
+    '<dl class="datos"><div><dt>Cupo</dt><dd>'+esc(c.descripcion||a.id_cupo)+'</dd></div><div><dt>Informante</dt><dd>'+esc(a.tipo_informante)+'</dd></div><div><dt>Fecha</dt><dd>'+fmtDia(a.fecha_programada)+'</dd></div>'+
+    '<div><dt>Modalidad</dt><dd>'+esc(a.modalidad)+'</dd></div><div><dt>Responsable</dt><dd>'+esc(a.responsable)+'</dd></div></dl>'+acc+
+    '<h3 class="h3">Historial (lo más reciente arriba)</h3>'+(hist?'<ul class="hist">'+hist+'</ul>':'<p class="note">Sin movimientos.</p>');
+}
+
+// ---------------- VENTANA EMERGENTE ----------------
+function abrirModal(html){var m=document.getElementById('modal');document.getElementById('modal-b').innerHTML=html;if(!m.open){if(m.showModal)m.showModal();else m.setAttribute('open','');}}
+function cerrarModal(){var m=document.getElementById('modal');if(m.open){if(m.close)m.close();else m.removeAttribute('open');}state.modal=null;}
+function csvVisible(){
+  var list=filtrar(state.data.bbdd||[]), cols=COLS_T.map(function(c){return c[0];});
+  var rows=[COLS_T.map(function(c){return c[1];})].concat(list.map(function(k){return cols.map(function(c){return valT(k,c);});}));
+  var csv=rows.map(function(r){return r.map(function(v){v=String(v==null?'':v);return /[",;\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}).join(',');}).join('\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'}));a.download='gigES_base_filtrada.csv';document.body.appendChild(a);a.click();a.remove();
 }
 
 function barras(obj,etiquetas,color,base,cliente){
@@ -532,25 +704,46 @@ function vIndic(a,cliente){
 
 // ---------------- EVENTOS ----------------
 document.addEventListener('click',function(e){
-  var t=e.target.closest('[data-tab],[data-vista],[data-filtro],[data-filtrob],[data-seg],[data-selall],[data-abrir],[data-agendar],[data-act-cuali],[data-doc],[data-copiar],#btn-sync'); if(!t)return;
-  if(t.dataset.tab){state.tab=t.dataset.tab;render();}
-  else if(t.dataset.vista){state.vista=t.dataset.vista;render();}
-  else if(t.dataset.filtro){state.filtro=t.dataset.filtro;render();}
-  else if(t.dataset.filtrob){state.filtroB=t.dataset.filtrob;render();}
-  else if(t.dataset.selall){document.querySelectorAll('[data-sel]').forEach(function(c){state.sel[c.dataset.sel]=true;});render();}
-  else if(t.dataset.seg){var ids=Object.keys(state.sel).filter(function(k){return state.sel[k];}); if(!ids.length)return;
-    call('registrarSeguimiento',[ids,t.dataset.seg,''],function(){state.sel={};cargar();});}
-  else if(t.dataset.abrir!==undefined){state.abiertoCupo=(state.abiertoCupo===t.dataset.abrir)?'':t.dataset.abrir;render();}
-  else if(t.dataset.agendar){call('agendarCuali',[{id_cupo:t.dataset.agendar,tipo_informante:val('ci-tipo'),fecha:val('ci-fecha'),modalidad:val('ci-mod'),responsable:val('ci-resp')}],function(){state.abiertoCupo='';cargar();});}
-  else if(t.dataset.actCuali){var a=t.dataset.actCuali, v=a==='reagendar'?val('cu-fecha'):(a==='cancelar'?val('cu-motivo'):(a==='transcripcion'?val('cu-link').trim():''));
-    call('actualizarCuali',[t.dataset.id,a,v],function(){state.abiertoCupo='';cargar();});}
-  else if(t.dataset.doc){ if(!hasGAS){toast('En la maqueta los botones no ejecutan acciones.');return;}
+  var t=e.target.closest('[data-tab],[data-vista],[data-filtro],[data-vistab],[data-etapa],[data-seg1],[data-segm],[data-limpiar],[data-caso],[data-orden],[data-fblimpiar],[data-csv],[data-fagenda],[data-fcupo],[data-cupo],[data-app],[data-agendar],[data-act-cuali],[data-doc],[data-copiar],[data-cerrar],#btn-sync'); if(!t)return;
+  var ds=t.dataset;
+  if(ds.tab){state.tab=ds.tab;render();}
+  else if(ds.vista){state.vista=ds.vista;render();}
+  else if(ds.filtro){state.filtro=ds.filtro;render();}
+  else if(ds.vistab){state.vistaB=ds.vistab;render();}
+  else if(ds.etapa){state.etapa=ds.etapa;state.vistaB='bandeja';state.sel={};render();}
+  else if(ds.seg1){call('registrarSeguimiento',[[ds.id],ds.seg1,''],function(){cerrarModal();cargar();});}
+  else if(ds.segm){var ids=Object.keys(state.sel).filter(function(k){return state.sel[k];}); if(!ids.length)return;
+    call('registrarSeguimiento',[ids,ds.segm,''],function(){state.sel={};cargar();});}
+  else if(ds.limpiar){state.sel={};render();}
+  else if(ds.orden){state.orden={k:ds.orden,dir:state.orden.k===ds.orden?-state.orden.dir:1};render();}
+  else if(ds.fblimpiar){state.fb={};render();}
+  else if(ds.csv){csvVisible();}
+  else if(ds.fagenda){state.fAgenda=ds.fagenda;render();}
+  else if(ds.fcupo!==undefined){state.fCupo=ds.fcupo;render();}
+  else if(ds.caso){state.modal={t:'caso',id:ds.caso};abrirModal(fichaCaso(state.data,ds.caso));}
+  else if(ds.app){state.modal={t:'app',id:ds.app};abrirModal(fichaApp(state.data,ds.app));}
+  else if(ds.cupo){var a=(state.data.cuali.apps||[]).filter(function(x){return x.id_cupo===ds.cupo&&x.estado!=='cancelada';})[0];
+    if(a){state.modal={t:'app',id:a.id_app};abrirModal(fichaApp(state.data,a.id_app));} else {state.modal={t:'cupo',id:ds.cupo};abrirModal(fichaCupo(state.data,ds.cupo));}}
+  else if(ds.agendar){if(!val('ci-fecha')){toast('Elija la fecha.');return;}
+    call('agendarCuali',[{id_cupo:ds.agendar,tipo_informante:val('ci-tipo'),fecha:val('ci-fecha'),modalidad:val('ci-mod'),responsable:val('ci-resp')}],function(){cerrarModal();cargar();});}
+  else if(ds.actCuali){var ac=ds.actCuali, v=ac==='reagendar'?val('cu-fecha'):(ac==='cancelar'?val('cu-motivo'):(ac==='transcripcion'?val('cu-link').trim():''));
+    if((ac==='reagendar'||ac==='cancelar'||ac==='transcripcion')&&!v){toast(ac==='reagendar'?'Elija la nueva fecha.':(ac==='cancelar'?'Escriba el motivo.':'Pegue el enlace.'));return;}
+    call('actualizarCuali',[ds.id,ac,v],function(){cerrarModal();cargar();});}
+  else if(ds.doc){ if(!hasGAS){toast('En la maqueta los botones no ejecutan acciones.');return;}
     var w=window.open('about:blank','_blank'); toast('Preparando el documento de notas…');
-    google.script.run.withSuccessHandler(function(url){if(w)w.location=url;cargar();}).withFailureHandler(function(err){if(w)w.close();toast(err.message);}).docNotasCuali(t.dataset.doc);}
-  else if(t.dataset.copiar){ (navigator.clipboard?navigator.clipboard.writeText(t.dataset.copiar):Promise.reject()).then(function(){toast('Enlace copiado.');},function(){toast('No se pudo copiar: selecciónelo a mano.');}); }
+    google.script.run.withSuccessHandler(function(url){if(w)w.location=url;cargar();}).withFailureHandler(function(err){if(w)w.close();toast(err.message);}).docNotasCuali(ds.doc);}
+  else if(ds.copiar){ (navigator.clipboard?navigator.clipboard.writeText(ds.copiar):Promise.reject()).then(function(){toast('Enlace copiado.');},function(){toast('No se pudo copiar: selecciónelo a mano.');}); }
+  else if(ds.cerrar){cerrarModal();}
   else if(t.id==='btn-sync'){toast('Sincronizando con Kobo…');call('sincronizar',[],function(){cargar();});}
 });
-document.addEventListener('change',function(e){ if(e.target.dataset&&e.target.dataset.sel!==undefined){state.sel[e.target.dataset.sel]=e.target.checked;render();} });
+document.addEventListener('change',function(e){var t=e.target, ds=t.dataset||{};
+  if(ds.sel!==undefined){state.sel[ds.sel]=t.checked;render();}
+  else if(ds.selpag){document.querySelectorAll('[data-sel]').forEach(function(c){state.sel[c.dataset.sel]=t.checked;});render();}
+  else if(ds.fb){state.fb[ds.fb]=t.value;render();}
+});
+document.addEventListener('input',function(e){var t=e.target; if(t.dataset&&t.dataset.fb==='q'){state.fb.q=t.value;clearTimeout(window.__qt);window.__qt=setTimeout(function(){render();var i=document.querySelector('[data-fb="q"]');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length);}},250);}});
+document.addEventListener('toggle',function(e){var t=e.target; if(t.dataset&&t.dataset.pleg)state.plegados[t.dataset.pleg]=t.open;},true);
+document.addEventListener('keydown',function(e){if(e.key==='Enter'){var tr=e.target.closest&&e.target.closest('tr.clic');if(tr)tr.click();}});
 
 function val(id){return document.getElementById(id).value;}
 function bindTips(){
