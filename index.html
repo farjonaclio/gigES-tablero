@@ -286,7 +286,7 @@ function demo(){
   var apps=[{id_app:'E1-DIR-1',id_cupo:'E1-DIR',instrumento:'E1',codigo:'E1-DIR-1',tipo_informante:'Dirección',fecha_programada:'2026-10-05',modalidad:'virtual',responsable:'Dirección',estado:'transcrita',doc_notas:'#',transcripcion:'#'},
     {id_app:'E3-SOS-1',id_cupo:'E3-SOS',instrumento:'E3',codigo:'E3-SOS-1',tipo_informante:'Fundador/a o gerente',fecha_programada:'2026-10-09',modalidad:'virtual',responsable:'Moderación 1',estado:'agendada',doc_notas:'',transcripcion:''}];
   var eventos=[{fecha:'2026-10-01T15:00:00Z',id_app:'E3-SOS-1',evento:'agendada',detalle:'2026-10-07 · virtual',quien:'coord@cliodinamica.com'},{fecha:'2026-10-03T15:00:00Z',id_app:'E3-SOS-1',evento:'reagendada',detalle:'de 07-10-2026 a 2026-10-09',quien:'coord@cliodinamica.com'}];
-  var difusion=Object.keys(NOMBRES).map(function(s){return {st:s,nombre:NOMBRES[s],enlace:'https://ee.kobotoolbox.org/x/qhLXMFIQ?d[/…/startup_pre]='+s};});
+  var difusion=[{st:'',nombre:'Todas las soluciones',enlace:'https://ee.kobotoolbox.org/x/qhLXMFIQ'}];
   return {modo:'demo',ultima:new Date().toISOString(),agg:agg,deriv:deriv,bbdd:bbdd,difusion:difusion,cuali:{cupos:cupos,apps:apps,eventos:eventos},
     equipo:['Dirección','Coordinación','Moderación 1','Moderación 2'],url_contactos:'#',url_planilla:'#',enlace_alta:'#'};
 }
@@ -436,12 +436,10 @@ function vDeriv(d){
 }
 
 function vDifusion(d){
-  var dif=(d.difusion||[]).map(function(r){
-    return '<tr><td>'+esc(r.nombre)+'</td><td><code class="link">'+esc(r.enlace)+'</code></td><td><button class="btn sm" data-copiar="'+esc(r.enlace)+'">Copiar</button></td></tr>';}).join('');
-  return '<div class="card"><h2>Personas sin base de datos: la startup difunde</h2><p class="hint">Cuando una startup no entrega su base, no sabemos quiénes son sus usuarios. La startup comparte la invitación con su propia voz y cada persona entra por un enlace o un QR.</p>'+
-    '<div class="banner warn" style="background:var(--sunk)"><b>¿Por qué un enlace por startup?</b> Es el único dato que nos dice por qué startup llegó la persona, sin pedirle datos personales. Permite medir cuánto responde cada startup, hacer su propio QR y su pieza de difusión, y verificar la pertenencia declarada (Informe 1 §8.2.1 y §8.6). El enlace es siempre el mismo: no hay que generar nada ni registrar envíos.</div>'+
-    '<div class="tw" style="margin-top:12px"><table><thead><tr><th>Solución</th><th>Enlace para difundir</th><th></th></tr></thead><tbody>'+dif+'</tbody></table></div>'+
-    '<p class="note">La encuesta asigna el grupo (usuario o comparación) con las preguntas filtro. Quien pide otro medio queda en Derivaciones con un código RB.</p></div>';
+  var r=(d.difusion||[])[0]||{enlace:''};
+  return '<div class="card"><h2>Personas sin base de datos: un solo enlace para todas las startups</h2><p class="hint">Cuando una startup no entrega su base, no sabemos quiénes son sus usuarios. Cada startup comparte la invitación con su propia voz, pero todas usan el mismo enlace o el mismo QR.</p>'+
+    '<div class="tw" style="margin-top:12px"><table><thead><tr><th>Enlace para difundir</th><th></th></tr></thead><tbody><tr><td><code class="link">'+esc(r.enlace)+'</code></td><td><button class="btn sm" data-copiar="'+esc(r.enlace)+'">Copiar</button></td></tr></tbody></table></div>'+
+    '<p class="note">La persona indica en la encuesta por qué solución participó (pregunta p05) y las preguntas filtro asignan el grupo (usuario o comparación). Así se mide cuánto responde cada solución sin un enlace por startup. Quien pide llamada o encuesta presencial queda en Derivaciones con un código RB.</p></div>';
 }
 
 function vResumen(a,cliente){
