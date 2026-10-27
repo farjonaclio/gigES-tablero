@@ -253,13 +253,13 @@ function demo(){
   var ind={satisfaccion:d({'1':4,'2':9,'3':31,'4':128,'5':96},268),atribucion:d({nada:12,poco:31,algo:64,bastante:98,mucho:46,sin_cambios:17},268),
     cambio_ingresos:d({mejoro:96,igual:151,empeoro:21},268),cambio_proteccion:d({mejoro:118,igual:139,empeoro:11},268),cambio_trabajo:d({mejoro:104,igual:147,empeoro:17},268),
     barrera:d({celular:22,datos:61,app:48,requisitos:37,tiempo:88,desconfianza:41,atencion:19,lectura:15,costo:54,ninguna:140},525),
-    percepcion_T:d({a:121,b:97,c:110,d:134,e:62},268),percepcion_C:d({a:41,b:38,c:35,d:30,e:18},214)};
+    percepcion_T:d({a:121,b:97,c:110,d:134,e:62},268),percepcion_C:d({a:41,b:38,c:35,d:30,e:18},214),percepcion_X:d({a:6,b:5,c:7,d:4,e:2},31)};
   var agg={generado:new Date().toISOString(),semana:7,cortes:[{s:6,umbral:25},{s:7,umbral:50},{s:8,umbral:80},{s:9,umbral:100}],
     porGrupo:{T:{completas:307,meta:700,mujeres:131,con_sexo:301},C:{completas:218,meta:600,mujeres:76,con_sexo:214}},
     startups:st.map(function(r){return {st:r[0],T:r[1],C:r[2],refT:ref[r[0]][0],refC:ref[r[0]][1]};}),
     modos:{web:402,telefono:96,presencial:27},rutas:{A:{casos:1840,enviados:1620,completas:398},B:{completas:127}},
     deriv:{solicitudes:88,seguimiento:141,otros:12,telefono:209,presencial:32,atendidas_48:151,con_primer:170,aplicadas:123,cerradas:31,abiertas:87,vencidas:9},
-    serie:[{s:5,T:0,C:0},{s:6,T:171,C:102},{s:7,T:307,C:218}],cuali:cq,prioridad:{mujeres_T:false,mujeres_C:true,comparacion_atrasada:true},indicadores:ind,autoriza_cuali:186,total:525};
+    serie:[{s:5,T:0,C:0},{s:6,T:171,C:102},{s:7,T:307,C:218}],cuali:cq,externa:{completas:31,mujeres:14,con_sexo:31},prioridad:{mujeres_T:false,mujeres_C:true,comparacion_atrasada:true},indicadores:ind,autoriza_cuali:186,total:525};
   function k(o){o.link_aplicar='#';o.link_registrar='#';o.responsable=o.responsable||'';o.mensajes=o.mensajes||0;o.intentos=o.intentos||0;return o;}
   var deriv=[
     k({id:'FIA-0213',enMuestra:true,startup:'fia',grupo:'C',origen:'solicitud',medio:'presencial',estado:'citada',intentos:1,horas_primer_intento:6,proxima_accion:'Cita 09-10 10:00',franja:'sab · manana',cita:'09-10 10:00 · punto_startup',responsable:'pres01',prioridad:'mujer · comparación'}),
@@ -466,6 +466,8 @@ function vResumen(a,cliente){
     '<div class="big mono">'+creal+' <small>de '+cmeta+' realizadas</small></div>'+
     '<div class="meter dual" data-tip="'+creal+' realizadas, '+cag+' agendadas, de '+cmeta+'"><i style="width:'+wr+'%;background:var(--s2)"></i><i style="width:'+wa+'%;background:var(--s2);opacity:.3"></i></div>'+
     '<p class="frase">'+cTxt+'</p><span class="chip neutral">Sin umbral semanal: se mide contra el plan</span></div></div>';
+  var ex=a.externa;
+  if(ex) h+='<p class="note" style="margin:-4px 0 14px"><b>Comparación externa:</b> '+num(ex.completas)+' encuestas de personas que no se registraron en ninguna solución'+(ex.con_sexo>0&&typeof ex.mujeres==='number'?' ('+Math.round(100*ex.mujeres/ex.con_sexo)+'% mujeres)':'')+'. Se analizan aparte y <b>no suman a la meta</b>.</p>';
   var p=a.prioridad;
   if(!cliente && p && (p.mujeres_T||p.mujeres_C||p.comparacion_atrasada)){
     var msg=[]; if(p.mujeres_T)msg.push('las mujeres usuarias (están bajo 40%)'); if(p.mujeres_C)msg.push('las mujeres del grupo de comparación (están bajo 40%)'); if(p.comparacion_atrasada)msg.push('el grupo de comparación, que va más atrasado');
@@ -698,7 +700,7 @@ function vIndic(a,cliente){
   h+='<div class="grid g2"><div class="card"><h2>Barrera principal</h2><p class="hint">Todas las personas (pregunta m3_02). Las cinco más mencionadas.</p>'+barras(I.barrera,top(I.barrera,5),'var(--s2)',I.barrera.base,cliente)+'<p class="note">Base: '+num(I.barrera.base)+'</p></div>'+
     '<div class="card"><h2>Mejora percibida, antes y hoy</h2><p class="hint">Porcentaje que puntúa «hoy» más alto que «antes de ingresar al programa» (pregunta m5_03, escala 1 a 5). Barras en escala de 0 a 100%, comparables entre grupos. Es el plan B si el impacto no se logra estimar.</p>'+
     (function(){var PT=I.percepcion_T||{base:0,cats:{}},PC=I.percepcion_C||{base:0,cats:{}};var D={a:'Protegido/a ante imprevistos',b:'Tranquilo/a con los ingresos del mes',c:'Sabe manejar el dinero',d:'Conocimientos y capacitación',e:'Parte de una red de trabajadores'};
-      return '<div class="eyebrow">Usuarios</div>'+barras(PT,D,'var(--s1)',PT.base,cliente,true)+'<div class="eyebrow" style="margin-top:8px">Grupo de comparación</div>'+barras(PC,D,'var(--s3)',PC.base,cliente,true)+'<p class="note">Base: '+num(PT.base)+' usuarios · '+num(PC.base)+' del grupo de comparación</p>';})()+'</div></div>';
+      return '<div class="eyebrow">Usuarios</div>'+barras(PT,D,'var(--s1)',PT.base,cliente,true)+'<div class="eyebrow" style="margin-top:8px">Grupo de comparación</div>'+barras(PC,D,'var(--s3)',PC.base,cliente,true)+(I.percepcion_X&&I.percepcion_X.base>0?'<div class="eyebrow" style="margin-top:8px">Comparación externa (referencia: hace dos años)</div>'+barras(I.percepcion_X,D,'var(--ink-2)',I.percepcion_X.base,cliente,true):'')+'<p class="note">Base: '+num(PT.base)+' usuarios · '+num(PC.base)+' del grupo de comparación'+(I.percepcion_X&&I.percepcion_X.base>0?' · '+num(I.percepcion_X.base)+' de comparación externa':'')+'</p>';})()+'</div></div>';
   return h;
 }
 
