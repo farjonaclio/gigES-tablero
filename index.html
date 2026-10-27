@@ -243,6 +243,11 @@ main .wrap{padding-block:18px 40px;gap:14px}
 th{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:transparent!important;border-bottom:1px solid var(--line)}
 td{border-bottom:1px solid rgba(31,58,78,.6)} tbody tr:nth-child(even) td{background:transparent!important}
 details.fold>summary .st{font-size:17px;font-weight:600}
+.pmeta.teal{background:rgba(31,164,181,.15);color:var(--accent)} .pmeta.mag{background:rgba(220,1,102,.15);color:#ff5fa6} .pmeta.mute{background:rgba(143,163,179,.15);color:var(--muted)}
+.muted{color:var(--muted)} .nowrap{white-space:nowrap}
+table.tst td{vertical-align:top;padding:10px} table.tst .tsd{color:var(--muted);font-size:11.5px;margin-top:3px;line-height:1.35}
+table.tst .tsb{display:flex;align-items:center;gap:10px} table.tst .tsb .meter{width:110px;flex:0 0 110px;margin:0;height:6px}
+table.tst tr.extra td{color:var(--muted)} table.tst tr.tot td{border-top:1px solid var(--line);background:rgba(31,164,181,.05)!important}
 </style>
 
 <header class="top">
@@ -303,12 +308,12 @@ function demo(){
     cambio_ingresos:d({mejoro:96,igual:151,empeoro:21},268),cambio_proteccion:d({mejoro:118,igual:139,empeoro:11},268),cambio_trabajo:d({mejoro:104,igual:147,empeoro:17},268),
     barrera:d({celular:22,datos:61,app:48,requisitos:37,tiempo:88,desconfianza:41,atencion:19,lectura:15,costo:54,ninguna:140},525),
     percepcion_T:d({a:121,b:97,c:110,d:134,e:62},268),percepcion_C:d({a:41,b:38,c:35,d:30,e:18},214),percepcion_X:d({a:6,b:5,c:7,d:4,e:2},31)};
-  var agg={generado:new Date().toISOString(),semana:7,cortes:[{s:6,umbral:25},{s:7,umbral:50},{s:8,umbral:80},{s:9,umbral:100}],
+  var agg={generado:new Date().toISOString(),semana:7,cortes:[{s:4,umbral:5},{s:5,umbral:15},{s:6,umbral:30},{s:7,umbral:50},{s:8,umbral:65},{s:9,umbral:85},{s:10,umbral:100}],
     porGrupo:{T:{completas:307,meta:700,mujeres:131,con_sexo:301},C:{completas:218,meta:600,mujeres:76,con_sexo:214}},
-    startups:st.map(function(r){return {st:r[0],T:r[1],C:r[2],refT:ref[r[0]][0],refC:ref[r[0]][1]};}),
+    startups:st.map(function(r){var ap={fia:['A',3455,'Baja tasa de respuesta'],alf:['A',169]}[r[0]]||['B'];return {st:r[0],T:r[1],C:r[2],refT:ref[r[0]][0],refC:ref[r[0]][1],mujT:Math.round(r[1]*0.45),ruta:ap[0],baseN:ap[1]||'',alerta:ap[2]||'',segmento:'Segmento ilustrativo',entrevista:r[0]==='s10'?'Agendada':'Realizada'};}),
     modos:{web:402,telefono:96,presencial:27},rutas:{A:{casos:1840,enviados:1620,completas:398},B:{completas:127}},
     deriv:{solicitudes:88,seguimiento:141,otros:12,telefono:209,presencial:32,atendidas_48:151,con_primer:170,aplicadas:123,cerradas:31,abiertas:87,vencidas:9},
-    serie:[{s:5,T:0,C:0},{s:6,T:171,C:102},{s:7,T:307,C:218}],cuali:cq,externa:{completas:31,mujeres:14,con_sexo:31},prioridad:{mujeres_T:false,mujeres_C:true,comparacion_atrasada:true},indicadores:ind,autoriza_cuali:186,total:525};
+    serie:[{s:5,T:0,C:0},{s:6,T:171,C:102},{s:7,T:307,C:218}],cuali:cq,externa:{completas:31,mujeres:14,con_sexo:31,sin_solucion:2,sin_T:1,sin_C:1},prioridad:{mujeres_T:false,mujeres_C:true,comparacion_atrasada:true},indicadores:ind,autoriza_cuali:186,total:525};
   function k(o){o.link_aplicar='#';o.link_registrar='#';o.responsable=o.responsable||'';o.mensajes=o.mensajes||0;o.intentos=o.intentos||0;return o;}
   var deriv=[
     k({id:'FIA-0213',enMuestra:true,startup:'fia',grupo:'C',origen:'solicitud',medio:'presencial',estado:'citada',intentos:1,horas_primer_intento:6,proxima_accion:'Cita 09-10 10:00',franja:'sab · manana',cita:'09-10 10:00 · punto_startup',responsable:'pres01',prioridad:'mujer · comparación'}),
@@ -554,14 +559,7 @@ function vResumen(a,cliente){
   }
   h+=plegable('Avance acumulado por grupo','Cómo ha crecido cada grupo y dónde están los cortes.',
     '<div class="legend"><span><i style="background:var(--s1)"></i>Usuarios</span><span><i style="background:var(--s2)"></i>Comparación</span><span><i style="background:var(--ink-2)"></i>Esperado en cada corte ('+(a.cortes||[]).filter(function(c){return c.umbral>0;}).map(function(c){return c.umbral+'% S'+c.s;}).join(' · ')+')</span></div>'+lineChart(a.serie));
-  var maxv=1; a.startups.forEach(function(r){[r.T,r.C,r.refT,r.refC].forEach(function(v){if(typeof v==='number'&&v>maxv)maxv=v;});});
-  var rows=a.startups.map(function(r){
-    var bT=typeof r.T==='number'?r.T:0,bC=typeof r.C==='number'?r.C:0;
-    return '<tr><td>'+esc(NOMBRES[r.st]||r.st)+'</td><td class="n">'+num(r.T)+'</td><td class="n note">'+(r.refT||'—')+'</td><td class="n">'+num(r.C)+'</td><td class="n note">'+(r.refC||'—')+'</td>'+
-      '<td><div class="bar2"><span style="width:'+(100*bT/maxv)+'%;background:var(--s1)" data-tip="'+esc(NOMBRES[r.st])+' · usuarios: '+r.T+' (referencial '+r.refT+')"></span><span style="width:'+(100*bC/maxv)+'%;background:var(--s2)" data-tip="'+esc(NOMBRES[r.st])+' · comparación: '+r.C+(r.refC?' (referencial '+r.refC+')':'')+'"></span></div></td></tr>';
-  }).join('');
-  h+=plegable('Detalle por solución','Encuestas por startup frente a la referencia del Informe 1 (Tabla 7.2). Orienta el contacto; no es una cuota.',
-    '<div class="tw"><table><thead><tr><th>Solución</th><th class="n">Usuarios</th><th class="n">Referencia</th><th class="n">Comparación</th><th class="n">Referencia</th><th>Avance</th></tr></thead><tbody>'+rows+'</tbody></table></div>');
+  h+=tablaStartups(a,corte,u);
   var mo=a.modos, tot=[mo.web,mo.telefono,mo.presencial].reduce(function(s,v){return s+(typeof v==='number'?v:0);},0)||1;
   var mb=[['Por la web (la persona sola)','web','var(--s1)'],['Por teléfono','telefono','var(--s2)'],['En persona','presencial','var(--s3)']].map(function(x){
     var v=mo[x[1]],w=typeof v==='number'?100*v/tot:0;
@@ -579,6 +577,43 @@ function vResumen(a,cliente){
   h+=plegable('Cómo se está respondiendo','Medio de aplicación, origen y derivaciones.',cuerpo);
   h+=plegable('Cualitativo por instrumento','Avance de cada tipo de entrevista y grupo focal.',cualiCard(a.cuali,true));
   return h;
+}
+function tablaStartups(a,corte,u){
+  function cel(n,meta,color){
+    if(!meta) return '<span class="muted">sin GC'+(typeof n==='number'&&n>0?' ('+n+')':(n&&n!==0?' ('+esc(n)+')':''))+'</span>';
+    var v=typeof n==='number'?n:null, p=pct(v,meta), deb=Math.ceil(meta*u/100), falta=v===null?null:Math.max(0,deb-v);
+    var lvl=p===null?'':(p>=u?'ok':(p>=u*0.8?'warn':'crit'));
+    return '<div class="tsb"><div class="meter"><i style="width:'+Math.min(100,p||0)+'%;background:'+color+'"></i><span class="mark" style="left:'+u+'%"></span></div>'+
+      '<span class="nowrap"><b>'+num(n)+'</b> / '+meta+(p===null?'':' <span class="pmeta '+lvl+'">'+p+'%</span>')+'</span></div>'+
+      '<div class="tsd">Esperado al corte S'+corte.s+': '+deb+(falta===null?'':(falta>0?' · faltan <b>'+falta+'</b>':' · al día'))+'</div>';
+  }
+  var rs=a.startups.slice().sort(function(x,y){var px=typeof x.T==='number'?x.T/x.refT:0, py=typeof y.T==='number'?y.T/y.refT:0;return py-px;});
+  var ESTE={realizada:'ok',transcrita:'ok',codificada:'ok',agendada:'warn',contactado:'warn'};
+  var sT=0,sC=0,rT=0,rC=0,mj=0,nm=0,ent=0;
+  var filas=rs.map(function(r){
+    if(typeof r.T==='number'){sT+=r.T;} if(typeof r.C==='number'){sC+=r.C;} rT+=r.refT; rC+=r.refC; if(typeof r.mujT==='number'){mj+=r.mujT;nm+=r.T;}
+    var e=String(r.entrevista||''), el=e.toLowerCase(); if(ESTE[el]==='ok') ent++;
+    var muj=typeof r.mujT==='number'?pct(r.mujT,r.T):null;
+    var como=r.ruta==='A'?'<span class="pmeta teal" style="margin:0">Telefónica</span><div class="tsd">CliO llama'+(r.baseN?' · base de '+num(r.baseN)+' contactos':'')+'</div>'
+      :'<span class="pmeta mag" style="margin:0">Autoaplicada</span><div class="tsd">la startup difunde el enlace</div>';
+    return '<tr><td><b>'+esc(NOMBRES[r.st]||r.st)+'</b><div class="tsd">'+esc(r.segmento||'')+'</div>'+(r.alerta?'<span class="pmeta warn" style="margin:4px 0 0">⚠ '+esc(r.alerta)+'</span>':'')+'</td>'+
+      '<td>'+como+'</td><td>'+cel(r.T,r.refT,'var(--s1)')+'</td><td>'+cel(r.C,r.refC,'var(--s2)')+'</td>'+
+      '<td class="n">'+(muj===null?'<span class="muted">—</span>':'<span class="pmuj '+(muj>=40?'ok':'crit')+'">'+muj+'%</span>')+'</td>'+
+      '<td>'+(e?'<span class="pmeta '+(ESTE[el]||'mute')+'" style="margin:0">'+esc(e)+'</span>':'<span class="muted">—</span>')+'</td></tr>';
+  }).join('');
+  var ex=a.externa||{};
+  filas+='<tr class="extra"><td><b>Otra / no recuerda</b> <span class="pmeta mute">no suma</span><div class="tsd">Respuesta sin solución identificable</div></td><td>—</td>'+
+    '<td>'+num(ex.sin_T||0)+' <span class="muted">sin meta</span></td><td>'+num(ex.sin_C||0)+' <span class="muted">sin meta</span></td><td class="n">—</td><td>—</td></tr>'+
+    '<tr class="extra"><td><b>Ninguna de las anteriores</b> <span class="pmeta mute">no suma</span><div class="tsd">Comparación externa (no inscrita)</div></td><td>—</td>'+
+    '<td colspan="2">'+num(ex.completas||0)+' <span class="muted">se analizan aparte</span></td><td class="n">—</td><td>—</td></tr>';
+  var pT=pct(sT,rT), pC=pct(sC,rC), mT=a.porGrupo&&a.porGrupo.T?pct(a.porGrupo.T.mujeres,a.porGrupo.T.con_sexo):null;
+  filas+='<tr class="tot"><td><b>Total</b><div class="tsd">todas las startups</div></td><td></td>'+
+    '<td><b>'+sT+'</b> / '+rT+(pT===null?'':' <span class="pmeta '+(pT>=u?'ok':(pT>=u*0.8?'warn':'crit'))+'">'+pT+'%</span>')+'</td>'+
+    '<td><b>'+sC+'</b> / '+rC+(pC===null?'':' <span class="pmeta '+(pC>=u?'ok':(pC>=u*0.8?'warn':'crit'))+'">'+pC+'%</span>')+'</td>'+
+    '<td class="n">'+(mT===null?'—':mT+'%')+'</td><td><b>'+ent+'</b> de '+rs.length+' realizadas</td></tr>';
+  return '<div class="card"><div class="eyebrow">Encuestas por startup · detalle del avance</div>'+
+    '<p class="quien">Cada fila compara las encuestas logradas con la referencia de esa startup (Informe 1, Tabla 7.2). La barra es el avance; la marca blanca es lo esperado al corte S'+corte.s+' ('+u+'%). «Telefónica»: CliO llama desde la base que entregó la startup. «Autoaplicada»: la startup difunde el enlace. El total de referencias por startup (usuarios) suma más que la meta de 700.</p>'+
+    '<div class="tw"><table class="tst"><thead><tr><th>Startup</th><th>Cómo se aplica</th><th>Usuarios: logradas / referencia</th><th>Comparación: logradas / referencia</th><th class="n">% mujeres entre usuarios</th><th>Entrevista a la startup</th></tr></thead><tbody>'+filas+'</tbody></table></div></div>';
 }
 function plegable(t,sub,cuerpo){ var k='pl_'+t; var ab=state.plegados[k];
   return '<details class="card fold"'+(ab?' open':'')+' data-pleg="'+esc(k)+'"><summary><span><b class="st">'+esc(t)+'</b><span class="note">'+esc(sub)+'</span></span><span class="chev" aria-hidden="true">›</span></summary><div class="fold-b">'+cuerpo+'</div></details>'; }
