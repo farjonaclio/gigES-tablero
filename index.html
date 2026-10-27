@@ -467,7 +467,7 @@ function vResumen(a,cliente){
     '<div class="meter dual" data-tip="'+creal+' realizadas, '+cag+' agendadas, de '+cmeta+'"><i style="width:'+wr+'%;background:var(--s2)"></i><i style="width:'+wa+'%;background:var(--s2);opacity:.3"></i></div>'+
     '<p class="frase">'+cTxt+'</p><span class="chip neutral">Sin umbral semanal: se mide contra el plan</span></div></div>';
   var ex=a.externa;
-  if(ex) h+='<p class="note" style="margin:-4px 0 14px"><b>Comparación externa:</b> '+num(ex.completas)+' encuestas de personas que no se registraron en ninguna solución'+(ex.con_sexo>0&&typeof ex.mujeres==='number'?' ('+Math.round(100*ex.mujeres/ex.con_sexo)+'% mujeres)':'')+'. Se analizan aparte y <b>no suman a la meta</b>.</p>';
+  if(ex) h+='<p class="note" style="margin:-4px 0 14px"><b>No suman a la meta:</b> comparación externa (no se registraron en ninguna solución) '+num(ex.completas)+(ex.con_sexo>=5&&typeof ex.mujeres==='number'&&typeof ex.completas==='number'?' ('+Math.round(100*ex.mujeres/ex.con_sexo)+'% mujeres)':'')+' · sin solución identificada («Otra / no recuerdo») '+num(ex.sin_solucion||0)+'. Se analizan aparte.</p>';
   var p=a.prioridad;
   if(!cliente && p && (p.mujeres_T||p.mujeres_C||p.comparacion_atrasada)){
     var msg=[]; if(p.mujeres_T)msg.push('las mujeres usuarias (están bajo 40%)'); if(p.mujeres_C)msg.push('las mujeres del grupo de comparación (están bajo 40%)'); if(p.comparacion_atrasada)msg.push('el grupo de comparación, que va más atrasado');
