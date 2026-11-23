@@ -241,20 +241,20 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
 
 <nav class="tabs">
   <div class="wrap wide tabrow" role="tablist">
-    <button class="tab" role="tab" data-p="p1" aria-selected="true"><span class="n">0</span>Mesa y rol<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p2" aria-selected="false"><span class="n">1</span>Voto · antes de las mesas<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p3" aria-selected="false"><span class="n">2</span>Trabajo en mesa<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p4" aria-selected="false"><span class="n">3</span>Plenario</button>
+    <button class="tab" role="tab" data-p="p1" aria-selected="true"><span class="n">1</span>Registro<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p2" aria-selected="false"><span class="n">2</span>Voto individual<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p3" aria-selected="false"><span class="n">3</span>Trabajo en mesa<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p4" aria-selected="false"><span class="n">4</span>Plenario</button>
   </div>
 </nav>
 
 <main>
 <div class="wrap" id="cuerpo">
 
-<!-- ============ 0 · MESA Y ROL ============ -->
+<!-- ============ 1 · REGISTRO ============ -->
 <div class="panel" id="p1">
 <section>
-  <div class="shead"><span class="snum">0</span><h2>Su mesa y su rol</h2></div>
+  <div class="shead"><span class="snum">1</span><h2>Registro: su mesa y su rol</h2></div>
   <p class="shint">Las mesas son mixtas: en cada una hay soluciones, CASATIC y financiadores. No pedimos su nombre; su rol nos permite ver cómo mira el programa cada tipo de actor.</p>
   <div class="card">
     <div class="field">
@@ -288,13 +288,13 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
       </div>
     </div>
   </div>
-  <div class="barra"><span class="estado" id="st-p1"></span><button class="send" id="btn-p1">Continuar al voto</button></div>
+  <div class="barra"><span class="estado" id="st-p1"></span><button class="send" id="btn-p1">Continuar a 2 · Voto individual →</button></div>
 </section>
 </div>
 
 <!-- ============ 1 · VOTO INDIVIDUAL ============ -->
 <div class="panel" id="p2" hidden>
-<div class="momento"><div><span class="mk">Momento 1 · antes de las mesas</span><h2>Voto individual</h2></div><span class="min">5'</span></div>
+<div class="momento"><div><span class="mk">Paso 2 de 4 · cada uno por su cuenta, antes de las mesas</span><h2>Voto individual</h2></div><span class="min">5'</span></div>
 <section style="margin-top:22px">
   <p class="shint" style="margin-left:0">Este voto se hace <b>antes de las mesas</b>, cada persona por su cuenta y sin conversar. Califique el programa de 1 a 5 en cada dimensión. Todavía no mostramos la calificación del equipo evaluador. Si algo no le consta, marque «No sé».</p>
   <div class="card" id="votos"></div>
@@ -304,7 +304,7 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
 
 <!-- ============ 2 · MESA ============ -->
 <div class="panel" id="p3" hidden>
-<div class="momento"><div><span class="mk">Momento 2 · en mesa, con moderación de CliO</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
+<div class="momento"><div><span class="mk">Paso 3 de 4 · en mesa, con moderación de CliO</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
 <p class="shint" style="margin-left:0; margin-top:14px">Ya votaron. Ahora conversamos en tres partes, con moderación de CliO. Mientras conversamos, cada uno de ustedes anota aquí sus ideas. Lo escrito se guarda en su equipo; al final de la mesa presione «Guardar mis notas».</p>
 
 <div class="card mod" id="composicion" hidden >
@@ -343,7 +343,7 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
 
 <!-- ============ 3 · PLENARIO ============ -->
 <div class="panel" id="p4" hidden>
-<div class="momento"><div><span class="mk">Momento 3 · plenario</span><h2>Resultados en vivo</h2></div><span class="min">15'</span></div>
+<div class="momento"><div><span class="mk">Paso 4 de 4 · todos juntos</span><h2>Resultados en vivo</h2></div><span class="min">15'</span></div>
 <p class="shint" style="margin-left:0; margin-top:14px">Se actualiza cada 20 segundos. Muestra promedios y conteos por tipo de actor; nunca respuestas con nombre.</p>
 <div class="card">
   <h3>1 · Las calificaciones: equipo evaluador frente al taller</h3>
@@ -537,7 +537,7 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
   }
   function base(o){ return {mesa:o.mesa, actor:o.actor, rol:o.rol, solucion:(o.actor==="Solución"?o.solucion:"")}; }
   function falla(id){ return function(e){ estado(id, e==="sin-endpoint" ? "Vista de revisión: el guardado funciona desde el enlace del taller." : "No se pudo guardar; puede ser la conexión. Sus respuestas siguen aquí: intente de nuevo.", "err"); }; }
-  function listo(o,id){ if(!o.mesa||!o.actor){ estado(id,"Primero elija su mesa y su rol (pestaña 0).","err"); return false; } return true; }
+  function listo(o,id){ if(!o.mesa||!o.actor){ estado(id,"Primero complete 1 · Registro: su mesa y su rol.","err"); return false; } return true; }
 
   $("btn-p1").addEventListener("click", function(){
     var o=leer(); if(!listo(o,"st-p1")) return;
@@ -547,10 +547,10 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
     var o=leer(); if(!listo(o,"st-p2")) return;
     var p=base(o); p.tipo="voto"; var n=0;
     DIMS.forEach(function(d){ p["v_"+d.k]=o["v_"+d.k]; if(o["v_"+d.k]) n++; });
-    if(o.actor==="Solución" && !o.solucion){ estado("st-p2","Falta indicar qué solución representa (pestaña 0).","err"); return; }
+    if(o.actor==="Solución" && !o.solucion){ estado("st-p2","Falta indicar qué solución representa (en 1 · Registro).","err"); return; }
     if(n<DIMS.length){ estado("st-p2","Falta votar "+(DIMS.length-n)+" dimensión(es). Puede marcar «No sé».","err"); return; }
     var b=$("btn-voto"); b.disabled=true; b.textContent="Enviando…";
-    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar mi voto"; estado("st-p2","Voto guardado. Espere la indicación para pasar a las mesas (pestaña 2).","ok"); marcar("p2"); },
+    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar mi voto"; estado("st-p2","Voto guardado. Cuando la moderación lo indique, pase a 3 · Trabajo en mesa.","ok"); marcar("p2"); },
       function(e){ b.disabled=false; b.textContent="Enviar mi voto"; falla("st-p2")(e); });
   });
   $("btn-notas").addEventListener("click", function(){
