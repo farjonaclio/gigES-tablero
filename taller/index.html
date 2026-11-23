@@ -174,6 +174,10 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 .agrow .n{color:var(--muted); text-align:right; font-variant-numeric:tabular-nums}
 .agleg{display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:var(--muted); margin-top:6px}
 .agleg i{display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:5px; vertical-align:-1px}
+.ctx{font-size:14.5px; line-height:1.5; color:var(--ink-2); background:var(--sunk); border-radius:10px; padding:10px 12px; margin:0}
+.ctx b{color:var(--ink); font-weight:500}
+.opt input[type=checkbox]{border-radius:5px}
+.opt input[type=checkbox]:checked{border-width:1.5px; background:var(--accent); border-color:var(--accent); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-6'/%3E%3C/svg%3E"); background-size:13px; background-position:center; background-repeat:no-repeat}
 </style>
 
 <header class="top">
@@ -192,8 +196,8 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
 <nav class="tabs">
   <div class="wrap wide tabrow" role="tablist">
-    <button class="tab" role="tab" data-p="p1" aria-selected="true"><span class="n">0</span>Mi mesa y mi rol<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p2" aria-selected="false"><span class="n">1</span>Voto individual<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p1" aria-selected="true"><span class="n">0</span>Mesa y rol<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p2" aria-selected="false"><span class="n">1</span>Voto · antes de las mesas<span class="ok">✓</span></button>
     <button class="tab" role="tab" data-p="p3" aria-selected="false"><span class="n">2</span>Trabajo en mesa<span class="ok">✓</span></button>
     <button class="tab" role="tab" data-p="p4" aria-selected="false"><span class="n">3</span>Plenario</button>
   </div>
@@ -245,9 +249,9 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
 <!-- ============ 1 · VOTO INDIVIDUAL ============ -->
 <div class="panel" id="p2" hidden>
-<div class="momento"><div><span class="mk">Momento 1 · individual</span><h2>Voto individual</h2></div><span class="min">5'</span></div>
+<div class="momento"><div><span class="mk">Momento 1 · antes de las mesas</span><h2>Voto individual</h2></div><span class="min">5'</span></div>
 <section style="margin-top:22px">
-  <p class="shint" style="margin-left:0">Antes de conversar, cada persona califica el programa por su cuenta, de 1 a 5. Todavía no mostramos la calificación del equipo evaluador. Si algo no le consta, marque «No sé».</p>
+  <p class="shint" style="margin-left:0">Este voto se hace <b>antes de las mesas</b>, cada persona por su cuenta y sin conversar. Califique el programa de 1 a 5 en cada dimensión. Todavía no mostramos la calificación del equipo evaluador. Si algo no le consta, marque «No sé».</p>
   <div class="card" id="votos"></div>
   <div class="barra"><span class="estado" id="st-p2"></span><button class="send" id="btn-voto">Enviar mi voto</button></div>
 </section>
@@ -255,26 +259,33 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
 <!-- ============ 2 · MESA ============ -->
 <div class="panel" id="p3" hidden>
-<div class="momento"><div><span class="mk">Momento 2 · en mesa, con moderación</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
-<p class="shint" style="margin-left:0; margin-top:14px">La moderación de CliO guía tres partes. Escriba aquí sus ideas mientras conversamos; se guarda en su equipo y al final presione «Guardar mis notas».</p>
+<div class="momento"><div><span class="mk">Momento 2 · en mesa, con moderación de CliO</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
+<p class="shint" style="margin-left:0; margin-top:14px">Ya votaron. Ahora conversamos en tres partes, con moderación de CliO. Mientras conversamos, cada uno de ustedes anota aquí sus ideas. Lo escrito se guarda en su equipo; al final de la mesa presione «Guardar mis notas».</p>
+
+<div class="card mod" id="composicion" hidden style="background:#FFFBEF; border-color:#F0D58A">
+  <div class="shead" style="gap:10px"><span class="snum" style="--c:#8A6300; width:28px; height:28px; font-size:13px">M</span><h3>Quiénes están en la mesa (moderación)</h3></div>
+  <p class="help" style="margin:0">Al abrir la mesa, marque todas las organizaciones presentes. Se puede marcar más de una.</p>
+  <div class="opts" id="opts-comp"></div>
+  <div class="row"><input type="text" id="s_npers" inputmode="numeric" placeholder="N.º de personas en la mesa"><input type="text" id="s_otros" placeholder="Otras organizaciones presentes"></div>
+  <div class="barra" style="margin-top:0"><span class="estado" id="st-comp"></span><button class="send" id="btn-comp">Guardar composición</button></div>
+</div>
 
 <div class="parte" style="--c:#00718A"><span class="pn">Parte 1</span><h2>Las calificaciones</h2><span class="pmin">10'</span></div>
-<p class="shint" style="margin-left:0">Vemos las cinco dimensiones. Nos detenemos en las tres donde las miradas más se separan.</p>
+<p class="shint" style="margin-left:0">Para cada dimensión verán la nota que dio cada actor en las entrevistas y la del equipo evaluador. Explique por qué su mirada coincide o no, y si subiría, mantendría o bajaría la nota del equipo. Nos detenemos en las tres dimensiones donde las notas más se separan.</p>
 <div class="card" id="dims"></div>
 
 <div class="parte" style="--c:#1E2F42"><span class="pn">Parte 2</span><h2>Los hallazgos</h2><span class="pmin">7'</span></div>
-<p class="shint" style="margin-left:0">¿Está de acuerdo con lo que encontró la evaluación? Si tiene un matiz, escríbalo.</p>
+<p class="shint" style="margin-left:0">Para cada hallazgo de la evaluación, marque si está de acuerdo. Si tiene un matiz o un dato distinto, escríbalo.</p>
 <div class="card" id="hallz"></div>
 
 <div class="parte" style="--c:#FF0068"><span class="pn">Parte 3</span><h2>Las recomendaciones</h2><span class="pmin">8'</span></div>
-<p class="shint" style="margin-left:0">¿Qué tan prioritaria es cada una? ¿Qué agregaría?</p>
+<p class="shint" style="margin-left:0">Marque qué tan prioritaria es cada recomendación para un próximo programa y agregue las que falten.</p>
 <div class="card" id="recs"></div>
 
 <div class="card mod" id="sintesis" hidden style="background:#FFFBEF; border-color:#F0D58A">
   <div class="shead" style="gap:10px"><span class="snum" style="--c:#8A6300; width:28px; height:28px; font-size:13px">M</span><h3>Síntesis de la mesa (moderación)</h3></div>
   <p class="help" style="margin:0">Lo que la mesa presenta en el plenario. Por tipo de actor, sin nombres.</p>
-  <div class="field"><p class="q">¿Quiénes componen la mesa?</p><p class="help">Marque todas las organizaciones presentes.</p><div class="opts" id="opts-comp"></div>
-    <div class="row"><input type="text" id="s_npers" inputmode="numeric" placeholder="N.º de personas en la mesa"><input type="text" id="s_otros" placeholder="Otras organizaciones presentes"></div></div>
+
   <div class="field"><label class="q" for="s_porque">Parte 1 · ¿Por qué vemos distinto?</label><textarea id="s_porque"></textarea></div>
   <div class="field"><p class="q">Parte 1 · Calificación que propone la mesa</p><div id="s_notas"></div></div>
   <div class="field"><label class="q" for="s_hallazgos">Parte 2 · Hallazgos: acuerdos, matices y lo que falta</label><textarea id="s_hallazgos"></textarea></div>
@@ -323,29 +334,39 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
 
   var DIMS = [
     {k:"eficacia", n:"Eficacia y resultados", q:"El programa logró los resultados que se propuso.", ev:3, dif:true,
-     act:[["CASATIC",5.0],["Soluciones",4.4],["Externos",3.0]], p:"¿Cuenta como logro una persona inscrita, o una que usa el servicio?"},
+     act:[["CASATIC",5.0],["Soluciones",4.4],["Externos",3.0]],
+     ctx:"El reporte oficial suma 14.352 trabajadores alcanzados (95,7% de la meta de 15.000), pero cuenta pólizas, créditos y registros. Las soluciones respaldan 12.599 personas (84%), y muchos inscritos nunca usaron el servicio.",
+     p:"Para usted, ¿qué debió contar como logro del programa: las personas inscritas o las que efectivamente usaron el servicio? ¿Por qué?"},
     {k:"implementacion", n:"Implementación", q:"El programa se ejecutó bien y supo resolver los obstáculos.", ev:3, dif:true,
-     act:[["Soluciones",5.0],["Trabajadores",3.9],["Externos",3.8],["CASATIC",3.0]], p:"¿Qué funcionó dentro de cada solución que no se ve desde el programa, y al revés?"},
+     act:[["Soluciones",5.0],["Trabajadores",3.9],["Externos",3.8],["CASATIC",3.0]],
+     ctx:"Se ejecutó el 94,2% del presupuesto. Pero el 37% de quienes se inscribieron y no usaron el servicio dice que nadie lo contactó después de inscribirse.",
+     p:"¿Qué funcionó bien en la operación de su solución o del programa, y qué falló entre la inscripción y el uso del servicio?"},
     {k:"impacto", n:"Impacto (contribución)", q:"El programa contribuyó a mejorar la situación de los trabajadores.", ev:3, dif:false,
-     act:[["CASATIC",3.8],["Externos",3.8],["Trabajadores",3.0]], p:"¿Dónde ve usted el aporte del programa en los trabajadores?"},
+     act:[["CASATIC",3.8],["Externos",3.8],["Trabajadores",3.0]],
+     ctx:"Los usuarios mejoran más que los inscritos sin uso en red, ingreso que alcanza, capacitación y protección. El 41% de los usuarios sube de tramo de ingreso, frente al 14% de los inscritos sin uso.",
+     p:"¿En qué cambios concretos de los trabajadores ve usted el aporte del programa?"},
     {k:"sostenibilidad", n:"Sostenibilidad y escalabilidad", q:"Lo que dejó el programa puede seguir sin su financiamiento.", ev:2, dif:true,
-     act:[["Soluciones",4.0],["Externos",3.0]], p:"¿Qué continúa: el negocio de cada solución o lo que el programa quería instalar?"},
+     act:[["Soluciones",4.0],["Externos",3.0]],
+     ctx:"Los diez servicios siguen operando. No hay acuerdos de continuidad con instituciones públicas y el Observatorio no tiene financiamiento.",
+     p:"Cuando termine el financiamiento, ¿qué seguirá funcionando y qué se perderá?"},
     {k:"genero", n:"Género e inclusión", q:"El programa llegó y sirvió por igual a mujeres y hombres.", ev:3, dif:false,
-     act:[["Externos",3.5]], p:"¿Qué faltó para llegar a más mujeres?"}
+     act:[["Externos",3.5]],
+     ctx:"La meta era 40% de mujeres; se llegó a 36,6%. Las mujeres llegaron sobre todo donde el segmento ya era femenino (cuidadoras, trabajadoras del hogar).",
+     p:"¿Qué impidió llegar a más mujeres en su solución o en el programa?"}
   ];
   var HALL = [
-    {d:"167%", t:"Los productos se cumplieron y se superaron", s:"Desafíos, startups ganadoras y soluciones operando, por encima de la meta."},
-    {d:"84%", t:"El acceso real es menor al reportado", s:"12.599 trabajadores respaldados por las soluciones frente a 14.352 reportados; el cuello de botella fue la activación."},
-    {d:"+0,55", t:"Los usuarios mejoran más que los inscritos sin uso", s:"La brecha crece en red, ingreso que alcanza, capacitación y protección."},
-    {d:"A / B", t:"Cada tipo de solución mejora donde actúa", s:"Ingresos y mercado: red y capacitación. Protección e inclusión: protección y finanzas."},
-    {d:"0", t:"No hay acuerdos de continuidad institucional", s:"Los servicios siguen en el mercado; el Observatorio no tiene financiamiento."}
+    {d:"167%", t:"Los productos superaron la meta", s:"Se hicieron 4 desafíos de innovación (meta: 3), se premiaron 12 startups (meta: 6) y quedaron 10 soluciones operando (meta: 6)."},
+    {d:"84%", t:"El acceso real es menor al reportado", s:"El reporte oficial suma 14.352 trabajadores, pero cuenta pólizas, créditos y registros. Las soluciones respaldan 12.599 personas: el 84% de la meta de 15.000."},
+    {d:"+0,55", t:"Los usuarios mejoran más que los inscritos que no usaron el servicio", s:"En red de trabajadores la diferencia es de +0,55 puntos en una escala de 1 a 5. También mejoran más en ingreso que alcanza, capacitación y protección."},
+    {d:"57%", t:"Cada tipo de solución mejora donde actúa", s:"En las soluciones de ingresos y mercado (grupo A), el 57% de los usuarios mejora su red y el 52% su capacitación. En las de protección e inclusión financiera (grupo B), sube más la protección."},
+    {d:"0", t:"No hay acuerdos de continuidad con instituciones", s:"Los diez servicios siguen operando en el mercado, pero ninguna institución pública asumió la continuidad y el Observatorio no tiene financiamiento."}
   ];
   var RECS = [
-    {t:"Pagar por uso, no por registro", s:"Registro común de inscritos, usuarios y usuarios activos desde el primer desembolso.", w:"BID Lab y ejecutores"},
-    {t:"Financiar la activación", s:"Contactar a cada inscrito en los primeros días, con canales de proximidad.", w:"Soluciones y ejecutor"},
-    {t:"Empezar por el ingreso", s:"Priorizar soluciones que generen o protejan ingresos y montar sobre ellas la protección.", w:"BID Lab y UE"},
-    {t:"Asegurar la continuidad desde el diseño", s:"Acuerdos con las instituciones que lideran cada propuesta, vía ESCO.", w:"CASATIC, BID Lab y UE"},
-    {t:"Enfoque de género por segmento", s:"Compensar el costo de oportunidad de las mujeres con carga de cuidado.", w:"Todos"}
+    {t:"Pagar a las soluciones por uso, no por registro", s:"Ligar los desembolsos a personas que usan el servicio, con un registro común de inscritos, usuarios y usuarios activos.", w:"BID Lab y ejecutores"},
+    {t:"Financiar la activación de los inscritos", s:"Contactar a cada persona en los primeros días después de inscribirse, por canales cercanos (comunidades, gremios, plataformas).", w:"Soluciones y ejecutor"},
+    {t:"Empezar por el ingreso", s:"Priorizar soluciones que generen o protejan ingresos y ofrecer sobre ellas la protección social.", w:"BID Lab y UE"},
+    {t:"Acordar la continuidad desde el diseño", s:"Firmar acuerdos con las instituciones que lideran cada propuesta de política, vía ESCO, antes de que termine el programa.", w:"CASATIC, BID Lab y UE"},
+    {t:"Enfoque de género por segmento", s:"Compensar el costo de oportunidad de las mujeres con carga de cuidado: estipendio, horarios y uso sin conexión.", w:"Todos"}
   ];
   var CARAS = ["😕","🙁","😐","🙂","😄"];
   var ETQ = ["Muy bajo","Bajo","Medio","Alto","Muy alto"];
@@ -382,8 +403,9 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
   $("dims").innerHTML = DIMS.map(function(d){
     var chips = '<span class="chip bajo">Equipo evaluador '+d.ev+'</span>' + d.act.map(function(a){ return '<span class="chip '+(a[1]>d.ev?'alto':'')+'">'+a[0]+' '+a[1].toFixed(1).replace(".",",")+'</span>'; }).join("");
     return '<div class="item"><p class="tit">'+d.n+(d.dif?'<span class="badge">Mayor diferencia</span>':'')+'</p>'
-      + '<div class="dif" style="border-left-color:'+(d.dif?'#FF0068':'#D5DEE5')+'"><div class="lado">'+chips+'</div>'
-      + '<label class="q" for="d_'+d.k+'">'+d.p+'</label><textarea id="d_'+d.k+'" placeholder="Desde su lugar: ¿por qué cree que vemos distinto?"></textarea>'
+      + '<div class="dif" style="border-left-color:'+(d.dif?'#FF0068':'#D5DEE5')+'"><p class="sub2"><b>Nota de cada actor (1 a 5):</b></p><div class="lado">'+chips+'</div>'
+      + '<p class="ctx"><b>Lo que encontró la evaluación:</b> '+d.ctx+'</p>'
+      + '<label class="q" for="d_'+d.k+'">'+d.p+'</label><textarea id="d_'+d.k+'" placeholder="Su respuesta"></textarea>'
       + '<p class="sub2">¿Cambiaría la calificación del equipo evaluador ('+d.ev+' · '+ETQ[d.ev-1]+')?</p>'
       + trio("c_"+d.k,[["⬆️","Subir"],["↔️","Mantener"],["⬇️","Bajar"]])
       + '<input type="text" id="cp_'+d.k+'" placeholder="¿Por qué? (opcional)"></div></div>';
@@ -440,7 +462,10 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     $("mesa-tit").textContent = o.mesa ? MESAS[o.mesa] : "Trabajo en mesa";
     $("campo-rol").hidden = o.actor !== "Equipo CliO";
     $("campo-sol").hidden = o.actor !== "Solución";
-    $("sintesis").hidden = !(o.actor==="Equipo CliO" && o.rol==="Moderación");
+    var mod = (o.actor==="Equipo CliO" && o.rol==="Moderación");
+    $("sintesis").hidden = !mod; $("composicion").hidden = !mod;
+    if(o.mesa){ var ord = SOLS[o.mesa].concat(SOLS[o.mesa==="A"?"B":"A"]).concat(INST); var marc = o.comp||[];
+      $("opts-comp").innerHTML = ord.map(function(x){ return '<label class="opt"><input type="checkbox" name="comp" value="'+x+'"'+(marc.indexOf(x)>=0?' checked':'')+'><span>'+x+'</span></label>'; }).join(""); }
   }
 
   /* ---------- pestañas ---------- */
@@ -480,7 +505,7 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     if(o.actor==="Solución" && !o.solucion){ estado("st-p2","Falta indicar qué solución representa (pestaña 0).","err"); return; }
     if(n<DIMS.length){ estado("st-p2","Falta votar "+(DIMS.length-n)+" dimensión(es). Puede marcar «No sé».","err"); return; }
     var b=$("btn-voto"); b.disabled=true; b.textContent="Enviando…";
-    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar mi voto"; estado("st-p2","Voto guardado. Ahora pasamos a las mesas.","ok"); marcar("p2"); },
+    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar mi voto"; estado("st-p2","Voto guardado. Espere la indicación para pasar a las mesas (pestaña 2).","ok"); marcar("p2"); },
       function(e){ b.disabled=false; b.textContent="Enviar mi voto"; falla("st-p2")(e); });
   });
   $("btn-notas").addEventListener("click", function(){
@@ -500,6 +525,18 @@ footer.foot .wrap{display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:s
     var b=$("btn-sint"); b.disabled=true; b.textContent="Guardando…";
     enviar(p, function(){ b.disabled=false; b.textContent="Guardar síntesis"; estado("st-sint","Síntesis guardada.","ok"); },
       function(e){ b.disabled=false; b.textContent="Guardar síntesis"; falla("st-sint")(e); });
+  });
+
+  $("btn-comp").addEventListener("click", function(){
+    var o=leer(); if(!listo(o,"st-comp")) return;
+    if(!(o.comp||[]).length){ estado("st-comp","Marque al menos una organización.","err"); return; }
+    var p=base(o); p.tipo="sintesis";
+    ["s_porque","s_hallazgos","s_recs","s_npers","s_otros"].forEach(function(k){ p[k]=o[k]; });
+    DIMS.forEach(function(d){ p["sn_"+d.k]=o["sn_"+d.k]; });
+    p.s_comp=(o.comp||[]).join(", ");
+    var b=$("btn-comp"); b.disabled=true; b.textContent="Guardando…";
+    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar composición"; estado("st-comp","Composición guardada.","ok"); },
+      function(e){ b.disabled=false; b.textContent="Guardar composición"; falla("st-comp")(e); });
   });
 
   /* ---------- resultados ---------- */
