@@ -19,13 +19,13 @@ var NOMBRE_HOJA = "gigES · Taller de validación · respuestas";
 
 var DIMS = ["eficacia", "implementacion", "impacto", "sostenibilidad", "genero"];
 var NH = 5, NR = 5;
-var HALL_T = ["Los desafíos crearon oferta", "Muchos se inscriben y no usan", "El servicio contribuye a mejorar a quienes lo usan", "Cada tipo de solución mueve cosas distintas", "Continuidad sin respaldo institucional"];
-var REC_T = ["Pagar por uso", "Financiar la activación", "Empezar por el ingreso", "Continuidad desde el diseño", "Género por segmento"];
+var HALL_T = ["Los desafíos crearon oferta", "La cobertura sobrestima el acceso", "El servicio contribuye a mejorar a quienes lo usan", "Cada solución mejora donde actúa", "Sostenibilidad: mercado sí, instituciones no"];
+var REC_T = ["Desembolsos por uso", "Financiar la activación", "Empezar por el ingreso", "Continuidad desde el diseño", "Género por segmento"];
 var NOMBRE_DIM = {
   eficacia: "eficacia", implementacion: "implementación", impacto: "impacto",
   sostenibilidad: "sostenibilidad", genero: "género"
 };
-var REC_LARGO = ["Pagar a las soluciones por uso, no por registro", "Financiar la activación de los inscritos", "Empezar por el ingreso", "Acordar la continuidad desde el diseño", "Enfoque de género por segmento"];
+var REC_LARGO = ["Ligar los desembolsos al uso efectivo, no al registro", "Financiar la activación", "Empezar por el ingreso", "Formalizar la continuidad con las instituciones desde el diseño", "Diseñar el enfoque de género por segmento"];
 function rango_(p, n) { var o = []; for (var i = 0; i < n; i++) o.push(p + i); return o; }
 
 var COLS = {
