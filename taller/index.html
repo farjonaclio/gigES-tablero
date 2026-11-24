@@ -234,7 +234,22 @@ body.es-mod .solo-part{display:none}
 details.opc{margin-top:14px; border:1px solid #2C4A61; border-radius:12px; padding:4px 16px}
 details.opc summary{cursor:pointer; padding:10px 0; color:#8FD3DC; font-weight:500}
 details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
-.badge.mesa{}
+/* mesa en pantalla ancha: dato a la izquierda, respuesta a la derecha */
+.ancho{max-width:1320px}
+@media(min-width:1100px){
+  .ancho .reglas{grid-template-columns:repeat(3,1fr); gap:18px}
+  .ancho .dif{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); grid-template-rows:auto auto 1fr; column-gap:32px; row-gap:10px; align-items:start}
+  .ancho .dif > .sub2:first-child, .ancho .dif > .lado, .ancho .dif > .ctx{grid-column:1}
+  .ancho .dif > .solo-part, .ancho .dif > .regmod{grid-column:2; grid-row:1 / span 3; margin-top:0}
+  .ancho .item.dos{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); grid-template-rows:auto 1fr; column-gap:32px; row-gap:10px; align-items:start}
+  .ancho .item.dos > .tit{grid-column:1 / -1}
+  .ancho .item.dos > .sub2{grid-column:1}
+  .ancho .item.dos > .solo-part, .ancho .item.dos > .regmod{grid-column:2; grid-row:2; margin-top:0}
+  .ancho .shint{max-width:none}
+}
+.solo-part{display:flex; flex-direction:column; gap:10px}
+.escala-item input.opcional{margin-top:10px; font-size:14.5px}
+.escala-item input.opcional::placeholder{font-style:italic}
 </style>
 
 <header class="top">
@@ -253,29 +268,21 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
 
 <nav class="tabs">
   <div class="wrap wide tabrow" role="tablist">
-    <button class="tab" role="tab" data-p="p1" aria-selected="true"><span class="n">1</span>Registro<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p2" aria-selected="false"><span class="n">2</span>Voto individual<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p3" aria-selected="false"><span class="n">3</span>Trabajo en mesa<span class="ok">✓</span></button>
-    <button class="tab" role="tab" data-p="p4" aria-selected="false"><span class="n">4</span>Plenario</button>
+    <button class="tab" role="tab" data-p="p2" aria-selected="true"><span class="n">1</span>Voto individual<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p3" aria-selected="false"><span class="n">2</span>Trabajo en mesa<span class="ok">✓</span></button>
+    <button class="tab" role="tab" data-p="p4" aria-selected="false"><span class="n">3</span>Plenario</button>
   </div>
 </nav>
 
 <main>
 <div class="wrap" id="cuerpo">
 
-<!-- ============ 1 · REGISTRO ============ -->
-<div class="panel" id="p1">
-<section>
-  <div class="shead"><span class="snum">1</span><h2>Registro: su mesa y su rol</h2></div>
-  <p class="shint">Las mesas son mixtas: en cada una hay soluciones, CASATIC y financiadores. No pedimos su nombre; su rol nos permite ver cómo mira el programa cada tipo de actor.</p>
+<!-- ============ 1 · VOTO INDIVIDUAL ============ -->
+<div class="panel" id="p2">
+<div class="momento"><div><span class="mk">Paso 1 de 3 · cada uno por su cuenta, antes de las mesas</span><h2>Voto individual</h2></div><span class="min">5'</span></div>
+<section style="margin-top:22px">
+  <p class="shint" style="margin-left:0">Este voto se hace <b>antes de las mesas</b>, cada persona por su cuenta y sin conversar. Primero díganos quién es (no pedimos su nombre). Luego califique el programa de 1 a 5 en cada dimensión; si quiere, agregue un comentario. Todavía no mostramos la calificación del equipo evaluador. Si algo no le consta, marque «No sé».</p>
   <div class="card">
-    <div class="field">
-      <p class="q">¿En qué mesa está?</p>
-      <div class="opts">
-        <label class="opt"><input type="radio" name="mesa" value="A"><span><b>Mesa A</b> · Ingresos y acceso a mercado</span></label>
-        <label class="opt"><input type="radio" name="mesa" value="B"><span><b>Mesa B</b> · Protección e inclusión financiera</span></label>
-      </div>
-    </div>
     <div class="field">
       <p class="q">En el taller, usted participa como…</p>
       <div class="opts">
@@ -291,24 +298,11 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
       <p class="q">¿Qué solución representa?</p>
       <div class="opts" id="opts-sol"></div>
     </div>
-    <div class="field" id="campo-rol">
-      <p class="q">¿Va a moderar la mesa?</p>
-      <p class="help">Solo para el equipo de CliO: habilita la síntesis de la mesa.</p>
-      <div class="opts">
-        <label class="opt"><input type="radio" name="rol" value="Participante" checked><span>No, participo</span></label>
-        <label class="opt"><input type="radio" name="rol" value="Moderación"><span>Sí, modero y registro</span></label>
-      </div>
+    <div class="field" id="campo-sol" hidden>
+      <p class="q">¿Qué solución representa?</p>
+      <div class="opts" id="opts-sol"></div>
     </div>
   </div>
-  <div class="barra"><span class="estado" id="st-p1"></span><button class="send" id="btn-p1">Continuar a 2 · Voto individual →</button></div>
-</section>
-</div>
-
-<!-- ============ 1 · VOTO INDIVIDUAL ============ -->
-<div class="panel" id="p2" hidden>
-<div class="momento"><div><span class="mk">Paso 2 de 4 · cada uno por su cuenta, antes de las mesas</span><h2>Voto individual</h2></div><span class="min">5'</span></div>
-<section style="margin-top:22px">
-  <p class="shint" style="margin-left:0">Este voto se hace <b>antes de las mesas</b>, cada persona por su cuenta y sin conversar. Califique el programa de 1 a 5 en cada dimensión. Todavía no mostramos la calificación del equipo evaluador. Si algo no le consta, marque «No sé».</p>
   <div class="card" id="votos"></div>
   <div class="barra"><span class="estado" id="st-p2"></span><button class="send" id="btn-voto">Enviar mi voto</button></div>
 </section>
@@ -316,7 +310,24 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
 
 <!-- ============ 2 · MESA ============ -->
 <div class="panel" id="p3" hidden>
-<div class="momento"><div><span class="mk">Paso 3 de 4 · en mesa, con moderación de CliO</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
+<div class="momento"><div><span class="mk">Paso 2 de 3 · en mesa, con moderación de CliO</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
+<div class="card" style="margin-top:18px">
+    <div class="field">
+      <p class="q">¿En qué mesa está?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="mesa" value="A"><span><b>Mesa A</b> · Ingresos y acceso a mercado</span></label>
+        <label class="opt"><input type="radio" name="mesa" value="B"><span><b>Mesa B</b> · Protección e inclusión financiera</span></label>
+      </div>
+    </div>
+    <div class="field" id="campo-rol">
+      <p class="q">¿Va a moderar la mesa?</p>
+      <p class="help">Solo para el equipo de CliO: habilita el registro de la mesa.</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="rol" value="Participante" checked><span>No, participo</span></label>
+        <label class="opt"><input type="radio" name="rol" value="Moderación"><span>Sí, modero y registro</span></label>
+      </div>
+    </div>
+</div>
 <div class="reglas"><p><b>✍️ Todo lo que se dice en la mesa queda registrado.</b> La moderación de CliO anota aquí cada intervención, por tipo de actor y sin nombres.</p><p><b>📝 Además, cada uno de ustedes puede escribir lo suyo</b> y opinar solo sobre lo que quiera. Al final, presione «Guardar mis notas».</p><p><b>⏱️ Un minuto por intervención.</b> No es necesario que todos hablen en cada parte.</p></div>
 
 <div class="card mod" id="composicion" hidden >
@@ -351,7 +362,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
 
 <!-- ============ 3 · PLENARIO ============ -->
 <div class="panel" id="p4" hidden>
-<div class="momento"><div><span class="mk">Paso 4 de 4 · todos juntos</span><h2>Resultados en vivo</h2></div><span class="min">15'</span></div>
+<div class="momento"><div><span class="mk">Paso 3 de 3 · todos juntos</span><h2>Resultados en vivo</h2></div><span class="min">15'</span></div>
 <p class="shint" style="margin-left:0; margin-top:14px">Se actualiza cada 20 segundos. Muestra promedios y conteos por tipo de actor; nunca respuestas con nombre.</p>
 <div class="card">
   <h3>1 · Las calificaciones: equipo evaluador frente al taller</h3>
@@ -450,7 +461,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
 
   /* ---------- construir ---------- */
   $("votos").innerHTML = DIMS.map(function(d){
-    return '<div class="escala-item"><p class="escala-q"><span class="dim">'+d.n+'</span>'+d.q+'</p>'+escala("v_"+d.k,true)+'</div>';
+    return '<div class="escala-item"><p class="escala-q"><span class="dim">'+d.n+'</span>'+d.q+'</p>'+escala("v_"+d.k,true)+'<input type="text" class="opcional" id="vc_'+d.k+'" placeholder="¿Por qué? Comentario opcional"></div>';
   }).join("");
 
   function regmod(id, label, extra){
@@ -473,7 +484,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
     + opcional("Impacto y género · para opinar por escrito, si quiere", DIMS.filter(function(d){return !d.mesa;}).map(dimItem).join(""));
 
   function hallItem(h){ var i=HALL.indexOf(h);
-    return '<div class="item"><p class="tit"><span class="dato">'+h.d+'</span>'+h.t+(h.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+h.s+'</p>'
+    return '<div class="item dos"><p class="tit"><span class="dato">'+h.d+'</span>'+h.t+(h.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+h.s+'</p>'
       + '<div class="solo-part">'+trio("h_"+i,[["👍","De acuerdo"],["🤔","Con matices"],["👎","En desacuerdo"]])
       + '<input type="text" id="hm_'+i+'" placeholder="Su matiz (opcional)"></div>'
       + regmod("mh_"+i, "Acuerdos, matices y desacuerdos dichos en la mesa") + '</div>';
@@ -484,7 +495,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
     + regmod("mh_nuevo", "Hallazgos nuevos que propuso la mesa") + '</div>';
 
   function recItem(r){ var i=RECS.indexOf(r);
-    return '<div class="item"><p class="tit">'+r.t+(r.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+r.s+' · <b>Para:</b> '+r.w+'</p>'
+    return '<div class="item dos"><p class="tit">'+r.t+(r.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+r.s+' · <b>Para:</b> '+r.w+'</p>'
       + '<div class="solo-part">'+trio("r_"+i,[["🔥","Alta"],["👌","Media"],["💤","Baja"]])
       + '<input type="text" id="rm_'+i+'" placeholder="Comentario (opcional)"></div>'
       + regmod("mr_"+i, "Lo que se dijo en la mesa sobre esta recomendación") + '</div>';
@@ -504,7 +515,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
 
   /* ---------- leer y escribir ---------- */
   var MODK = DIMS.map(function(d){return "md_"+d.k;}).concat(HALL.map(function(_,i){return "mh_"+i;})).concat(["mh_nuevo"]).concat(RECS.map(function(_,i){return "mr_"+i;})).concat(["mr_nueva"]);
-  var TEXTOS = ["hallazgo","rec1","rec1p","rec2","rec2p","s_porque","s_npers","s_otros"].concat(MODK)
+  var TEXTOS = DIMS.map(function(d){return "vc_"+d.k;}).concat(["hallazgo","rec1","rec1p","rec2","rec2p","s_porque","s_npers","s_otros"].concat(MODK))
     .concat(DIMS.map(function(d){return "d_"+d.k;})).concat(DIMS.map(function(d){return "cp_"+d.k;}))
     .concat(HALL.map(function(_,i){return "hm_"+i;})).concat(RECS.map(function(_,i){return "rm_"+i;}));
   var RADIOS = ["mesa","actor","rol","solucion"]
@@ -543,8 +554,8 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
   function ir(p){
     tabs.forEach(function(t){ t.setAttribute("aria-selected", t.dataset.p===p ? "true":"false"); });
-    ["p1","p2","p3","p4"].forEach(function(x){ $(x).hidden = x!==p; });
-    $("cuerpo").classList.toggle("wide", p==="p4");
+    ["p2","p3","p4"].forEach(function(x){ $(x).hidden = x!==p; });
+    $("cuerpo").classList.toggle("wide", p==="p4"); $("cuerpo").classList.toggle("ancho", p==="p3");
     window.scrollTo({top: document.querySelector("nav.tabs").offsetTop, behavior:"smooth"});
     if(p==="p4") cargar();
   }
@@ -563,20 +574,17 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
   }
   function base(o){ return {mesa:o.mesa, actor:o.actor, rol:o.rol, solucion:(o.actor==="Solución"?o.solucion:"")}; }
   function falla(id){ return function(e){ estado(id, e==="sin-endpoint" ? "Vista de revisión: el guardado funciona desde el enlace del taller." : "No se pudo guardar; puede ser la conexión. Sus respuestas siguen aquí: intente de nuevo.", "err"); }; }
-  function listo(o,id){ if(!o.mesa||!o.actor){ estado(id,"Primero complete 1 · Registro: su mesa y su rol.","err"); return false; } return true; }
+  function listo(o,id){ if(!o.actor){ estado(id,"Primero complete 1 · Voto individual: allí indica en qué calidad participa.","err"); return false; }
+    if(!o.mesa){ estado(id,"Primero elija su mesa, arriba en esta pestaña.","err"); return false; } return true; }
 
-  $("btn-p1").addEventListener("click", function(){
-    var o=leer(); if(!listo(o,"st-p1")) return;
-    estado("st-p1",""); marcar("p1"); guardarLocal(); ir("p2");
-  });
   $("btn-voto").addEventListener("click", function(){
-    var o=leer(); if(!listo(o,"st-p2")) return;
+    var o=leer(); if(!o.actor){ estado("st-p2","Primero indique, arriba, en qué calidad participa.","err"); return; }
     var p=base(o); p.tipo="voto"; var n=0;
-    DIMS.forEach(function(d){ p["v_"+d.k]=o["v_"+d.k]; if(o["v_"+d.k]) n++; });
-    if(o.actor==="Solución" && !o.solucion){ estado("st-p2","Falta indicar qué solución representa (en 1 · Registro).","err"); return; }
+    DIMS.forEach(function(d){ p["v_"+d.k]=o["v_"+d.k]; p["vc_"+d.k]=o["vc_"+d.k]; if(o["v_"+d.k]) n++; });
+    if(o.actor==="Solución" && !o.solucion){ estado("st-p2","Falta indicar, arriba, qué solución representa.","err"); return; }
     if(n<DIMS.length){ estado("st-p2","Falta votar "+(DIMS.length-n)+" dimensión(es). Puede marcar «No sé».","err"); return; }
     var b=$("btn-voto"); b.disabled=true; b.textContent="Enviando…";
-    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar mi voto"; estado("st-p2","Voto guardado. Cuando la moderación lo indique, pase a 3 · Trabajo en mesa.","ok"); marcar("p2"); },
+    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar mi voto"; estado("st-p2","Voto guardado. Cuando la moderación lo indique, pase a 2 · Trabajo en mesa.","ok"); marcar("p2"); },
       function(e){ b.disabled=false; b.textContent="Enviar mi voto"; falla("st-p2")(e); });
   });
   $("btn-notas").addEventListener("click", function(){

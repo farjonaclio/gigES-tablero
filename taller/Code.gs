@@ -29,7 +29,7 @@ var REC_LARGO = ["Pagar a las soluciones por uso, no por registro", "Financiar l
 function rango_(p, n) { var o = []; for (var i = 0; i < n; i++) o.push(p + i); return o; }
 
 var COLS = {
-  votos: ["pid", "actualizado", "mesa", "actor", "rol", "solucion"].concat(DIMS.map(function (d) { return "v_" + d; })),
+  votos: ["pid", "actualizado", "mesa", "actor", "rol", "solucion"].concat(DIMS.map(function (d) { return "v_" + d; })).concat(DIMS.map(function (d) { return "vc_" + d; })),
   notas: ["pid", "actualizado", "mesa", "actor", "rol", "solucion"]
     .concat(DIMS.map(function (d) { return "d_" + d; }))
     .concat(DIMS.map(function (d) { return "c_" + d; }))
