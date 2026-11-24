@@ -247,6 +247,9 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
   .ancho .item.dos > .solo-part, .ancho .item.dos > .regmod{grid-column:2; grid-row:2; margin-top:0}
   .ancho .shint{max-width:none}
 }
+.evid{display:flex; flex-direction:column; gap:6px}
+.evid p{margin:0}
+.evid b{color:#E9EFF5; font-weight:500}
 .solo-part{display:flex; flex-direction:column; gap:10px}
 .escala-item input.opcional{margin-top:10px; font-size:14.5px}
 .escala-item input.opcional::placeholder{font-style:italic}
@@ -419,18 +422,18 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
      p:"¿Qué impidió llegar a más mujeres en su solución o en el programa?"}
   ];
   var HALL = [
-    {d:"167%", t:"Los productos superaron la meta", s:"Se hicieron 4 desafíos de innovación (meta: 3), se premiaron 12 startups (meta: 6) y quedaron 10 soluciones operando (meta: 6)."},
-    {d:"84%", mesa:true, t:"El acceso real es menor al reportado", s:"El reporte oficial suma 14.352 trabajadores, pero cuenta pólizas, créditos y registros. Las soluciones respaldan 12.599 personas: el 84% de la meta de 15.000."},
-    {d:"+0,54", mesa:true, t:"Los usuarios mejoran más que los inscritos que no usaron el servicio", s:"En red de trabajadores la diferencia es de +0,54 puntos en una escala de 1 a 5; también en ingreso que alcanza y capacitación. Matiz: los usuarios vienen sobre todo del grupo A y los inscritos sin uso del grupo B. Comparando solo dentro del grupo B, la diferencia crece en ingreso (+0,55) y en protección (+0,43, marginal), no en red ni capacitación."},
-    {d:"55%", t:"Cada tipo de solución mejora donde actúa", s:"En las soluciones de ingresos y mercado (grupo A), el 55% de los usuarios mejora su red y el 51% su capacitación. En las de protección e inclusión financiera (grupo B), sube más la protección."},
-    {d:"0", mesa:true, t:"No hay acuerdos de continuidad con instituciones", s:"Los diez servicios siguen operando en el mercado, pero ninguna institución pública asumió la continuidad y el Observatorio no tiene financiamiento."}
+    {t:"El mecanismo de desafíos funcionó para crear oferta WorkerTech", s:"El programa generó y aceleró servicios para trabajadores independientes que antes no existían.", e:"4 desafíos, 12 startups premiadas y 10 soluciones operando, todo sobre la meta y con respaldo documental."},
+    {mesa:true, t:"Muchos se inscriben y no llegan a usar el servicio", s:"El programa llega, pero se pierde gente en el paso de inscribirse a usar.", e:"Las soluciones respaldan 12.599 personas (84% de la meta), no las 14.352 del reporte oficial. El 37% de los inscritos sin uso dice que nadie lo contactó. Solo la mitad de los usuarios sigue usando el servicio."},
+    {mesa:true, t:"El servicio contribuye a mejorar las redes, la capacitación y el ingreso de quienes lo usan", s:"Quienes usan el servicio mejoran más que quienes se inscribieron y no lo usaron.", e:"La distancia con los inscritos sin uso crece: +0,54 en red, +0,33 en ingreso que alcanza y +0,30 en capacitación. El 41% de los usuarios sube de tramo de ingreso, frente al 14% de los inscritos sin uso. Matiz: los dos grupos vienen de soluciones distintas (58% de los usuarios del grupo A; 77% de los inscritos sin uso del grupo B)."},
+    {t:"Cada tipo de solución mueve cosas distintas", s:"Las de ingreso retienen y fortalecen redes; las de protección mejoran la cobertura, pero son de una sola vez.", e:"Ingresos y mercado: 55% mejora su red y 60% sigue usando. Protección e inclusión financiera: suben los índices de protección e inclusión, pero solo 34% sigue usando."},
+    {mesa:true, t:"La continuidad depende del mercado, sin respaldo institucional", s:"Los servicios siguen como negocios, pero nadie quedó a cargo desde lo público.", e:"Los 10 servicios operan, pero no hay acuerdos con instituciones públicas, el Observatorio no tiene financiamiento y la disposición a pagar de los trabajadores es baja."}
   ];
   var RECS = [
-    {mesa:true, t:"Pagar a las soluciones por uso, no por registro", s:"Ligar los desembolsos a personas que usan el servicio, con un registro común de inscritos, usuarios y usuarios activos.", w:"BID Lab y ejecutores"},
-    {mesa:true, t:"Financiar la activación de los inscritos", s:"Contactar a cada persona en los primeros días después de inscribirse, por canales cercanos (comunidades, gremios, plataformas).", w:"Soluciones y ejecutor"},
-    {t:"Empezar por el ingreso", s:"Priorizar soluciones que generen o protejan ingresos y ofrecer sobre ellas la protección social.", w:"BID Lab y UE"},
-    {mesa:true, t:"Acordar la continuidad desde el diseño", s:"Firmar acuerdos con las instituciones que lideran cada propuesta de política, vía ESCO, antes de que termine el programa.", w:"CASATIC, BID Lab y UE"},
-    {t:"Enfoque de género por segmento", s:"Compensar el costo de oportunidad de las mujeres con carga de cuidado: estipendio, horarios y uso sin conexión.", w:"Todos"}
+    {mesa:true, t:"Pagar a las soluciones por uso, no por registro", y:"Los hitos premiaron registros: la cobertura reportada (14.352) supera la respaldada (12.599) y muchos inscritos no usan el servicio.", s:"Ligar los desembolsos a personas que usan el servicio y siguen usándolo, con un registro común de inscritos, usuarios y usuarios activos desde el primer desembolso.", w:"BID Lab, UE y ejecutores"},
+    {mesa:true, t:"Financiar la activación de los inscritos", y:"El 37% de los inscritos sin uso dice que nadie lo contactó; quien no recibe seguimiento en los primeros días no vuelve.", s:"Contactar a cada persona en los primeros días después de inscribirse, por canales cercanos (comunidades, gremios, plataformas), y medir inscripción, uso y permanencia.", w:"Soluciones y ejecutor"},
+    {t:"Empezar por el ingreso", y:"Solo los servicios que generan o protegen ingreso muestran disposición a pagar, y quienes usan el servicio mejoran más en ingreso y redes.", s:"Priorizar soluciones que generen o protejan ingresos y ofrecer sobre ellas la protección social.", w:"BID Lab y UE"},
+    {mesa:true, t:"Acordar la continuidad desde el diseño", y:"No hay acuerdos de continuidad con instituciones públicas y el Observatorio no tiene datos de las soluciones ni financiamiento.", s:"Firmar acuerdos con las instituciones que lideran cada propuesta de política, vía ESCO, antes de que termine el programa, y diseñar el Observatorio como sistema de datos de las soluciones.", w:"CASATIC, BID Lab y UE"},
+    {t:"Enfoque de género por segmento", y:"La meta de 40% de mujeres no se cumplió (36,6%); la carga de cuidado es la barrera principal y las mujeres parten de ingresos más bajos.", s:"Compensar el costo de oportunidad de las mujeres con carga de cuidado: estipendio, horarios, uso sin conexión y acciones afirmativas en segmentos masculinizados.", w:"Todos"}
   ];
   var CARAS = ["😕","🙁","😐","🙂","😄"];
   var ETQ = ["Muy bajo","Bajo","Medio","Alto","Muy alto"];
@@ -484,7 +487,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
     + opcional("Impacto y género · para opinar por escrito, si quiere", DIMS.filter(function(d){return !d.mesa;}).map(dimItem).join(""));
 
   function hallItem(h){ var i=HALL.indexOf(h);
-    return '<div class="item dos"><p class="tit"><span class="dato">'+h.d+'</span>'+h.t+(h.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+h.s+'</p>'
+    return '<div class="item dos"><p class="tit">'+h.t+(h.mesa?'<span class="badge">En la mesa</span>':'')+'</p><div class="sub2 evid"><p>'+h.s+'</p><p><b>Lo que lo muestra:</b> '+h.e+'</p></div>'
       + '<div class="solo-part">'+trio("h_"+i,[["👍","De acuerdo"],["🤔","Con matices"],["👎","En desacuerdo"]])
       + '<input type="text" id="hm_'+i+'" placeholder="Su matiz (opcional)"></div>'
       + regmod("mh_"+i, "Acuerdos, matices y desacuerdos dichos en la mesa") + '</div>';
@@ -495,7 +498,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
     + regmod("mh_nuevo", "Hallazgos nuevos que propuso la mesa") + '</div>';
 
   function recItem(r){ var i=RECS.indexOf(r);
-    return '<div class="item dos"><p class="tit">'+r.t+(r.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+r.s+' · <b>Para:</b> '+r.w+'</p>'
+    return '<div class="item dos"><p class="tit">'+r.t+(r.mesa?'<span class="badge">En la mesa</span>':'')+'</p><div class="sub2 evid"><p><b>Por qué:</b> '+r.y+'</p><p><b>Cómo:</b> '+r.s+'</p><p><b>Para quién:</b> '+r.w+'</p></div>'
       + '<div class="solo-part">'+trio("r_"+i,[["🔥","Alta"],["👌","Media"],["💤","Baja"]])
       + '<input type="text" id="rm_'+i+'" placeholder="Comentario (opcional)"></div>'
       + regmod("mr_"+i, "Lo que se dijo en la mesa sobre esta recomendación") + '</div>';
@@ -658,7 +661,7 @@ details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
       +'<div class="agleg"><span><i style="background:#1fa4b5"></i>Subir</span><span><i style="background:#4F6F8C"></i>Mantener</span><span><i style="background:#FF4D8D"></i>Bajar</span></div>';
     var hc=["#1fa4b5","#F0B429","#FF4D8D"];
     $("hall-ag").innerHTML=HALL.map(function(h,i){ var c=(d.hall||[])[i]||{}; var n=(c["De acuerdo"]||0)+(c["Con matices"]||0)+(c["En desacuerdo"]||0);
-      return '<div class="agrow"><span><b class="dato" style="font-size:16px">'+h.d+'</b> '+h.t+'</span>'+barra3(c,hc,["De acuerdo","Con matices","En desacuerdo"])+'<span class="n">'+n+'</span></div>'; }).join("")
+      return '<div class="agrow"><span>'+h.t+'</span>'+barra3(c,hc,["De acuerdo","Con matices","En desacuerdo"])+'<span class="n">'+n+'</span></div>'; }).join("")
       +'<div class="agleg"><span><i style="background:#1fa4b5"></i>👍 De acuerdo</span><span><i style="background:#F0B429"></i>🤔 Con matices</span><span><i style="background:#FF4D8D"></i>👎 En desacuerdo</span></div>';
     var rcc=["#FF4D8D","#F0B429","#4F6F8C"];
     $("rec-ag").innerHTML=RECS.map(function(r,i){ var c=(d.recs||[])[i]||{}; var n=(c.Alta||0)+(c.Media||0)+(c.Baja||0);

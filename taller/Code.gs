@@ -19,7 +19,7 @@ var NOMBRE_HOJA = "gigES · Taller de validación · respuestas";
 
 var DIMS = ["eficacia", "implementacion", "impacto", "sostenibilidad", "genero"];
 var NH = 5, NR = 5;
-var HALL_T = ["Productos superados", "Acceso real menor al reportado", "Usuarios mejoran más", "Cada solución mejora donde actúa", "Sin acuerdos de continuidad"];
+var HALL_T = ["Los desafíos crearon oferta", "Muchos se inscriben y no usan", "El servicio contribuye a mejorar a quienes lo usan", "Cada tipo de solución mueve cosas distintas", "Continuidad sin respaldo institucional"];
 var REC_T = ["Pagar por uso", "Financiar la activación", "Empezar por el ingreso", "Continuidad desde el diseño", "Género por segmento"];
 var NOMBRE_DIM = {
   eficacia: "eficacia", implementacion: "implementación", impacto: "impacto",
