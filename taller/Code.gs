@@ -25,6 +25,7 @@ var NOMBRE_DIM = {
   eficacia: "eficacia", implementacion: "implementación", impacto: "impacto",
   sostenibilidad: "sostenibilidad", genero: "género"
 };
+var REC_LARGO = ["Pagar a las soluciones por uso, no por registro", "Financiar la activación de los inscritos", "Empezar por el ingreso", "Acordar la continuidad desde el diseño", "Enfoque de género por segmento"];
 function rango_(p, n) { var o = []; for (var i = 0; i < n; i++) o.push(p + i); return o; }
 
 var COLS = {
@@ -35,10 +36,12 @@ var COLS = {
     .concat(DIMS.map(function (d) { return "cp_" + d; }))
     .concat(rango_("h_", NH)).concat(rango_("hm_", NH)).concat(["hallazgo"])
     .concat(rango_("r_", NR)).concat(rango_("rm_", NR))
-    .concat(["rec1", "rec1p", "rec2", "rec2p"]),
+    .concat(["rec1", "rec1p", "rec2", "rec2p", "r_top"]),
   sintesis: ["pid", "actualizado", "mesa", "actor", "rol", "s_comp", "s_npers", "s_otros", "s_porque"]
     .concat(DIMS.map(function (d) { return "sn_" + d; }))
-    .concat(["s_hallazgos", "s_recs"]),
+    .concat(DIMS.map(function (d) { return "md_" + d; }))
+    .concat(rango_("mh_", NH)).concat(["mh_nuevo"])
+    .concat(rango_("mr_", NR)).concat(["mr_nueva"]),
   registro: ["recibido", "pid", "tipo", "mesa", "actor", "json"]
 };
 
@@ -73,6 +76,22 @@ function hoja_(ss, nombre) {
     sh = ss.insertSheet(nombre);
     sh.getRange(1, 1, 1, COLS[nombre].length).setValues([COLS[nombre]]).setFontWeight("bold");
     sh.setFrozenRows(1);
+  } else if (nombre !== "registro") {
+    // si cambian las columnas, se actualiza el encabezado (las filas ya escritas se leen por nombre)
+    var ancho = Math.max(sh.getLastColumn(), 1);
+    var cab = sh.getRange(1, 1, 1, ancho).getValues()[0].join("|");
+    if (cab !== COLS[nombre].join("|")) {
+      if (sh.getLastRow() > 1) {
+        var viejo = filas_(ss, nombre);
+        sh.clear();
+        sh.getRange(1, 1, 1, COLS[nombre].length).setValues([COLS[nombre]]).setFontWeight("bold");
+        viejo.forEach(function (o) { sh.appendRow(COLS[nombre].map(function (c) { return o[c] == null ? "" : o[c]; })); });
+      } else {
+        sh.getRange(1, 1, 1, ancho).clearContent();
+        sh.getRange(1, 1, 1, COLS[nombre].length).setValues([COLS[nombre]]).setFontWeight("bold");
+      }
+      sh.setFrozenRows(1);
+    }
   }
   return sh;
 }
@@ -131,10 +150,10 @@ function guardar(d) {
 /* ---------------- resultados agregados ---------------- */
 function resultados() {
   var ss = libro_();
-  var out = { n: 0, promedios: {}, notas: [], mesas: { A: 0, B: 0 }, cambios: {}, hall: [], recs: [] };
+  var out = { n: 0, promedios: {}, notas: [], mesas: { A: 0, B: 0 }, cambios: {}, hall: [], recs: [], top: [] };
   DIMS.forEach(function (k) { out.cambios[k] = { Subir: 0, Mantener: 0, Bajar: 0 }; });
   for (var i = 0; i < NH; i++) out.hall.push({ "De acuerdo": 0, "Con matices": 0, "En desacuerdo": 0 });
-  for (var j = 0; j < NR; j++) out.recs.push({ Alta: 0, Media: 0, Baja: 0 });
+  for (var j = 0; j < NR; j++) { out.recs.push({ Alta: 0, Media: 0, Baja: 0 }); out.top.push(0); }
 
   // votos individuales: promedio por rol y del taller (sin el equipo evaluador)
   var acc = {};
@@ -175,11 +194,17 @@ function resultados() {
       if (out.recs[j][p] !== undefined) out.recs[j][p]++;
       if (r["rm_" + j]) nota(r, "Recomendación «" + REC_T[j] + "» · " + (p || "comentario"), r["rm_" + j]);
     }
+    if (r.r_top) { var ti = REC_LARGO.indexOf(r.r_top); if (ti >= 0) out.top[ti]++; }
     ["rec1", "rec2"].forEach(function (k) { if (r[k]) nota(r, "Nueva recomendación" + (r[k + "p"] ? " para " + r[k + "p"] : ""), r[k]); });
   });
 
   // síntesis de moderación (arriba en cada mesa)
-  var TS = { s_porque: "Por qué vemos distinto", s_hallazgos: "Hallazgos", s_recs: "Recomendaciones" };
+  var TS = { s_porque: "Mensaje de la mesa" };
+  DIMS.forEach(function (k) { TS["md_" + k] = "Lo dicho sobre " + NOMBRE_DIM[k]; });
+  for (var a = 0; a < NH; a++) TS["mh_" + a] = "Hallazgo «" + HALL_T[a] + "»";
+  TS.mh_nuevo = "Hallazgos nuevos";
+  for (var b = 0; b < NR; b++) TS["mr_" + b] = "Recomendación «" + REC_T[b] + "»";
+  TS.mr_nueva = "Recomendaciones nuevas";
   filas_(ss, "sintesis").forEach(function (r) {
     if (r.mesa !== "A" && r.mesa !== "B") return;
     var t = +new Date(r.actualizado) + 1e12;

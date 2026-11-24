@@ -223,6 +223,18 @@ footer.foot{background:#0b1825}
 button.sec{color:#1fa4b5; border-color:#2A7686}
 .parte .pn{color:#FFFFFF}
 .escala .cara, .trio .cara{opacity:.6}
+.reglas{display:grid; gap:8px; margin:16px 0 4px; padding:16px 18px; border:1px solid #2C4A61; border-radius:14px; background:#132a3b}
+.reglas p{margin:0; font-size:15px; color:#C9D6E2}
+.reglas b{color:#F2F6FA; font-weight:500}
+.regmod{display:none; flex-direction:column; gap:8px; margin-top:12px; padding:12px 14px; border:1px dashed #6B5A1F; border-radius:12px; background:#2A2410}
+.regmod .rmt{margin:0; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#F3D98A}
+.regmod .q{color:#F3D98A}
+body.es-mod .regmod{display:flex}
+body.es-mod .solo-part{display:none}
+details.opc{margin-top:14px; border:1px solid #2C4A61; border-radius:12px; padding:4px 16px}
+details.opc summary{cursor:pointer; padding:10px 0; color:#8FD3DC; font-weight:500}
+details.opc[open] summary{border-bottom:1px solid #2C4A61; margin-bottom:12px}
+.badge.mesa{}
 </style>
 
 <header class="top">
@@ -305,7 +317,7 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
 <!-- ============ 2 · MESA ============ -->
 <div class="panel" id="p3" hidden>
 <div class="momento"><div><span class="mk">Paso 3 de 4 · en mesa, con moderación de CliO</span><h2 id="mesa-tit">Trabajo en mesa</h2></div><span class="min">25'</span></div>
-<p class="shint" style="margin-left:0; margin-top:14px">Ya votaron. Ahora conversamos en tres partes, con moderación de CliO. Mientras conversamos, cada uno de ustedes anota aquí sus ideas. Lo escrito se guarda en su equipo; al final de la mesa presione «Guardar mis notas».</p>
+<div class="reglas"><p><b>✍️ Todo lo que se dice en la mesa queda registrado.</b> La moderación de CliO anota aquí cada intervención, por tipo de actor y sin nombres.</p><p><b>📝 Además, cada uno de ustedes puede escribir lo suyo</b> y opinar solo sobre lo que quiera. Al final, presione «Guardar mis notas».</p><p><b>⏱️ Un minuto por intervención.</b> No es necesario que todos hablen en cada parte.</p></div>
 
 <div class="card mod" id="composicion" hidden >
   <div class="shead" style="gap:10px"><span class="snum" style="--c:#8A6300; width:28px; height:28px; font-size:13px">M</span><h3>Quiénes están en la mesa (moderación)</h3></div>
@@ -315,27 +327,23 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
   <div class="barra" style="margin-top:0"><span class="estado" id="st-comp"></span><button class="send" id="btn-comp">Guardar composición</button></div>
 </div>
 
-<div class="parte" style="--c:#1fa4b5"><span class="pn">Parte 1</span><h2>Las calificaciones</h2><span class="pmin">10'</span></div>
-<p class="shint" style="margin-left:0">Para cada dimensión verán la nota que dio cada actor en las entrevistas y la del equipo evaluador. Explique por qué su mirada coincide o no, y si subiría, mantendría o bajaría la nota del equipo. Nos detenemos en las tres dimensiones donde las notas más se separan.</p>
+<div class="parte" style="--c:#1fa4b5"><span class="pn">Parte 1</span><h2>Las calificaciones</h2><span class="pmin">12'</span></div>
+<p class="shint" style="margin-left:0">Conversamos las <b>tres dimensiones donde las notas más se separan</b>: eficacia, implementación y sostenibilidad. Verán la nota que dio cada actor y la del equipo evaluador. Impacto y género quedan abiertas para opinar por escrito.</p>
 <div class="card" id="dims"></div>
 
-<div class="parte" style="--c:#4F6F8C"><span class="pn">Parte 2</span><h2>Los hallazgos</h2><span class="pmin">7'</span></div>
-<p class="shint" style="margin-left:0">Para cada hallazgo de la evaluación, marque si está de acuerdo. Si tiene un matiz o un dato distinto, escríbalo.</p>
+<div class="parte" style="--c:#4F6F8C"><span class="pn">Parte 2</span><h2>Los hallazgos</h2><span class="pmin">6'</span></div>
+<p class="shint" style="margin-left:0">En la mesa conversamos los <b>tres hallazgos marcados</b>. Opine sobre los que quiera: marque si está de acuerdo y escriba su matiz. No es necesario responder todos.</p>
 <div class="card" id="hallz"></div>
 
-<div class="parte" style="--c:#dc0166"><span class="pn">Parte 3</span><h2>Las recomendaciones</h2><span class="pmin">8'</span></div>
-<p class="shint" style="margin-left:0">Marque qué tan prioritaria es cada recomendación para un próximo programa y agregue las que falten.</p>
+<div class="parte" style="--c:#dc0166"><span class="pn">Parte 3</span><h2>Las recomendaciones</h2><span class="pmin">7'</span></div>
+<p class="shint" style="margin-left:0">Elija la recomendación <b>más importante</b> para usted. En la mesa conversamos las <b>tres marcadas</b>; opine sobre las que quiera y agregue las que falten.</p>
 <div class="card" id="recs"></div>
 
 <div class="card mod" id="sintesis" hidden >
-  <div class="shead" style="gap:10px"><span class="snum" style="--c:#8A6300; width:28px; height:28px; font-size:13px">M</span><h3>Síntesis de la mesa (moderación)</h3></div>
-  <p class="help" style="margin:0">Lo que la mesa presenta en el plenario. Por tipo de actor, sin nombres.</p>
-
-  <div class="field"><label class="q" for="s_porque">Parte 1 · ¿Por qué vemos distinto?</label><textarea id="s_porque"></textarea></div>
-  <div class="field"><p class="q">Parte 1 · Calificación que propone la mesa</p><div id="s_notas"></div></div>
-  <div class="field"><label class="q" for="s_hallazgos">Parte 2 · Hallazgos: acuerdos, matices y lo que falta</label><textarea id="s_hallazgos"></textarea></div>
-  <div class="field"><label class="q" for="s_recs">Parte 3 · Recomendaciones prioritarias y nuevas</label><textarea id="s_recs"></textarea></div>
-  <div class="barra" style="margin-top:0"><span class="estado" id="st-sint"></span><button class="send" id="btn-sint">Guardar síntesis</button></div>
+  <div class="shead" style="gap:10px"><span class="snum" style="--c:#8A6300; width:28px; height:28px; font-size:13px">M</span><h3>Registro de la mesa (moderación)</h3></div>
+  <p class="help" style="margin:0">Lo que anotó en cada parte se guarda aquí con un solo botón, y además se guarda solo cada minuto. Por tipo de actor, sin nombres.</p>
+  <div class="field"><label class="q" for="s_porque">Mensaje de la mesa para el plenario (dos o tres líneas)</label><textarea id="s_porque"></textarea></div>
+  <div class="barra" style="margin-top:0"><span class="estado" id="st-sint"></span><button class="send" id="btn-sint">Guardar registro de la mesa</button></div>
 </div>
 
 <div class="barra"><span class="estado" id="st-p3"></span><button class="send" id="btn-notas">Guardar mis notas</button></div>
@@ -378,39 +386,39 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbw8lH_XSuVOhW3lT3UyPa4JNQv4eks4nSqPfu4uEYgL66nOk0AMPh6fuwTkyo15uOBh/exec";
 
   var DIMS = [
-    {k:"eficacia", n:"Eficacia y resultados", q:"El programa logró los resultados que se propuso.", ev:3, dif:true,
+    {k:"eficacia", n:"Eficacia y resultados", q:"El programa logró los resultados que se propuso.", ev:3, dif:true, mesa:true,
      act:[["CASATIC",5.0],["Soluciones",4.4],["Externos",3.0]],
      ctx:"El reporte oficial suma 14.352 trabajadores alcanzados (95,7% de la meta de 15.000), pero cuenta pólizas, créditos y registros. Las soluciones respaldan 12.599 personas (84%), y muchos inscritos nunca usaron el servicio.",
      p:"Para usted, ¿qué debió contar como logro del programa: las personas inscritas o las que efectivamente usaron el servicio? ¿Por qué?"},
-    {k:"implementacion", n:"Implementación", q:"El programa se ejecutó bien y supo resolver los obstáculos.", ev:3, dif:true,
+    {k:"implementacion", n:"Implementación", q:"El programa se ejecutó bien y supo resolver los obstáculos.", ev:3, dif:true, mesa:true,
      act:[["Soluciones",5.0],["Trabajadores",3.9],["Externos",3.8],["CASATIC",3.0]],
      ctx:"Se ejecutó el 94,2% del presupuesto. Pero el 37% de quienes se inscribieron y no usaron el servicio dice que nadie lo contactó después de inscribirse.",
      p:"¿Qué funcionó bien en la operación de su solución o del programa, y qué falló entre la inscripción y el uso del servicio?"},
     {k:"impacto", n:"Impacto (contribución)", q:"El programa contribuyó a mejorar la situación de los trabajadores.", ev:3, dif:false,
      act:[["CASATIC",3.8],["Externos",3.8],["Trabajadores",3.0]],
-     ctx:"Los usuarios mejoran más que los inscritos sin uso en red, ingreso que alcanza y capacitación; en protección la diferencia es menor. El 41% de los usuarios sube de tramo de ingreso, frente al 14% de los inscritos sin uso.",
+     ctx:"Los usuarios mejoran más que los inscritos sin uso en red, ingreso que alcanza y capacitación; en protección la diferencia es menor. El 41% de los usuarios sube de tramo de ingreso, frente al 14% de los inscritos sin uso. Pero los grupos no son iguales: el 58% de los usuarios viene de soluciones de ingresos y mercado, y el 77% de los inscritos sin uso, de protección e inclusión financiera.",
      p:"¿En qué cambios concretos de los trabajadores ve usted el aporte del programa?"},
-    {k:"sostenibilidad", n:"Sostenibilidad y escalabilidad", q:"Lo que dejó el programa puede seguir sin su financiamiento.", ev:2, dif:true,
+    {k:"sostenibilidad", n:"Sostenibilidad y escalabilidad", q:"Lo que dejó el programa puede seguir sin su financiamiento.", ev:2, dif:true, mesa:true,
      act:[["Soluciones",4.0],["Externos",3.0]],
      ctx:"Los diez servicios siguen operando. No hay acuerdos de continuidad con instituciones públicas y el Observatorio no tiene financiamiento.",
      p:"Cuando termine el financiamiento, ¿qué seguirá funcionando y qué se perderá?"},
     {k:"genero", n:"Género e inclusión", q:"El programa llegó y sirvió por igual a mujeres y hombres.", ev:3, dif:false,
      act:[["Externos",3.5]],
-     ctx:"La meta era 40% de mujeres; se llegó a 36,6%. Las mujeres llegaron sobre todo donde el segmento ya era femenino (cuidadoras, trabajadoras del hogar).",
+     ctx:"La meta era 40% de mujeres; se llegó a 36,6%. Las mujeres llegaron sobre todo donde el segmento ya era femenino (cuidadoras, trabajadoras del hogar). Parten de más abajo: el 16% de las mujeres encuestadas gana US$400 o más, frente al 62% de los hombres. Entre las inscritas sin uso, el 47% dice que nadie la contactó (hombres: 14%).",
      p:"¿Qué impidió llegar a más mujeres en su solución o en el programa?"}
   ];
   var HALL = [
     {d:"167%", t:"Los productos superaron la meta", s:"Se hicieron 4 desafíos de innovación (meta: 3), se premiaron 12 startups (meta: 6) y quedaron 10 soluciones operando (meta: 6)."},
-    {d:"84%", t:"El acceso real es menor al reportado", s:"El reporte oficial suma 14.352 trabajadores, pero cuenta pólizas, créditos y registros. Las soluciones respaldan 12.599 personas: el 84% de la meta de 15.000."},
-    {d:"+0,54", t:"Los usuarios mejoran más que los inscritos que no usaron el servicio", s:"En red de trabajadores la diferencia es de +0,54 puntos en una escala de 1 a 5. También mejoran más en ingreso que alcanza y capacitación; en protección la diferencia es menor."},
+    {d:"84%", mesa:true, t:"El acceso real es menor al reportado", s:"El reporte oficial suma 14.352 trabajadores, pero cuenta pólizas, créditos y registros. Las soluciones respaldan 12.599 personas: el 84% de la meta de 15.000."},
+    {d:"+0,54", mesa:true, t:"Los usuarios mejoran más que los inscritos que no usaron el servicio", s:"En red de trabajadores la diferencia es de +0,54 puntos en una escala de 1 a 5; también en ingreso que alcanza y capacitación. Matiz: los usuarios vienen sobre todo del grupo A y los inscritos sin uso del grupo B. Comparando solo dentro del grupo B, la diferencia crece en ingreso (+0,55) y en protección (+0,43, marginal), no en red ni capacitación."},
     {d:"55%", t:"Cada tipo de solución mejora donde actúa", s:"En las soluciones de ingresos y mercado (grupo A), el 55% de los usuarios mejora su red y el 51% su capacitación. En las de protección e inclusión financiera (grupo B), sube más la protección."},
-    {d:"0", t:"No hay acuerdos de continuidad con instituciones", s:"Los diez servicios siguen operando en el mercado, pero ninguna institución pública asumió la continuidad y el Observatorio no tiene financiamiento."}
+    {d:"0", mesa:true, t:"No hay acuerdos de continuidad con instituciones", s:"Los diez servicios siguen operando en el mercado, pero ninguna institución pública asumió la continuidad y el Observatorio no tiene financiamiento."}
   ];
   var RECS = [
-    {t:"Pagar a las soluciones por uso, no por registro", s:"Ligar los desembolsos a personas que usan el servicio, con un registro común de inscritos, usuarios y usuarios activos.", w:"BID Lab y ejecutores"},
-    {t:"Financiar la activación de los inscritos", s:"Contactar a cada persona en los primeros días después de inscribirse, por canales cercanos (comunidades, gremios, plataformas).", w:"Soluciones y ejecutor"},
+    {mesa:true, t:"Pagar a las soluciones por uso, no por registro", s:"Ligar los desembolsos a personas que usan el servicio, con un registro común de inscritos, usuarios y usuarios activos.", w:"BID Lab y ejecutores"},
+    {mesa:true, t:"Financiar la activación de los inscritos", s:"Contactar a cada persona en los primeros días después de inscribirse, por canales cercanos (comunidades, gremios, plataformas).", w:"Soluciones y ejecutor"},
     {t:"Empezar por el ingreso", s:"Priorizar soluciones que generen o protejan ingresos y ofrecer sobre ellas la protección social.", w:"BID Lab y UE"},
-    {t:"Acordar la continuidad desde el diseño", s:"Firmar acuerdos con las instituciones que lideran cada propuesta de política, vía ESCO, antes de que termine el programa.", w:"CASATIC, BID Lab y UE"},
+    {mesa:true, t:"Acordar la continuidad desde el diseño", s:"Firmar acuerdos con las instituciones que lideran cada propuesta de política, vía ESCO, antes de que termine el programa.", w:"CASATIC, BID Lab y UE"},
     {t:"Enfoque de género por segmento", s:"Compensar el costo de oportunidad de las mujeres con carga de cuidado: estipendio, horarios y uso sin conexión.", w:"Todos"}
   ];
   var CARAS = ["😕","🙁","😐","🙂","😄"];
@@ -445,46 +453,63 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
     return '<div class="escala-item"><p class="escala-q"><span class="dim">'+d.n+'</span>'+d.q+'</p>'+escala("v_"+d.k,true)+'</div>';
   }).join("");
 
-  $("dims").innerHTML = DIMS.map(function(d){
+  function regmod(id, label, extra){
+    return '<div class="regmod"><p class="rmt">✍️ Registro de la moderación</p><label class="q" for="'+id+'">'+label+'</label><textarea id="'+id+'" placeholder="Quién (tipo de actor) dijo qué. Una línea por intervención."></textarea>'+(extra||'')+'</div>';
+  }
+  function opcional(titulo, html){ return html ? '<details class="opc"><summary>'+titulo+'</summary>'+html+'</details>' : ''; }
+  function dimItem(d){
     var chips = '<span class="chip bajo">Equipo evaluador '+d.ev+'</span>' + d.act.map(function(a){ return '<span class="chip '+(a[1]>d.ev?'alto':'')+'">'+a[0]+' '+a[1].toFixed(1).replace(".",",")+'</span>'; }).join("");
-    return '<div class="item"><p class="tit">'+d.n+(d.dif?'<span class="badge">Mayor diferencia</span>':'')+'</p>'
-      + '<div class="dif" style="border-left-color:'+(d.dif?'#FF4D8D':'#2C4A61')+'"><p class="sub2"><b>Nota de cada actor (1 a 5):</b></p><div class="lado">'+chips+'</div>'
+    return '<div class="item"><p class="tit">'+d.n+(d.mesa?'<span class="badge">En la mesa</span>':'')+'</p>'
+      + '<div class="dif" style="border-left-color:'+(d.mesa?'#FF4D8D':'#2C4A61')+'"><p class="sub2"><b>Nota de cada actor (1 a 5):</b></p><div class="lado">'+chips+'</div>'
       + '<p class="ctx"><b>Lo que encontró la evaluación:</b> '+d.ctx+'</p>'
-      + '<label class="q" for="d_'+d.k+'">'+d.p+'</label><textarea id="d_'+d.k+'" placeholder="Su respuesta"></textarea>'
+      + '<div class="solo-part"><label class="q" for="d_'+d.k+'">'+d.p+'</label><textarea id="d_'+d.k+'" placeholder="Su respuesta"></textarea>'
       + '<p class="sub2">¿Cambiaría la calificación del equipo evaluador ('+d.ev+' · '+ETQ[d.ev-1]+')?</p>'
       + trio("c_"+d.k,[["⬆️","Subir"],["↔️","Mantener"],["⬇️","Bajar"]])
-      + '<input type="text" id="cp_'+d.k+'" placeholder="¿Por qué? (opcional)"></div></div>';
-  }).join("");
+      + '<input type="text" id="cp_'+d.k+'" placeholder="¿Por qué? (opcional)"></div>'
+      + regmod("md_"+d.k, "Lo que se dijo en la mesa sobre "+d.n.toLowerCase(), '<p class="sub2">Calificación que propone la mesa (equipo evaluador: '+d.ev+')</p>'+escala("sn_"+d.k,false))
+      + '</div></div>';
+  }
+  $("dims").innerHTML = DIMS.filter(function(d){return d.mesa;}).map(dimItem).join("")
+    + opcional("Impacto y género · para opinar por escrito, si quiere", DIMS.filter(function(d){return !d.mesa;}).map(dimItem).join(""));
 
-  $("hallz").innerHTML = HALL.map(function(h,i){
-    return '<div class="item"><p class="tit"><span class="dato">'+h.d+'</span>'+h.t+'</p><p class="sub2">'+h.s+'</p>'
-      + trio("h_"+i,[["👍","De acuerdo"],["🤔","Con matices"],["👎","En desacuerdo"]])
-      + '<input type="text" id="hm_'+i+'" placeholder="Su matiz (opcional)"></div>';
-  }).join("") + '<div class="item"><label class="tit" for="hallazgo">¿Qué hallazgo falta en la evaluación?</label><textarea id="hallazgo" placeholder="Algo que vio en su experiencia y que no aparece"></textarea></div>';
+  function hallItem(h){ var i=HALL.indexOf(h);
+    return '<div class="item"><p class="tit"><span class="dato">'+h.d+'</span>'+h.t+(h.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+h.s+'</p>'
+      + '<div class="solo-part">'+trio("h_"+i,[["👍","De acuerdo"],["🤔","Con matices"],["👎","En desacuerdo"]])
+      + '<input type="text" id="hm_'+i+'" placeholder="Su matiz (opcional)"></div>'
+      + regmod("mh_"+i, "Acuerdos, matices y desacuerdos dichos en la mesa") + '</div>';
+  }
+  $("hallz").innerHTML = HALL.filter(function(h){return h.mesa;}).map(hallItem).join("")
+    + opcional("Otros dos hallazgos · para opinar por escrito, si quiere", HALL.filter(function(h){return !h.mesa;}).map(hallItem).join(""))
+    + '<div class="item"><label class="tit" for="hallazgo">¿Qué hallazgo falta en la evaluación?</label><div class="solo-part"><textarea id="hallazgo" placeholder="Algo que vio en su experiencia y que no aparece"></textarea></div>'
+    + regmod("mh_nuevo", "Hallazgos nuevos que propuso la mesa") + '</div>';
 
-  $("recs").innerHTML = RECS.map(function(r,i){
-    return '<div class="item"><p class="tit">'+r.t+'</p><p class="sub2">'+r.s+' · <b>Para:</b> '+r.w+'</p>'
-      + trio("r_"+i,[["🔥","Alta"],["👌","Media"],["💤","Baja"]])
-      + '<input type="text" id="rm_'+i+'" placeholder="Comentario (opcional)"></div>';
-  }).join("")
+  function recItem(r){ var i=RECS.indexOf(r);
+    return '<div class="item"><p class="tit">'+r.t+(r.mesa?'<span class="badge">En la mesa</span>':'')+'</p><p class="sub2">'+r.s+' · <b>Para:</b> '+r.w+'</p>'
+      + '<div class="solo-part">'+trio("r_"+i,[["🔥","Alta"],["👌","Media"],["💤","Baja"]])
+      + '<input type="text" id="rm_'+i+'" placeholder="Comentario (opcional)"></div>'
+      + regmod("mr_"+i, "Lo que se dijo en la mesa sobre esta recomendación") + '</div>';
+  }
+  $("recs").innerHTML = '<div class="item solo-part"><p class="tit">¿Cuál es la recomendación más importante para usted?</p><div class="opts" id="opts-top">'
+    + RECS.map(function(r){ return '<label class="opt"><input type="radio" name="r_top" value="'+esc(r.t)+'"><span>'+r.t+'</span></label>'; }).join("") + '</div></div>'
+    + RECS.filter(function(r){return r.mesa;}).map(recItem).join("")
+    + opcional("Otras dos recomendaciones · para opinar por escrito, si quiere", RECS.filter(function(r){return !r.mesa;}).map(recItem).join(""))
     + '<div class="item"><p class="tit">¿Qué recomendación agregaría?</p>'
-    + '<div class="row"><input type="text" id="rec1" placeholder="Qué haría"><input type="text" id="rec1p" placeholder="Para quién"></div>'
-    + '<div class="row"><input type="text" id="rec2" placeholder="Otra (opcional)"><input type="text" id="rec2p" placeholder="Para quién"></div></div>';
+    + '<div class="solo-part"><div class="row"><input type="text" id="rec1" placeholder="Qué haría"><input type="text" id="rec1p" placeholder="Para quién"></div>'
+    + '<div class="row"><input type="text" id="rec2" placeholder="Otra (opcional)"><input type="text" id="rec2p" placeholder="Para quién"></div></div>'
+    + regmod("mr_nueva", "Recomendaciones nuevas que propuso la mesa (qué y para quién)") + '</div>';
 
-  $("s_notas").innerHTML = DIMS.map(function(d){
-    return '<div class="escala-item"><p class="escala-q"><span class="dim">'+d.n+'</span><span class="evalref">Equipo evaluador: <b>'+d.ev+'</b></span></p>'+escala("sn_"+d.k,false)+'</div>';
-  }).join("");
 
   $("opts-sol").innerHTML = SOLS.A.concat(SOLS.B).map(function(x){ return '<label class="opt"><input type="radio" name="solucion" value="'+x+'"><span>'+x+'</span></label>'; }).join("");
   $("opts-comp").innerHTML = SOLS.A.concat(SOLS.B).concat(INST).map(function(x){ return '<label class="opt"><input type="checkbox" name="comp" value="'+x+'"><span>'+x+'</span></label>'; }).join("");
 
   /* ---------- leer y escribir ---------- */
-  var TEXTOS = ["hallazgo","rec1","rec1p","rec2","rec2p","s_porque","s_hallazgos","s_recs","s_npers","s_otros"]
+  var MODK = DIMS.map(function(d){return "md_"+d.k;}).concat(HALL.map(function(_,i){return "mh_"+i;})).concat(["mh_nuevo"]).concat(RECS.map(function(_,i){return "mr_"+i;})).concat(["mr_nueva"]);
+  var TEXTOS = ["hallazgo","rec1","rec1p","rec2","rec2p","s_porque","s_npers","s_otros"].concat(MODK)
     .concat(DIMS.map(function(d){return "d_"+d.k;})).concat(DIMS.map(function(d){return "cp_"+d.k;}))
     .concat(HALL.map(function(_,i){return "hm_"+i;})).concat(RECS.map(function(_,i){return "rm_"+i;}));
   var RADIOS = ["mesa","actor","rol","solucion"]
     .concat(DIMS.map(function(d){return "v_"+d.k;})).concat(DIMS.map(function(d){return "c_"+d.k;})).concat(DIMS.map(function(d){return "sn_"+d.k;}))
-    .concat(HALL.map(function(_,i){return "h_"+i;})).concat(RECS.map(function(_,i){return "r_"+i;}));
+    .concat(HALL.map(function(_,i){return "h_"+i;})).concat(RECS.map(function(_,i){return "r_"+i;})).concat(["r_top"]);
   function leer(){
     var o={};
     TEXTOS.forEach(function(id){ var el=$(id); if(el) o[id]=el.value.trim(); });
@@ -509,6 +534,7 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
     $("campo-sol").hidden = o.actor !== "Solución";
     var mod = (o.actor==="Equipo CliO" && o.rol==="Moderación");
     $("sintesis").hidden = !mod; $("composicion").hidden = !mod;
+    document.body.classList.toggle("es-mod", mod); $("btn-notas").hidden = mod;
     if(o.mesa){ var ord = SOLS[o.mesa].concat(SOLS[o.mesa==="A"?"B":"A"]).concat(INST); var marc = o.comp||[];
       $("opts-comp").innerHTML = ord.map(function(x){ return '<label class="opt"><input type="checkbox" name="comp" value="'+x+'"'+(marc.indexOf(x)>=0?' checked':'')+'><span>'+x+'</span></label>'; }).join(""); }
   }
@@ -556,33 +582,39 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
   $("btn-notas").addEventListener("click", function(){
     var o=leer(); if(!listo(o,"st-p3")) return;
     var p=base(o); p.tipo="notas";
-    TEXTOS.concat(RADIOS).forEach(function(k){ if(/^(d_|cp_|c_|h_|hm_|r_|rm_)/.test(k) || ["hallazgo","rec1","rec1p","rec2","rec2p"].indexOf(k)>=0) p[k]=o[k]; });
+    TEXTOS.concat(RADIOS).forEach(function(k){ if(/^(d_|cp_|c_|h_|hm_|r_|rm_)/.test(k) || ["hallazgo","rec1","rec1p","rec2","rec2p","r_top"].indexOf(k)>=0) p[k]=o[k]; });
     var b=$("btn-notas"); b.disabled=true; b.textContent="Guardando…";
     enviar(p, function(){ b.disabled=false; b.textContent="Guardar cambios"; estado("st-p3","Notas guardadas. Puede seguir escribiendo y volver a guardar.","ok"); marcar("p3"); },
       function(e){ b.disabled=false; b.textContent="Guardar mis notas"; falla("st-p3")(e); });
   });
-  $("btn-sint").addEventListener("click", function(){
-    var o=leer(); if(!listo(o,"st-sint")) return;
+  function sintesis(o){
     var p=base(o); p.tipo="sintesis";
-    ["s_porque","s_hallazgos","s_recs","s_npers","s_otros"].forEach(function(k){ p[k]=o[k]; });
-    p.s_comp = (o.comp||[]).join(", ");
-    DIMS.forEach(function(d){ p["sn_"+d.k]=o["sn_"+d.k]; });
-    var b=$("btn-sint"); b.disabled=true; b.textContent="Guardando…";
-    enviar(p, function(){ b.disabled=false; b.textContent="Guardar síntesis"; estado("st-sint","Síntesis guardada.","ok"); },
-      function(e){ b.disabled=false; b.textContent="Guardar síntesis"; falla("st-sint")(e); });
-  });
-
-  $("btn-comp").addEventListener("click", function(){
-    var o=leer(); if(!listo(o,"st-comp")) return;
-    if(!(o.comp||[]).length){ estado("st-comp","Marque al menos una organización.","err"); return; }
-    var p=base(o); p.tipo="sintesis";
-    ["s_porque","s_hallazgos","s_recs","s_npers","s_otros"].forEach(function(k){ p[k]=o[k]; });
+    ["s_porque","s_npers","s_otros"].concat(MODK).forEach(function(k){ p[k]=o[k]; });
     DIMS.forEach(function(d){ p["sn_"+d.k]=o["sn_"+d.k]; });
     p.s_comp=(o.comp||[]).join(", ");
-    var b=$("btn-comp"); b.disabled=true; b.textContent="Guardando…";
-    enviar(p, function(){ b.disabled=false; b.textContent="Actualizar composición"; estado("st-comp","Composición guardada.","ok"); },
-      function(e){ b.disabled=false; b.textContent="Guardar composición"; falla("st-comp")(e); });
+    return p;
+  }
+  var ultimo="";
+  function hora(){ return new Date().toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit"}); }
+  function enviarSint(id, btn, txtOk, txtBase){
+    var o=leer(); if(!listo(o,id)) return;
+    var p=sintesis(o), b=$(btn); if(b){ b.disabled=true; b.textContent="Guardando…"; }
+    var firma=JSON.stringify(p);
+    enviar(p, function(){ ultimo=firma; if(b){ b.disabled=false; b.textContent=txtOk; } estado(id,"Guardado en Drive a las "+hora(),"ok"); },
+      function(e){ if(b){ b.disabled=false; b.textContent=txtBase; } falla(id)(e); });
+  }
+  $("btn-sint").addEventListener("click", function(){ enviarSint("st-sint","btn-sint","Guardar registro de la mesa","Guardar registro de la mesa"); });
+  $("btn-comp").addEventListener("click", function(){
+    var o=leer(); if(!(o.comp||[]).length){ estado("st-comp","Marque al menos una organización.","err"); return; }
+    enviarSint("st-comp","btn-comp","Actualizar composición","Guardar composición");
   });
+  /* la moderación guarda sola cada minuto, si hubo cambios */
+  setInterval(function(){
+    var o=leer(); if(!(o.actor==="Equipo CliO" && o.rol==="Moderación" && o.mesa)) return;
+    var p=sintesis(o); delete p.enviado; var f=JSON.stringify(p);
+    if(f===ultimo || !MODK.concat(["s_porque"]).some(function(k){ return o[k]; })) return;
+    ultimo=f; enviar(p, function(){ estado("st-sint","Guardado automático en Drive a las "+hora(),"ok"); }, function(){ ultimo=""; });
+  }, 60000);
 
   /* ---------- resultados ---------- */
   var poll=null;
@@ -603,7 +635,7 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
     return '<div class="agbar">'+labels.map(function(l,i){ return '<span style="width:'+((c[l]||0)/tot*100)+'%;background:'+cols[i]+'" title="'+l+': '+(c[l]||0)+'"></span>'; }).join("")+'</div>';
   }
   function pintar(d){
-    d = d || {n:0, promedios:{}, notas:[], mesas:{A:0,B:0}, cambios:{}, hall:[], recs:[]};
+    d = d || {n:0, promedios:{}, notas:[], mesas:{A:0,B:0}, cambios:{}, hall:[], recs:[], top:[]};
     var series=[{n:"Equipo evaluador", v:DIMS.map(function(x){return x.ev;}), c:COLORES["Equipo evaluador"], dash:true}];
     if(d.promedios["Taller (todos)"]) series.push({n:"Taller (todos)", v:d.promedios["Taller (todos)"].v, c:COLORES["Taller (todos)"], nn:d.promedios["Taller (todos)"].n});
     ["CASATIC","Financiadores","Institución pública","Solución"].forEach(function(a){ if(d.promedios[a]) series.push({n:a, v:d.promedios[a].v, c:COLORES[a], nn:d.promedios[a].n}); });
@@ -622,8 +654,8 @@ button.sec{color:#1fa4b5; border-color:#2A7686}
       +'<div class="agleg"><span><i style="background:#1fa4b5"></i>👍 De acuerdo</span><span><i style="background:#F0B429"></i>🤔 Con matices</span><span><i style="background:#FF4D8D"></i>👎 En desacuerdo</span></div>';
     var rcc=["#FF4D8D","#F0B429","#4F6F8C"];
     $("rec-ag").innerHTML=RECS.map(function(r,i){ var c=(d.recs||[])[i]||{}; var n=(c.Alta||0)+(c.Media||0)+(c.Baja||0);
-      return '<div class="agrow"><span>'+r.t+'</span>'+barra3(c,rcc,["Alta","Media","Baja"])+'<span class="n">'+n+'</span></div>'; }).join("")
-      +'<div class="agleg"><span><i style="background:#FF4D8D"></i>🔥 Alta</span><span><i style="background:#F0B429"></i>👌 Media</span><span><i style="background:#4F6F8C"></i>💤 Baja</span></div>';
+      var tp=((d.top||[])[i])||0; return '<div class="agrow"><span>'+r.t+(tp?' <b style="color:#F0B429">★ '+tp+'</b>':'')+'</span>'+barra3(c,rcc,["Alta","Media","Baja"])+'<span class="n">'+n+'</span></div>'; }).join("")
+      +'<div class="agleg"><span><b style="color:#F0B429">★</b> n personas la eligieron como la más importante</span><span><i style="background:#FF4D8D"></i>🔥 Alta</span><span><i style="background:#F0B429"></i>👌 Media</span><span><i style="background:#4F6F8C"></i>💤 Baja</span></div>';
     ["A","B"].forEach(function(m){
       var arr=(d.notas||[]).filter(function(x){ return x.mesa===m; });
       $("feed"+m).innerHTML = arr.length ? arr.map(function(x){ return '<div class="nota'+(x.sintesis?' sint':'')+'"><div class="meta">'+esc(x.sintesis?'Síntesis de la mesa':x.actor)+' · '+esc(x.tema)+'</div>'+esc(x.texto)+'</div>'; }).join("") : '<p class="vacio">Aún no hay aportes de esta mesa.</p>';
