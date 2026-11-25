@@ -19,13 +19,13 @@ var NOMBRE_HOJA = "gigES · Taller de validación · respuestas";
 
 var DIMS = ["eficacia", "implementacion", "impacto", "sostenibilidad", "genero"];
 var NH = 6, NR = 6;
-var HALL_T = ["Los desafíos crearon oferta", "Quienes usan mejoran más", "Pertinencia según el perfil", "Captar no es incorporar", "Mujeres: rezago y avance", "Oferta sin demanda"];
-var REC_T = ["Desembolsos por uso", "Financiar la activación", "Entrar por el ingreso", "Quién sostiene al cierre", "Enfoques diferenciales", "Medir en el tiempo"];
+var HALL_T = ["Los desafíos crearon oferta", "Hipótesis: quienes usan mejoran más", "Pertinencia según el perfil", "El diseño premió la captación", "Faltaron enfoques diferenciales", "Oferta sin demanda"];
+var REC_T = ["Pagar por uso y resultados", "Acompañar después de inscribirse", "Entrar por el ingreso", "Enfoques diferenciales", "Construir la demanda", "Medir en el tiempo"];
 var NOMBRE_DIM = {
   eficacia: "eficacia", implementacion: "implementación", impacto: "impacto",
   sostenibilidad: "sostenibilidad", genero: "género"
 };
-var REC_LARGO = ["Ligar los desembolsos al uso efectivo, no al registro", "Captar no es incorporar: financiar la activación", "Entrar por el ingreso y sumar después la protección", "Acordar desde el diseño quién sostiene cada pieza al cierre", "Enfoques diferenciales de inclusión: mujeres, personas mayores y territorio", "Medir el uso y los resultados en el tiempo"];
+var REC_LARGO = ["Pagar por uso y resultados, no por registro", "Acompañar después de la inscripción: soporte técnico o asistente virtual", "Entrar por el ingreso y sumar después la protección", "Implementar enfoques diferenciales, no solo declararlos: mujeres, personas mayores y territorio", "Construir la demanda y acordar desde el diseño quién sostiene cada pieza", "Medir en el tiempo: ingreso, productividad y beneficios no monetarios"];
 function rango_(p, n) { var o = []; for (var i = 0; i < n; i++) o.push(p + i); return o; }
 
 var COLS = {
