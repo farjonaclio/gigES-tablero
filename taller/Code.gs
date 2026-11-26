@@ -19,13 +19,13 @@ var NOMBRE_HOJA = "gigES · Taller de validación · respuestas";
 
 var DIMS = ["eficacia", "implementacion", "impacto", "sostenibilidad", "genero"];
 var NH = 6, NR = 6;
-var HALL_T = ["Los desafíos crearon oferta", "Hipótesis: quienes usan mejoran más", "Pertinencia según el perfil", "El diseño premió la captación", "Faltaron enfoques diferenciales", "Oferta sin demanda"];
-var REC_T = ["Pagar por uso y resultados", "Acompañar después de inscribirse", "Entrar por el ingreso", "Enfoques diferenciales", "Construir la demanda", "Medir en el tiempo"];
+var HALL_T = ["Desafíos: instrumento para el ecosistema", "Hipótesis: quienes usan mejoran más", "Pertinencia según el perfil", "El diseño premió la captación", "Faltaron enfoques diferenciales", "Oferta sin demanda"];
+var REC_T = ["Pagar por uso y resultados", "Acompañar después de inscribirse", "Priorizar el ingreso", "Enfoques diferenciales", "Construir la demanda", "Medir en el tiempo"];
 var NOMBRE_DIM = {
   eficacia: "eficacia", implementacion: "implementación", impacto: "impacto",
   sostenibilidad: "sostenibilidad", genero: "género"
 };
-var REC_LARGO = ["Pagar por uso y resultados, no por registro", "Acompañar después de la inscripción: soporte técnico o asistente virtual", "Entrar por el ingreso y sumar después la protección", "Implementar enfoques diferenciales, no solo declararlos: mujeres, personas mayores y territorio", "Construir la demanda y acordar desde el diseño quién sostiene cada pieza", "Medir en el tiempo: ingreso, productividad y beneficios no monetarios"];
+var REC_LARGO = ["Pagar por uso y resultados, no por registro", "Acompañar después de la inscripción: soporte técnico o asistente virtual", "Priorizar el ingreso y sumar después la protección", "Implementar enfoques diferenciales, no solo declararlos: mujeres, personas mayores y territorio", "Construir la demanda y acordar desde el diseño quién sostiene cada pieza", "Medir en el tiempo: ingreso, productividad y beneficios no monetarios"];
 function rango_(p, n) { var o = []; for (var i = 0; i < n; i++) o.push(p + i); return o; }
 
 var COLS = {
